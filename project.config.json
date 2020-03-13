@@ -9,12 +9,12 @@
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
+		"nodeModules": true,
 		"autoAudits": false,
-		"checkInvalidKey": true,
-		"nodeModules": true
+		"checkInvalidKey": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.9.4",
+	"libVersion": "2.10.2",
 	"appid": "wxfd728628cbf7379e",
 	"projectname": "han%E7%9A%84",
 	"debugOptions": {

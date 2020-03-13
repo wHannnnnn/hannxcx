@@ -1,0 +1,84 @@
+<!--pages/goos-details/index.wxml-->
+<view class="details">
+    <view class="details_top">
+        <view class="detail_banner">
+            <swiper indicator-dots="{{indicatorDots}}"
+            autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" style='height:{{Height}}'>
+                <block wx:for="{{detailsList.pics}}" wx:key="id">
+                    <swiper-item>
+                        <image src='{{item.pic}}' class="slide-image" style='height: auto' mode="widthFix" lazy-load="true" bindload='imgHeight'/>
+                    </swiper-item>
+                </block>
+            </swiper>
+        </view>
+        <!-- 价格 -->
+        <view class="shopPrice">
+            <view class="newPrice">
+                ￥{{detailsList.basicInfo.minPrice}}
+            </view>
+            <view class="oldPrice">￥{{detailsList.basicInfo.originalPrice}}</view>
+        </view>
+        <!-- 标题 -->
+        <view class="shopTitle">
+            <text>{{detailsList.basicInfo.name}}</text>
+        </view>
+        <!-- 简介 -->
+        <view class="charact">
+            <text>{{detailsList.basicInfo.characteristic}}</text>
+        </view>
+    </view>
+    <view class="details_con discounts bgc-radius-shadow" wx:if="{{discountsList&&discountsList.length>0}}">
+        <view class="left">优惠</view>
+        <view class="center">
+            <view class="discounts_list" wx:for="{{discountsList}}" wx:key="id" bindtap='open1'>
+                <text class="center_title">满减</text>
+                <text class="center_con van-ellipsis">{{item.name}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="details_con discounts bgc-radius-shadow">
+        <view class="left">运费</view>
+        <view class="center">
+            <text v-if="isLogistics">在线支付满99免运费</text>
+            <text v-else>{{logisticsTitle}}</text>
+        </view>
+        <view class="right">
+        </view>
+    </view>
+</view>
+
+
+<view class="details_discounts">
+    <view class="fadeIn" wx:if="{{dialog1}}">
+        <view class="weui-mask" bindtap="close"></view>
+        <view class="weui-half-screen-dialog">
+            <view class="weui-half-screen-dialog__hd">
+                <view class="weui-half-screen-dialog__hd__side" bindtap="close">
+                    <a class="weui-icon-btn">关闭<i class="weui-icon-close-thin"></i></a>
+                </view>
+                <view class="weui-half-screen-dialog__hd__main">
+                    <strong class="weui-half-screen-dialog__title">标题</strong>
+                </view>
+            </view>
+            <view class="weui-half-screen-dialog__bd allDiscounts">
+                <view class="discounts_title">可领取的优惠券</view>
+                <view class="discounts_con" wx:for="{{discountsList}}" wx:key="id">
+                    <view class="discounts_con_left">
+                        <view class="left_top"><text>￥</text>{{item.moneyMax}}</view>
+                        <view class="left_bottom">满{{item.moneyHreshold}}可用</view>
+                    </view>
+                    <view class="discounts_con_right">
+                        <view class="right_top">{{item.name}}</view>
+                        <view class="right_bottom">
+                            <view class="left">过期时间：{{item.dateEnd}}</view>
+                            <view class="right">
+                              <a class="weui-btn weui-btn_mini weui-btn_primary" data-id='{{item.id}}' bindtap="getDiscount">点击获取</a>
+                                <!-- <van-button type="default" @click="getDiscount(item.id,index)">点击获取</van-button> -->
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

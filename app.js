@@ -1,17 +1,53 @@
 //app.js
+const login = require('utils/login')
 App({
   onLaunch: function () {
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
+    // 检测新版本
+    const updateManager = wx.getUpdateManager()
+    updateManager.onUpdateReady(function () {
+      wx.showModal({
+        title: '更新提示',
+        content: '新版本已经准备好，是否重启应用？',
+        success(res) {
+          if (res.confirm) {
+            // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+            updateManager.applyUpdate()
+          }
+        }
+      })
     })
+		/**
+		 * 初次加载判断网络情况
+		 * 无网络状态下根据实际情况进行调整
+		 */
+    wx.getNetworkType({
+      success(res) {
+        if (res.networkType === 'none') {
+          wx.showToast({
+            title: '当前无网络',
+            icon: 'loading',
+            duration: 2000
+          })
+        }
+      }
+    });
+		/**
+		 * 监听网络状态变化
+		 * 可根据业务需求进行调整
+		 */
+    wx.onNetworkStatusChange(function (res) {
+      if (!res.isConnected) {
+        wx.showToast({
+          title: '网络已断开',
+          icon: 'loading',
+          duration: 2000,
+          complete: function () {
+          }
+        })
+      } else {
+        wx.hideToast()
+      }
+    });
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -33,7 +69,19 @@ App({
       }
     })
   },
+  goStartIndexPage: function () {
+    setTimeout(function () {
+      wx.redirectTo({
+        url: "/pages/start/start"
+      })
+    }, 1000)
+  },
+  onShow(){
+    this.globalData.loginTrue = login.hasLogin()
+  },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    loginTrue: null,
+    launchOption: null
   }
 })

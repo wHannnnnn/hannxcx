@@ -1,13 +1,101 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+<!-- <view class="weui-loadmore" wx:if='{{isRefreshing}}'>
+  <view class="weui-loading"></view>
+  <view class="weui-loadmore-tips">正在刷新...</view>
+</view> -->
+<view class='app_top'>
+    <view class="weui-search-bar {{inputShowed ? 'weui-search-bar_focusing' : ''}}" id="searchBar">
+			<form class="weui-search-bar__form">
+				<view class="weui-search-bar__box">
+					<i class="weui-icon-search"></i>
+                    <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="goProduct" />
+                    <span class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput"></span>
+				</view>
+				<label class="weui-search-bar__label" bindtap="showInput">
+					<i class="weui-icon-search"></i>
+                    <span class="weui-search-bar__text">搜索</span>
+				</label>
+			</form>
+		</view>
+</view>
+<view class="content">
+
+  <view class='app_banner'>
+    <swiper indicator-dots="{{indicatorDots}}"
+      autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{bannerList}}" wx:key="id">
+        <swiper-item>
+          <image src='{{item.picUrl}}' class="slide-image" mode="aspectFill" lazy-load="true"/>
+        </swiper-item>
+      </block>
+    </swiper>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+
+  <view class='app_nav'>
+    <swiper interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{firstList}}" wx:key="item">
+        <swiper-item>
+          <view class="weui-grids">
+            <a class="weui-grid" wx:for="{{item}}" wx:for-item="items">
+              <view class="weui-grid__icon">
+                <image src="{{items.icon}}" class="slide-image" mode="aspectFill" lazy-load="true"/>
+              </view>
+              <view class="weui-grid__label">{{items.name}}</view>
+            </a>
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+
+  <view class='shop_con'>
+    <view class="shopBottom">
+        <view class="shop_lr">            
+            <view class="shop_list mui-bar-nav" wx:for="{{leftShopList}}" wx:key='id'>
+                  <navigator url="../goods-details/index?id={{item.id}}">
+                      <view class="shop_img">
+                          <image src="{{item.pic}}" class="slide-image" mode="widthFix" lazy-load="true"/>
+                      </view>
+                      <view class="shop_title van-multi-ellipsis--l2">
+                          {{item.name}}
+                      </view>
+                      <view class="price">
+                          <span class="newprice">￥{{item.minPrice}}</span>
+                      </view>
+                      <view class="numberSells">
+                          <span>{{item.numberSells}}人付款</span>
+                      </view>
+                  </navigator>
+            </view>
+        </view>
+        <view class="shop_lr">
+            <view class="shop_list mui-bar-nav" wx:for="{{rightShopList}}" wx:key='id'>
+                    <view class="shop_img">
+                        <image src="{{item.pic}}" class="slide-image" style='height:' mode="widthFix" lazy-load="true"/>
+                    </view>
+                    <view class="shop_title van-multi-ellipsis--l2">
+                        {{item.name}}
+                    </view>
+                    <view class="price">
+                        <span class="newprice">￥{{item.minPrice}}</span>
+                    </view>
+                    <view class="numberSells">
+                        <span>{{item.numberSells}}人付款</span>
+                    </view>
+            </view>
+        </view>
+    </view>
+  </view>
+</view>
+<view class="weui-loadmore">
+  <view wx:if='{{isLoadingMoreData}}'>
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore-tips">正在加载更多...</view>
+  </view>
+  <view wx:elif='{{errorShow}}'>
+    <view class="weui-loadmore-tips" bindtap='loadMore'>点击加载更多</view>
+  </view>
+  <view wx:else>
+    <view class="weui-loadmore-tips">没有更多内容啦</view>
   </view>
 </view>

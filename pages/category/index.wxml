@@ -1,0 +1,20 @@
+<!--pages/category/index.wxml-->
+    <view class="navIndex">
+        <van-tabs active="{{activeName}}">
+            <van-tab wx:for="{{allData}}" name="{{item.id+''}}" title="{{item.name}}" wx:key="id">
+                <view class="nav_right">
+                  <scroll-view scroll-x="true">
+                      <view wx:if="{{item.children.length>0}}" style="white-space: nowrap;">
+                          <view class="right_con {{changeIndex == -1? 'active':''}}" data-id="{{item.id}}" data-index="-1" bindtap='changeRightNav'>
+                              <view class="right_top_title">全部</view>
+                          </view>
+                          <view class="right_con {{changeIndex == indexs? 'active':''}}" wx:for="{{item.children}}" wx:for-item="items" wx:for-index="indexs" data-id="{{items.id}}" data-index="{{indexs}}" bindtap='changeRightNav' wx:for-item="items" wx:key="id">
+                              <view class="right_top_title">{{items.name}}</view>
+                          </view>
+                      </view>
+                    <view class="right_con" v-else>暂无数据</view>
+                  </scroll-view>
+                </view>
+            </van-tab>
+        </van-tabs>
+    </view>

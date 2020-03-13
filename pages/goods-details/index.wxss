@@ -1,0 +1,154 @@
+/* pages/goos-details/index.wxss */
+    .details .bgc-radius-shadow {
+      box-shadow: 0 0px 6rpx #ccc;
+    }
+   .details .details_top {
+        background: #fff;
+        padding: 20rpx;
+        margin-bottom: 20rpx;
+    }
+    .details .details_top image {
+        width: 100%
+    }
+    .details .leftIcon {
+        z-index: 999;
+        position: fixed;
+        top:20rpx;
+        font-size: 40rpx
+    }
+    .details .shopPrice {
+        padding-bottom: 20rpx;
+    }
+    .details .shopPrice .newPrice {
+        color: #e7352c;
+        font-size: 40rpx
+    }
+    .details .shopPrice .oldPrice {
+        font-size: 24rpx;
+        text-decoration: line-through
+    }
+    .details .shopTitle {
+        font-size: 34rpx;
+        font-weight: 600;
+        padding-bottom: 10rpx
+    }
+    .details .charact {
+      color: #333
+    }
+    .details .details_con {
+        padding: 20rpx;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20rpx;
+        background: #fff
+    }
+    .details .details_con .left {
+        width: 100rpx;
+        font-size: 26rpx;
+        font-weight: 600
+    }
+    .details .details_con .center {
+        flex: 1;
+    }
+    .details .details_con .center .discounts_list {
+        height: 40rpx;
+    }
+    .details .details_con .center .discounts_list .center_title {
+        color: #e7352c;
+        margin-right: 20rpx
+    }
+    .details_discounts .discounts_title {
+        margin: 20rpx 0
+    }
+    .details_discounts .weui-btn_mini {
+      font-size: 24rpx
+    }
+    .details_discounts .weui-half-screen-dialog {
+      height: 70%
+    }
+    .details_discounts .discounts_con{
+        display: flex;
+        margin-bottom: 20rpx;
+    }
+    .details_discounts .discounts_con .discounts_con_left {
+        width: 140rpx;
+        height: 140rpx;
+        background: #e7352c;
+        color: #fff;    
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        font-size: 38rpx;
+        padding: 10rpx;
+    }
+    .details_discounts .discounts_con .discounts_con_left .left_top span {
+        font-size: 24rpx
+    }
+    .details_discounts .discounts_con .discounts_con_left .left_bottom {
+        font-size: 24rpx
+    }
+    .details_discounts .discounts_con .discounts_con_right {
+        flex: 1;
+        padding: 10rpx 20rpx;
+    }
+    .details_discounts .discounts_con .discounts_con_right .right_top {
+        height: 84rpx
+    }
+    .details_discounts .discounts_con .discounts_con_right .right_bottom {
+        display: flex;
+        justify-content: space-between;
+    }
+    .details_discounts .discounts_con .discounts_con_right .right_bottom .left{
+        font-size: 20rpx
+    }
+    .details .detail_content {
+        width: 100%;
+        background: #fff;
+    }
+    .details .detail_content image {
+        width: 100%
+    }
+    .details .reputation_con{
+        margin-bottom: 10rpx;
+        padding: 20rpx;
+    }
+    .details .reputation_con .reputation {
+        display: flex;
+    }
+    .details .reputation_con .reputation .header_avatar {
+        width: 100rpx;
+        height: 100rpx;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 10rpx;
+    }
+    .details .reputation_con .reputation .header_avatar image {
+        width: 100%;
+        height: 100%
+    }
+    .details .reputation_con .repu_value {
+        line-height: 40rpx;
+        margin: 20rpx
+    }
+    .details .reputation_con .picsList {
+        display: flex;
+        overflow-x: auto;
+    }
+    .details .reputation_con .picsList .pics {
+        width: 200rpx;
+        height: 200rpx;
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        overflow: hidden;
+        margin-right: 10rpx;
+        border-radius: 10rpx;
+        display: inline-block;
+    }
+    .details .reputation_con .picsList .pics image {
+        width: 100%;
+    }
+    .details .reputation_con .repu_property {
+        padding: 20rpx;
+    }

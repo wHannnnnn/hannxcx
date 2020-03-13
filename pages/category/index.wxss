@@ -1,0 +1,65 @@
+.navIndex {
+    background: #fff;
+}
+/* .navIndex .nav_search {
+    height: 90rpx;
+    padding: 15rpx 30rpx;
+    text-align: center;
+    border-bottom: 1rpxsolid #d9d9d9;
+    .top_search {
+        height: 60rpx;
+        line-height: 60rpx;
+        background: #ededed;
+        span {
+            color: #666;
+            font-size: 20rpx
+        }
+    }
+} */
+.navIndex .van-tabs__content {
+    flex: 1
+}
+.navIndex .van-tab__text, .van-tabs {
+    display: flex;
+}
+.navIndex .van-tabs--line .van-tabs__wrap {
+    height: 100%
+}
+.navIndex .van-tabs__nav {
+    display: inherit
+}
+.navIndex .van-tab--active {
+    color: #e7352c;
+    border-left: 6rpx solid #e7352c
+}
+.navIndex .van-tabs__line {
+    display: none
+}
+.navIndex .nav_right {
+    background-color: #fff;
+    width: 100%;
+    padding: 30rpx 15rpx 30rpx 30rpx;
+    box-sizing: border-box;
+}
+.navIndex .nav_right .right_top {
+    height: 200rpx;
+    padding-right: 60rpx;
+}
+.navIndex .nav_right .right_top img {
+      width: 100%;
+      height: 100%
+}
+.navIndex .nav_right .active {
+  border-color: #e7352c;
+  color: #e7352c
+}
+.navIndex .nav_right .right_con {
+    padding: 20rpx 0;
+    display: inline-block;
+    margin: 0 10rpx 
+}
+.navIndex .nav_right .right_con .right_top_title {
+    padding: 10rpx;
+    font-size: 28rpx;
+    border: 1rpx solid #d9d9d9
+}

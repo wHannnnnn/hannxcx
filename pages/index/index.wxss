@@ -1,21 +1,147 @@
-/**index.wxss**/
-.userinfo {
+page {
+  background-color: #eee;
+}
+
+.app_top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999999;
+  width: 100%;
+}
+
+.app_top .weui-search-bar {
+  padding: 8rpx 0;
+}
+
+.app_top .weui-search-bar__form {
+  border-radius: 8rpx;
+}
+
+.app_top .weui-search-bar__box .weui-search-bar__input {
+  padding: 16rpx 0;
+  font-size: 28rpx;
+}
+
+.app_top .weui-search-bar__text {
+  font-size: 24rpx;
+}
+
+.content {
+  margin-top: 90rpx;
+}
+
+.app_banner swiper {
+  height: 280rpx;
+}
+
+.app_banner image {
+  width: 100%;
+  height: 100%;
+}
+
+.app_nav {
+  padding: 0 20rpx;
+  border-radius: 10rpx;
+  background: #fff;
+}
+
+.app_nav swiper {
+  height: 330rpx;
+}
+
+.app_nav .weui-grid__label {
+  font-size: 24rpx;
+}
+
+.app_nav .weui-grid {
+  width: 20%;
+  padding: 10rpx 0;
+  box-sizing: border-box;
+}
+
+.app_nav .weui-grid__icon {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.app_nav .weui-grid__icon image {
+  width: 100%;
+  height: 100%;
+}
+
+.app_nav .value {
+  height: 60rpx;
+  line-height: 60rpx;
+}
+
+.app_nav .van-grid {
+  padding-top: 20rpx;
+}
+
+.app_nav .van-grid-item__content {
+  padding: 0 16rpx;
+}
+
+.app_nav img {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.shop_con {
+  padding: 6rpx;
+}
+
+.shop_con .shopBottom {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  box-sizing: border-box;
 }
 
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.shop_con .shopBottom .shop_lr:nth-child(1) {
+  margin-right: 20rpx;
 }
 
-.userinfo-nickname {
-  color: #aaa;
+.shop_con .shopBottom .shop_lr {
+  width: 360rpx;
 }
 
-.usermotto {
-  margin-top: 200px;
+.shop_con .shopBottom .shop_lr .shop_list {
+  background: #fff;
+  border-radius: 20rpx;
+  width: 100%;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.shop_con .shopBottom .shop_lr .shop_list .shop_img {
+  width: 100%;
+}
+
+.shop_con .shopBottom .shop_lr .shop_list .shop_img image {
+  width: 100%;
+}
+
+.shop_con .shopBottom .shop_lr .shop_list .shop_title {
+  width: 100%;
+  font-size: 24rpx;
+  height: 70rpx;
+  line-height: 35rpx;
+  margin-top: 6rpx;
+  overflow: hidden;
+}
+
+.shop_con .shopBottom .shop_lr .shop_list .price {
+  height: 60rpx;
+  padding: 0 10rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  color: #e7352c;
+}
+
+.shop_con .shopBottom .shop_lr .shop_list .numberSells {
+  padding: 0 20rpx;
+  font-size: 24rpx;
 }
