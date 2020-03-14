@@ -89,7 +89,7 @@ page {
 }
 
 .shop_con {
-  padding: 6rpx;
+  padding: 5rpx;
 }
 
 .shop_con .shopBottom {

@@ -1,20 +1,48 @@
 <!--pages/category/index.wxml-->
     <view class="navIndex">
-        <van-tabs active="{{activeName}}">
-            <van-tab wx:for="{{allData}}" name="{{item.id+''}}" title="{{item.name}}" wx:key="id">
-                <view class="nav_right">
-                  <scroll-view scroll-x="true">
-                      <view wx:if="{{item.children.length>0}}" style="white-space: nowrap;">
-                          <view class="right_con {{changeIndex == -1? 'active':''}}" data-id="{{item.id}}" data-index="-1" bindtap='changeRightNav'>
-                              <view class="right_top_title">全部</view>
+        <van-tabs active="{{active}}" bind:change="onChange">
+          <scroll-view scroll-y="true" style='height: calc(100vh)'>
+              <van-tab wx:for="{{allData}}" name="{{item.id+''}}" title="{{item.name}}" wx:key="id">
+                  <view class="nav_right">
+                    <scroll-view scroll-x="true">
+                        <view wx:if="{{item.children.length>0}}" style="white-space: nowrap;">
+                            <view class="right_con {{changeIndex == -1? 'active':''}}" data-id="{{item.id}}" data-index="-1" bindtap='changeRightNav'>
+                                <view class="right_top_title">全部</view>
+                            </view>
+                            <view class="right_con {{changeIndex == indexs? 'active':''}}" wx:for="{{item.children}}" wx:for-item="items" wx:for-index="indexs" data-id="{{items.id}}" data-index="{{indexs}}" bindtap='changeRightNav' wx:for-item="items" wx:key="id">
+                                <view class="right_top_title">{{items.name}}</view>
+                            </view>
+                        </view>
+                      <!-- <view class="right_con" v-else>暂无数据</view> -->
+                    </scroll-view>
+                    <scroll-view scroll-y="true" style='height: calc(100vh - 166rpx)'>
+                      <view class="weui-panel__bd">
+                        <view class="weui-media-box weui-media-box_appmsg" wx:for="{{shopList}}" wx:key="id">
+                          <view class="weui-media-box__hd">
+                            <image class="weui-media-box__thumb" mode="aspectFill" lazy-load="true" src="{{item.pic}}" alt></image>
                           </view>
-                          <view class="right_con {{changeIndex == indexs? 'active':''}}" wx:for="{{item.children}}" wx:for-item="items" wx:for-index="indexs" data-id="{{items.id}}" data-index="{{indexs}}" bindtap='changeRightNav' wx:for-item="items" wx:key="id">
-                              <view class="right_top_title">{{items.name}}</view>
+                          <view class="weui-media-box__bd van-ellipsis">
+                            <view class="weui-media-box__title">{{item.name}}</view>
+                            <view class="weui-media-box__title characteristic">{{item.characteristic}}</view>
+                            <view class="weui-media-box__title price">
+                              <view class='realPrice'>
+                                <view class='newPrice'>
+                                    <text>￥</text>{{item.minPrice}}
+                                </view>
+                                <view class="oldPrice">
+                                    ￥{{item.originalPrice}}
+                                </view>
+                              </view>
+                              <view class="add_cart">
+                                  <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' bindtap="addCart">+</view>
+                              </view>
+                            </view>
                           </view>
+                        </view>
                       </view>
-                    <view class="right_con" v-else>暂无数据</view>
-                  </scroll-view>
-                </view>
-            </van-tab>
+                    </scroll-view>
+                  </view>
+              </van-tab>
+            </scroll-view>
         </van-tabs>
     </view>

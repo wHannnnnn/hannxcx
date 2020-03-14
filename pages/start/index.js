@@ -17,12 +17,6 @@ Page({
 
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
 
   /**
    * 生命周期函数--监听页面显示
@@ -76,18 +70,12 @@ Page({
       var that = this
       wx.login({
         success(res) {
-          console.log(res)
-          if (res.code) {
-            // 登录
-            WXAPI.methods.bindOpenid({ code: res.code }).then((data) => {
-
-            })
-
-            
+          if (res.code) {  
             WXAPI.methods.wxLogin({ code: res.code, type: 2}).then((data) => {
+              console.log(data)
               if (data.data.code == 10000) {
                 // 去注册
-                that.register(res)
+                that.register()
                 return;
               }
               if (data.data.code != 0) {
@@ -98,9 +86,10 @@ Page({
                 })
                 return;
               }
-              wx.setStorageSync('token', data.data.token)
-              wx.setStorageSync('uid', data.data.uid)
+              wx.setStorageSync('token', data.data.data.token)
+              wx.setStorageSync('uid', data.data.data.uid)
               wx.setStorageSync('userInfo', e.detail)
+              wx.navigateBack({})
             })
           } else {
             wx.showToast({
@@ -111,20 +100,26 @@ Page({
         }
       })
   },
-  register(res) {
-    var params = {
-      code: res.code,
-      // referrer: app.globalData.launchOption //邀请人
-    }
-    var that = this
-    WXAPI.methods.wxRegister(params).then((res) => {
-      if (res.data.code == 0) {
-        // that.login()
-        console.log(res)
-      } else {
-        wx.showToast({
-          title: res.errMsg,
-          icon: 'none',
+  register() {
+    let _this = this;
+    wx.login({
+      success: function (res) {
+        let code = res.code; // 微信登录接口返回的 code 参数，下面注册接口需要用到
+        wx.getUserInfo({
+          success: function (res) {
+            let iv = res.iv;
+            let encryptedData = res.encryptedData;
+            let referrer = app.globalData.referrer // 推荐人
+            var params = {
+              code: code,
+              encryptedData: encryptedData,
+              iv: iv,
+              referrer: referrer
+            }
+            WXAPI.methods.wxRegister(params).then((res) => {
+              // 登录
+            })
+          }
         })
       }
     })

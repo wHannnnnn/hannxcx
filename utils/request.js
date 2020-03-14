@@ -52,7 +52,7 @@ const api = {
   // 登录模块
 
   // 小程序用户注册
-  wxRegister: 'user/wxsns/register',
+  wxRegister: 'user/wxapp/register/complex',
   wxLogin: 'user/wxapp/login',
   bindOpenid: 'user/wxapp/bindOpenid',
   // 获取短信验证码

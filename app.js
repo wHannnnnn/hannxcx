@@ -82,6 +82,6 @@ App({
   globalData: {
     userInfo: null,
     loginTrue: null,
-    launchOption: null
+    referrer: null
   }
 })

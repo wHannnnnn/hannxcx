@@ -10,8 +10,7 @@ Page({
   data: {
     allList: [],
     childrenList: [],
-    isActive: 0,
-    activeName: null,
+    active: null,
     changeIndex: -1,
     pageNum: 1,
     pageSize: 5,
@@ -48,22 +47,44 @@ Page({
     this.categoryList()
   },
   categoryList() {
+    wx.showLoading({
+      title: '加载中',
+    })
     WXAPI.methods.category().then((res) => {
       this.setData({
-        allList: res.data.data
+        allList: res.data.data,
+        active: res.data.data[0].id + ''
       })
+    }).then(()=>{
+      this.getShopList(this.data.active)
     })
   },
-  changeRightNav(e){
-    console.log(e.currentTarget.dataset)
-    this.data.pageNum = 1
+  // 左侧tab切换
+  onChange(e) {
+    wx.showLoading({
+      title: '加载中',
+    })
     this.setData({
+      pageNum: 1,
+      shopList: [],
+      changeIndex: '-1'
+    })
+    this.getShopList(e.detail.name)
+  },
+  // 右侧导航切换
+  changeRightNav(e){
+    wx.showLoading({
+      title: '加载中',
+    })
+    this.setData({
+      pageNum: 1,
       shopList: [],
       changeIndex: e.currentTarget.dataset.index+''
     })
     // 获取商品接口
     this.getShopList(e.currentTarget.dataset.id)
   },
+  // 获取列表
   getShopList(id){
     var params = {
       page: this.data.pageNum,
@@ -73,10 +94,9 @@ Page({
     WXAPI.methods.shopList(params).then((res) => {
       if (res.data.code == 0) {
         this.setData({
-          shopList: this.data.shopList.concat(res.data.data),
-          isLoadingMoreData: true
+          pageNum: this.data.pageNum++,
+          shopList: this.data.shopList.concat(res.data.data)
         })
-        this.data.pageNum++
         if (res.data.data.length < this.data.pageSize) {
           this.setData({
             isLoadingMoreData: false
@@ -90,13 +110,7 @@ Page({
       wx.stopPullDownRefresh()
     })
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
+  addCart(){},
   /**
    * 生命周期函数--监听页面显示
    */

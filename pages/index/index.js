@@ -95,7 +95,7 @@ Page({
     var params = {
       page: this.data.pageNum,
       pageSize: this.data.pageSize,
-      category
+      // category
     }
     WXAPI.methods.shopList(params).then((res) => {
         if (res.data.code == 0) {
