@@ -22,12 +22,12 @@ Page({
     Height: ""  
   },
   imgHeight: function (e) {
-    var winWid = wx.getSystemInfoSync().windowWidth; //获取当前屏幕的宽度
-    var imgh = e.detail.height;//图片高度
-    var imgw = e.detail.width;//图片宽度
-    var swiperH = winWid * imgh / imgw + "px"
+    var imgh = e.detail.height,
+      imgw = e.detail.width,
+      ratio = imgw / imgh;
+    var viewHeight = 750 / ratio;
     this.setData({
-      Height: swiperH//设置高度
+      Height: viewHeight//设置高度
     })
   },
   /**

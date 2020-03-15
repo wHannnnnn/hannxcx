@@ -14,10 +14,11 @@ Page({
     bannerList: null,
     navList: [],
     pageNum: 1,
-    pageSize: 2,
+    pageSize: 4,
     shopList: [],
     errorShow: false,
-    isLoadingMoreData: true
+    hideBottom: true,
+    loadMoreData: '加载中……' 
   },
   computed: {
     firstList(data) {
@@ -66,7 +67,8 @@ Page({
     this.setData({
       shopList: [],
       errorShow: false,
-      isLoadingMoreData: true
+      hideBottom: true,
+      loadMoreData: '加载中...',
     })
     this.data.pageNum = 1
     this.getBanner()
@@ -75,15 +77,11 @@ Page({
   },
   // 上拉加载
   onReachBottom() {
-    if (!this.data.isLoadingMoreData || this.data.errorShow) {
-      return
-    }
     this.getShopList()
   },
   loadMore(){
     this.setData({
       errorShow: false,
-      isLoadingMoreData: true
     })
     this.getShopList()
   },
@@ -98,20 +96,20 @@ Page({
       // category
     }
     WXAPI.methods.shopList(params).then((res) => {
+        wx.stopPullDownRefresh()
         if (res.data.code == 0) {
           this.setData({
+            hideBottom: false,
             shopList: this.data.shopList.concat(res.data.data),
-            isLoadingMoreData: true
           })
           this.data.pageNum++
           if(res.data.data.length < this.data.pageSize) {
             this.setData({
-              isLoadingMoreData: false
+              loadMoreData: '已经到底了~~'
             })
           }
         }
         wx.hideLoading()
-        wx.stopPullDownRefresh()
     }).catch(() => {
         wx.hideLoading()
         wx.stopPullDownRefresh()

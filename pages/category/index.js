@@ -13,8 +13,11 @@ Page({
     active: null,
     changeIndex: -1,
     pageNum: 1,
-    pageSize: 5,
-    shopList: []
+    pageSize: 10,
+    categoryId: null,
+    shopList: [],
+    hideBottom: true,
+    loadMoreData: '加载中……' 
   },
   computed: {
     allData(data) {
@@ -53,7 +56,8 @@ Page({
     WXAPI.methods.category().then((res) => {
       this.setData({
         allList: res.data.data,
-        active: res.data.data[0].id + ''
+        active: res.data.data[0].id + '',
+        categoryId: res.data.data[0].id + ''
       })
     }).then(()=>{
       this.getShopList(this.data.active)
@@ -67,9 +71,13 @@ Page({
     this.setData({
       pageNum: 1,
       shopList: [],
-      changeIndex: '-1'
+      hideBottom: true,
+      loadMoreData: '加载中...',
+      changeIndex: '-1',
+      categoryId: e.detail.name
+    },function(){
+      this.getShopList(e.detail.name)
     })
-    this.getShopList(e.detail.name)
   },
   // 右侧导航切换
   changeRightNav(e){
@@ -79,10 +87,18 @@ Page({
     this.setData({
       pageNum: 1,
       shopList: [],
-      changeIndex: e.currentTarget.dataset.index+''
+      hideBottom: true,
+      loadMoreData: '加载中...',
+      changeIndex: e.currentTarget.dataset.index+'',
+      categoryId: e.currentTarget.dataset.id
+    },function(){
+      // 获取商品接口
+      this.getShopList(e.currentTarget.dataset.id)
     })
-    // 获取商品接口
-    this.getShopList(e.currentTarget.dataset.id)
+  },
+  // 上拉加载
+  loadMore(){
+    this.getShopList(this.data.categoryId)
   },
   // 获取列表
   getShopList(id){
@@ -94,14 +110,21 @@ Page({
     WXAPI.methods.shopList(params).then((res) => {
       if (res.data.code == 0) {
         this.setData({
-          pageNum: this.data.pageNum++,
-          shopList: this.data.shopList.concat(res.data.data)
+          hideBottom: false,
+          shopList: this.data.shopList.concat(res.data.data),
         })
+        this.data.pageNum++
         if (res.data.data.length < this.data.pageSize) {
           this.setData({
-            isLoadingMoreData: false
+            loadMoreData: '已经到底了，看看其他分类吧~~'
           })
         }
+      }
+      if(res.data.code == 700 && this.data.shopList.length <= 0) {
+        this.setData({
+          hideBottom: false,
+          loadMoreData: '已经到底了，看看其他分类吧~~'
+        })
       }
       wx.hideLoading()
       wx.stopPullDownRefresh()

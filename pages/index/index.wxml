@@ -1,8 +1,4 @@
 <!--index.wxml-->
-<!-- <view class="weui-loadmore" wx:if='{{isRefreshing}}'>
-  <view class="weui-loading"></view>
-  <view class="weui-loadmore-tips">正在刷新...</view>
-</view> -->
 <view class='app_top'>
     <view class="weui-search-bar {{inputShowed ? 'weui-search-bar_focusing' : ''}}" id="searchBar">
 			<form class="weui-search-bar__form">
@@ -19,7 +15,6 @@
 		</view>
 </view>
 <view class="content">
-
   <view class='app_banner'>
     <swiper indicator-dots="{{indicatorDots}}"
       autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
@@ -47,7 +42,6 @@
       </block>
     </swiper>
   </view>
-
   <view class='shop_con'>
     <view class="shopBottom">
         <view class="shop_lr">            
@@ -86,16 +80,23 @@
         </view>
     </view>
   </view>
-</view>
-<view class="weui-loadmore">
-  <view wx:if='{{isLoadingMoreData}}'>
-    <view class="weui-loading"></view>
-    <view class="weui-loadmore-tips">正在加载更多...</view>
+  <view class="bottom" hidden="{{hideBottom}}">
+    <view class="loadMore">{{loadMoreData}}</view>
+    <view wx:if='{{errorShow}}'>
+      <view class="weui-loadmore-tips" bindtap='loadMore'>点击加载更多</view>
+    </view>
   </view>
-  <view wx:elif='{{errorShow}}'>
-    <view class="weui-loadmore-tips" bindtap='loadMore'>点击加载更多</view>
-  </view>
-  <view wx:else>
-    <view class="weui-loadmore-tips">没有更多内容啦</view>
-  </view>
+
+  <!-- <view class="weui-loadmore">
+    <view wx:if='{{isLoadingMoreData}}'>
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore-tips">正在加载更多...</view>
+    </view>
+    <view wx:elif='{{errorShow}}'>
+      <view class="weui-loadmore-tips" bindtap='loadMore'>点击加载更多</view>
+    </view>
+    <view wx:else>
+      <view class="weui-loadmore-tips">没有更多内容啦</view>
+    </view>
+  </view> -->
 </view>

@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/category/index",
     "pages/index/index",
+    "pages/category/index",
     "pages/logs/logs",
     "pages/shop/index",
     "pages/mine/index",
@@ -15,7 +15,6 @@
     "pages/start/index"
   ],
   "window": {
-    "enablePullDownRefresh": true,
     "navigationBarBackgroundColor": "#fff",
     "backgroundColor": "#eee",
     "navigationBarTitleText": "WeChat",

@@ -58,8 +58,11 @@ page {
   width: 20%;
   padding: 10rpx 0;
   box-sizing: border-box;
+  position: static
 }
-
+.app_nav .weui-grids {
+  overflow: visible
+}
 .app_nav .weui-grid__icon {
   width: 100rpx;
   height: 100rpx;
