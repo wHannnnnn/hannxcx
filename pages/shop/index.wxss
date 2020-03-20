@@ -1,1 +1,202 @@
-/* pages/shop/index.wxss */
+.cart .list-item {
+  position: relative;
+  background-color: #fff;
+  border-radius: 8rpx;
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #eee;
+}
+.cart .list-item .van-swipe-cell {
+  width: 100%;
+}
+.cart .van-nav-bar__text {
+  color: #8e8e8e
+}
+.cart .list-item .listNoMore {
+  display: flex;
+  align-items: center;
+}
+
+.cart .list-item .right .van-button {
+  display: block;
+  height: 110rpx;
+  line-height: 84rpx;
+  font-size: 28rpx;
+  padding: 0 30rpx;
+}
+
+.cart .list-item .van-card:not(:first-child) {
+  margin-top: 0;
+}
+
+.cart .list-item .van-card {
+  font-size: 24rpx;
+  background-color: transparent;
+  padding: 16rpx 16rpx 16rpx 0;
+}
+.cart .list-item .van-card .van-card__thumb {
+  width: 146rpx;
+  height: 146rpx;
+  margin-right: 26rpx;
+  border-radius: 16rpx;
+}
+
+.cart .list-item .van-card .van-card__content {
+  min-height: 146rpx;
+  padding: 10rpx
+}
+.cart .list-item .van-card .van-card__content .van-card__title {
+  max-height: 64rpx;
+  line-height: 32rpx;
+}
+
+.cart .list-item .van-card .van-card__content .tags {
+  color: #adabab;
+}
+
+.cart .list-item .noMore {
+  color: #c8c9cc;
+}
+
+.cart .list-item .noMore .van-card__content .tags {
+  color: #c8c9cc;
+}
+
+.cart .list-item .noMore .van-card__content .van-card__bottom .van-card__price {
+  color: #8e8e8e;
+}
+
+.cart .list-item .van-checkbox__label {
+  width: 100%;
+  height: auto;
+  margin-left: 86rpx;
+  line-height: 40rpx;
+}
+
+.cart .list-item .van-checkbox__icon {
+  top: 50%;
+  left: 20rpx;
+  z-index: 1;
+  position: absolute;
+  margin-top: -20rpx;
+  font-size: 38rpx;
+}
+
+.cart .list-item .van-card__price {
+  color: #f44;
+  font-size: 24rpx;
+}
+.cart .list-item .van-card__price .van-card__price-integer {
+  font-size: 36rpx;
+}
+
+.cart .list-item .van-card__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 40rpx;
+}
+
+.cart .list-item .van-card__bottom .van-card__price {
+  flex: 1;
+}
+
+.cart .list-item .van-card__bottom .van-stepper .van-stepper__input{
+  font-size: 24rpx;
+  background-color: transparent; 
+}
+.cart .list-item .van-card__bottom .van-stepper .van-stepper__minus, .cart .list-item .van-card__bottom .van-stepper .van-stepper__plus {
+  background-color: #FFF;
+  border-radius: 50%;
+  border: 1rpx solid #e6dcdc;
+  color: #333
+}
+
+.cart .list_top {
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx;
+
+}
+.cart .list_top .left {
+  font-size: 26rpx;
+}
+
+.cart .list_top.right {
+  color: #e7352c;
+}
+.cart .list_top.right .add_collect {
+  margin-right: 20rpx;
+}
+
+/* .cart .submit-bar, .delete-bar {
+  bottom: 100rpx;
+}
+
+.cart .submit-bar .van-submit-bar__bar {
+  height: 100rpx;
+  padding: 0 32rpx;
+  font-size: 28rpx;
+}
+.cart .submit-bar .van-submit-bar__bar  .van-checkbox__label {
+  margin-left: 16rpx;
+  line-height: 40rpx;
+} */
+/* 
+.cart .submit-bar .van-checkbox__icon {
+  font-size: 40rpx;
+}
+
+.cart .submit-bar .van-submit-bar__text {
+  padding-right: 24rpx;
+} */
+
+.cart .delete-bar .van-submit-bar__bar {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart .van-submit-bar__button {
+  width: 220rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 100rpx;
+  font-size: 24rpx;
+}
+
+.cart .no-data {
+  text-align: center;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.cart .no-data-title {
+  font-size: 32rpx;
+  color: #666;
+  font-weight: 400;
+  margin-bottom: 20rpx;
+}
+
+.cart .no-data-txt {
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 20rpx;
+}
+
+.cart .no-data-btn {
+  font-size: 28rpx;
+  padding: 0 40rpx;
+  height: 68rpx;
+  line-height: 64rpx;
+}
+
+.van-stepper__minus::before, .van-stepper__plus::before {
+  width: 26rpx;
+}
+
+.van-stepper__minus::after, .van-stepper__plus::after {
+  height: 26rpx;
+}

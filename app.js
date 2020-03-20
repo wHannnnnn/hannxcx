@@ -82,6 +82,7 @@ App({
   globalData: {
     userInfo: null,
     loginTrue: null,
-    referrer: null
+    referrer: null,
+    cartRefresh: true
   }
 })

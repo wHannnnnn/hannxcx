@@ -1,4 +1,5 @@
 <!--pages/goos-details/index.wxml-->
+<import src="../../wxParse/wxParse.wxml" />
 <view class="details">
     <view class="details_top">
         <view class="detail_banner">
@@ -45,40 +46,59 @@
         <view class="right">
         </view>
     </view>
-</view>
-
-
-<view class="details_discounts">
-    <view class="fadeIn" wx:if="{{dialog1}}">
-        <view class="weui-mask" bindtap="close"></view>
-        <view class="weui-half-screen-dialog">
-            <view class="weui-half-screen-dialog__hd">
-                <view class="weui-half-screen-dialog__hd__side" bindtap="close">
-                    <a class="weui-icon-btn">关闭<i class="weui-icon-close-thin"></i></a>
-                </view>
-                <view class="weui-half-screen-dialog__hd__main">
-                    <strong class="weui-half-screen-dialog__title">标题</strong>
-                </view>
-            </view>
-            <view class="weui-half-screen-dialog__bd allDiscounts">
-                <view class="discounts_title">可领取的优惠券</view>
-                <view class="discounts_con" wx:for="{{discountsList}}" wx:key="id">
-                    <view class="discounts_con_left">
-                        <view class="left_top"><text>￥</text>{{item.moneyMax}}</view>
-                        <view class="left_bottom">满{{item.moneyHreshold}}可用</view>
-                    </view>
-                    <view class="discounts_con_right">
-                        <view class="right_top">{{item.name}}</view>
-                        <view class="right_bottom">
-                            <view class="left">过期时间：{{item.dateEnd}}</view>
-                            <view class="right">
-                              <a class="weui-btn weui-btn_mini weui-btn_primary" data-id='{{item.id}}' bindtap="getDiscount">点击获取</a>
-                                <!-- <van-button type="default" @click="getDiscount(item.id,index)">点击获取</van-button> -->
-                            </view>
-                        </view>
-                    </view>
-                </view>
+    
+    <van-cell title="商品评价" bindtap="goReputation" is-link value="查看全部" />
+    <van-panel wx:for="{{reputation}}" wx:key="id" class="reputation_con">
+        <view slot="header" class="reputation">
+            <view class="header_avatar"><image src="{{item.user.avatarUrl?item.user.avatarUrl:avatar}}" class="slide-image" mode="aspectFill" lazy-load="true"/></view>
+            <view class="header_goods">
+                <view class="header_mobile">{{item.user.nick?item.user.nick:phoneReplace(item.user.mobile)}}</view>
+                <van-rate v-model="item.goods.goodReputation" readonly :count="3"/>
             </view>
         </view>
+        <view class="repu_value van-multi-ellipsis--l2">{{item.goods.goodReputationRemark}}</view>
+        <view class="picsList">
+            <view class="pics" wx:for="img in item.reputationPics" wx:key="img.id">
+                <image src="{{img.pic}}" class="slide-image" mode="aspectFill" lazy-load="true"/>
+            </view>
+        </view>
+        <view class="repu_property">{{item.goods.property}}</view>
+    </van-panel>
+    <!-- 详情 -->
+    <van-divider contentPosition="center" dashed textColor="#333">商品详情</van-divider>
+    <view class="detail_content">
+      <template is="wxParse" data="{{wxParseData:article.nodes}}" />
     </view>
 </view>
+
+<van-popup
+  show="{{ dialog1 }}"
+  position="bottom"
+  custom-style="height: 60%;"
+  bind:close="close"
+  closeable
+  close-icon="close"
+>
+  <view class="details_discounts">
+      <view class="weui-half-screen-dialog__bd allDiscounts">
+          <view class="discounts_title">可领取的优惠券</view>
+          <view class="discounts_con" wx:for="{{discountsList}}" wx:key="id">
+              <view class="discounts_con_left">
+                  <view class="left_top"><text>￥</text>{{item.moneyMax}}</view>
+                  <view class="left_bottom">满{{item.moneyHreshold}}可用</view>
+              </view>
+              <view class="discounts_con_right">
+                  <view class="right_top">{{item.name}}</view>
+                  <view class="right_bottom">
+                      <view class="left">过期时间：{{item.dateEnd}}</view>
+                      <view class="right">
+                        <a class="weui-btn weui-btn_mini weui-btn_primary" data-id='{{item.id}}' bindtap="getDiscount">点击获取</a>
+                          <!-- <van-button type="default" @click="getDiscount(item.id,index)">点击获取</van-button> -->
+                      </view>
+                  </view>
+              </view>
+          </view>
+      </view>
+  </view>
+</van-popup>
+<login class="login"></login>

@@ -1,1 +1,96 @@
 /* pages/mine/index.wxss */
+.mine .van-nav-bar__right {
+    right: 32rpx;
+    font-size: 28rpx;
+}
+.mine .van-nav-bar .van-icon {
+    color: #333
+}
+.mine .mine_top {
+    display: flex;
+    padding: 20rpx;
+    margin-bottom: 20rpx;
+    background: #f1b9b7;
+}
+.mine .mine_top .avatar {
+    width: 140rpx;
+    height: 140rpx;
+    margin-right: 30rpx;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #fff;
+}
+.mine .mine_top .avatar image {
+    width: 100%;
+    height: 100%
+}
+.mine .mine_top .right {
+    flex: 1;
+    font-size: 34rpx;
+    color: #333;
+}
+.mine .mine_top .right .userName {
+    height: 60rpx
+}
+.mine .mine_top .right .level {
+    font-size: 24rpx;
+    height: 60rpx
+}
+.mine .mine_top .right .login {
+    height: 60rpx
+}
+.mine .order .van-grid-item:last-child {
+    color: #e7352c
+}
+.mine .order .van-grid-item__content {
+    padding: 20rpx 16rpx;
+}
+.mine .order .van-grid-item__content .van-grid-item__icon {
+    font-size: 56rpx
+}
+.mine .order .van-grid-item__content .van-grid-item__text {
+    font-size: 24rpx
+}
+.mine .van-grid {
+  background: #fff;
+  border-radius: 20rpx
+}
+.mine .order .van-grid {
+  background: #fff;
+  border-radius: 0 0 20rpx 20rpx
+}
+.mine .top_title {
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 16rpx 20rpx;
+    border-radius: 20rpx 20rpx 0 0
+}
+.mine .top_title .top_left {
+    font-weight: 600;
+    font-size: 28rpx
+}
+.mine .top_title .top_right {
+    color: #9E9E9E
+}
+.mine .money,.mine .order {
+  padding: 0 20rpx;
+}
+.mine .money .van-grid-item__content {
+    padding: 32rpx 16rpx
+}
+.mine .money .number {
+    height: 50rpx;
+    font-size: 34rpx
+}
+.mine .money .name {
+    height: 40rpx;
+    font-size: 24rpx
+}
+.mine .van-info {
+    min-width: 32rpx;
+    padding: 0 6rpx;
+    font-size: 24rpx;
+    line-height: 28rpx;
+    border-radius: 32rpx
+}

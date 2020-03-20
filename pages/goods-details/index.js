@@ -1,9 +1,9 @@
 // pages/goos-details/index.js
 const app = getApp()
 const WXAPI = require('../../utils/request.js')
+const WxParse = require('../../wxParse/wxParse.js')
 import computedBehavior from '../../miniprogram_npm/miniprogram-computed/index.js'
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -54,7 +54,7 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-    WXAPI.methods.shopDetail({ id: this.data.shopId }).then((res) => {
+    WXAPI.shopDetail({ id: this.data.shopId }).then((res) => {
       if (res.statusCode == 200) {
         this.setData({
           detailsList: res.data.data //详情
@@ -62,6 +62,7 @@ Page({
         wx.hideLoading()
         this.getReputation(this.data.detailsList)
         this.getDiscountsList()
+        WxParse.wxParse('article', 'html', res.data.data.content, this, 5)
       }
     })
   },
@@ -72,7 +73,7 @@ Page({
       page: 1,
       pageSize: 2
     }
-    WXAPI.methods.getReputation(params).then((res) => {
+    WXAPI.getReputation(params).then((res) => {
       if (res.data.code == 0) {
         res.data.data.forEach(element => {
           element.goods.goodReputation += 1
@@ -85,7 +86,7 @@ Page({
   },
   //获取优惠券列表
   getDiscountsList() {
-    WXAPI.methods.discountsList().then((res) => {
+    WXAPI.discountsList().then((res) => {
       this.setData({
         discountsList: res.data.data
       })
@@ -93,8 +94,7 @@ Page({
   },
   // 领取优惠券
   getDiscount(e) {
-    WXAPI.methods.discountsFetch({ id: e.currentTarget.dataset.id }).then((res) => {
-      console.log(app.globalData.loginTrue)
+    WXAPI.discountsFetch({ id: e.currentTarget.dataset.id }).then((res) => {
       if (app.globalData.loginTrue) {
         if (res.data.code == 0) {
             wx.showToast({
@@ -105,13 +105,16 @@ Page({
         } else {
           wx.showToast({
             title: res.data.msg,
+            icon: 'none',
             duration: 2000
           })
         }
       } else {
-        wx.navigateTo({
-          url: '/pages/start/index',
-        })
+        this.login = this.selectComponent(".login")
+        this.login.showDialog()
+        // wx.navigateTo({
+        //   url: '/pages/start/index',
+        // })
       }
     })
   },

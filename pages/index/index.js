@@ -14,10 +14,11 @@ Page({
     bannerList: null,
     navList: [],
     pageNum: 1,
-    pageSize: 4,
+    pageSize: 10,
     shopList: [],
     errorShow: false,
     hideBottom: true,
+    noLoad: false,
     loadMoreData: '加载中……' 
   },
   computed: {
@@ -44,7 +45,7 @@ Page({
   },
   //事件处理函数
   getBanner() {
-    WXAPI.methods.banner().then((res) => {
+    WXAPI.banner().then((res) => {
       if (res.data.code == 0) {
         this.setData({
           bannerList: res.data.data
@@ -54,7 +55,7 @@ Page({
   },
   // 获取分类
   categoryList() {
-    WXAPI.methods.category().then((res) => {
+    WXAPI.category().then((res) => {
       if (res.data.code == 0) {
         this.setData({
           navList: res.data.data
@@ -68,17 +69,20 @@ Page({
       shopList: [],
       errorShow: false,
       hideBottom: true,
+      noLoad: false,
       loadMoreData: '加载中...',
     })
     this.data.pageNum = 1
-    this.getBanner()
-    this.categoryList()
-    this.getShopList()
+    this.onLoad()
   },
   // 上拉加载
   onReachBottom() {
+    if (this.data.noLoad) {
+      return
+    }
     this.getShopList()
   },
+  // 再次点击加载
   loadMore(){
     this.setData({
       errorShow: false,
@@ -87,15 +91,12 @@ Page({
   },
   // 获取商品
   getShopList(id) {
-    wx.showLoading({
-      title: '加载中',
-    })
     var params = {
       page: this.data.pageNum,
       pageSize: this.data.pageSize,
       // category
     }
-    WXAPI.methods.shopList(params).then((res) => {
+    WXAPI.shopList(params).then((res) => {
         wx.stopPullDownRefresh()
         if (res.data.code == 0) {
           this.setData({
@@ -105,6 +106,7 @@ Page({
           this.data.pageNum++
           if(res.data.data.length < this.data.pageSize) {
             this.setData({
+              noLoad: true,
               loadMoreData: '已经到底了~~'
             })
           }
@@ -115,6 +117,26 @@ Page({
         wx.stopPullDownRefresh()
     })
   },
+  // 添加购物车
+  addCart(e){
+    var params = {
+      goodsId: e.currentTarget.dataset.id,
+      number: 1
+    }
+    WXAPI.addCart(params).then((res) => {
+      if(app.globalData.loginTrue) {
+        wx.showToast({
+          title: '添加成功',
+          icon: 'success',
+        })
+        app.globalData.cartRefresh = true
+      } else {
+          this.login = this.selectComponent(".login")
+          this.login.showDialog()
+      }
+    })
+  },
+  // 去分类
   goProduct(){
     console.log(this.data.firstList,123)
   },

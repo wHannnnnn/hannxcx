@@ -33,7 +33,7 @@
                               </view>
                             </view>
                             <view class="add_cart">
-                                <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' bindtap="addCart">+</view>
+                                <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' catchtap="addCart">+</view>
                             </view>
                           </view>
                         </view>

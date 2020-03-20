@@ -1,95 +1,97 @@
-const http = require('./http.js') 
+const http = require('./http.js')
+const name = 'guoguo/'
 const api = {
-  banner: 'banner/list',
+  banner: name + 'banner/list',
   // 分类列表
-  category: 'shop/goods/category/all',
+  category: name + 'shop/goods/category/all',
   // 商品列表
-  shopList: 'shop/goods/list',
+  shopList: name + 'shop/goods/list',
   // 商品详情
-  shopDetail: 'shop/goods/detail',
+  shopDetail: name + 'shop/goods/detail',
   // 获取价格库存
-  getPrice: 'shop/goods/price',
+  getPrice: name + 'shop/goods/price',
   // 获取运费模板
-  getlogistics: 'shop/goods/price/freight',
+  getlogistics: name + 'shop/goods/price/freight',
   // 获取评论列表
-  getReputation: 'shop/goods/reputation',
+  getReputation: name + 'shop/goods/reputation',
   // 加入购物车
-  addCart: 'shopping-cart/add',
+  addCart: name + 'shopping-cart/add',
   // 读取购物车数据
-  getCartInfo: 'shopping-cart/info',
+  getCartInfo: name + 'shopping-cart/info',
   // 修改购物车购买数量
-  cartNumber: 'shopping-cart/modifyNumber',
+  cartNumber: name + 'shopping-cart/modifyNumber',
   // 删除购物车一条数据
-  removeCart: 'shopping-cart/remove',
+  removeCart: name + 'shopping-cart/remove',
   // 清空购物车
-  emptyCartL: 'shopping-cart/empty',
+  emptyCartL: name + 'shopping-cart/empty',
   // 可领取的优惠券列表
-  discountsList: 'discounts/coupons',
+  discountsList: name + 'discounts/coupons',
   // 领取优惠券
-  discountsFetch: 'discounts/fetch',
+  discountsFetch: name + 'discounts/fetch',
   // 我的优惠券
-  myDiscounts: '/discounts/my',
+  myDiscounts: name + '/discounts/my',
   // 创建订单
-  creatOrder: 'order/create',
+  creatOrder: name + 'order/create',
   // 订单列表
-  orderList: 'order/list',
+  orderList: name + 'order/list',
   // 订单详情
-  orderDetail: 'order/detail',
+  orderDetail: name + 'order/detail',
   // 取消订单
-  closeOrder: 'order/close',
+  closeOrder: name + 'order/close',
   // 删除订单
-  deleteOrder: 'order/delete',
+  deleteOrder: name + 'order/delete',
   // 申请售后
-  refundApply: 'order/refundApply/apply',
+  refundApply: name + 'order/refundApply/apply',
   // 订单统计
-  orderStatistics: 'order/statistics',
+  orderStatistics: name + 'order/statistics',
   // 确认收货
-  orderDelivery: 'order/delivery',
+  orderDelivery: name + 'order/delivery',
   // 上传图片至服务器
-  uploadFile: 'dfs/upload/file',
+  uploadFile: name + 'dfs/upload/file',
   // 发布评价
-  orderReputation: 'order/reputation',
+  orderReputation: name + 'order/reputation',
   // 登录模块
 
   // 小程序用户注册
-  wxRegister: 'user/wxapp/register/complex',
-  wxLogin: 'user/wxapp/login',
-  bindOpenid: 'user/wxapp/bindOpenid',
+  wxRegister: name + 'user/wxapp/register/complex',
+  wxLogin: name + 'user/wxapp/login',
+  bindOpenid: name + 'user/wxapp/bindOpenid',
   // 获取短信验证码
-  getSms: 'verification/sms/get',
+  getSms: name + 'verification/sms/get',
   // 获取图形验证码
-  getPic: 'verification/pic/get',
+  getPic: name + 'verification/pic/get',
   // 校验验证码
-  checkSms: 'verification/sms/check',
+  checkSms: name + 'verification/sms/check',
   // 校验图形验证码
-  checkPic: 'verification/pic/check',
+  checkPic: name + 'verification/pic/check',
   // 用户注册（手机号）
-  userRegister: 'user/m/register',
+  userRegister: name + 'user/m/register',
   // 修改用户信息
-  userModify: 'user/modify',
+  userModify: name + 'user/modify',
 
   // 修改密码
-  resetPwd: 'user/m/reset-pwd',
+  resetPwd: name + 'user/m/reset-pwd',
   // 用户登录token
-  login: 'user/m/login',
+  login: name + 'user/m/login',
   //获取用户详情
-  userDetail: 'user/detail',
+  userDetail: name + 'user/detail',
   // 获取地址列表
-  getAddress: 'user/shipping-address/list',
+  getAddress: name + 'user/shipping-address/list',
   // 添加收货地址
-  addAddress: 'user/shipping-address/add',
+  addAddress: name + 'user/shipping-address/add',
   // 获取地址详情
-  addressDetail: 'user/shipping-address/detail/v2',
+  addressDetail: name + 'user/shipping-address/detail/v2',
   // 删除地址
-  delAddress: 'user/shipping-address/delete',
+  delAddress: name + 'user/shipping-address/delete',
   // 修改地址
-  updateAddress: 'user/shipping-address/update',
+  updateAddress: name + 'user/shipping-address/update',
   // 默认地址
-  defaultAddress: 'user/shipping-address/default/v2',
-
+  defaultAddress: name + 'user/shipping-address/default/v2',
+  // 经纬度解析
+  mapAddress: 'common/map/qq/address',
 }
 // 请求方法
-const methods = {
+module.exports = {
   banner: (params) => {
     return http.get(api.banner, params)
   },
@@ -252,6 +254,9 @@ const methods = {
   defaultAddress: (params) => {
     return http.get(api.defaultAddress, params)
   },
+  mapAddress: (params) => {
+    return http.get(api.mapAddress, params)
+  },
   // 验证码
   getPic: (params) => {
     return http.pic(api.getPic, params)
@@ -259,7 +264,4 @@ const methods = {
   checkPic: (params) => {
     return http.post(api.checkPic, params)
   },
-}
-module.exports = {
-  methods: methods
 }

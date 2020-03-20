@@ -7,13 +7,18 @@
     "pages/mine/index",
     "pages/goods-details/index",
     "pages/address/index",
-    "pages/add-address/indedx",
+    "pages/add-address/index",
     "pages/product-list/index",
     "pages/order-list/index",
     "pages/order-detail/index",
     "pages/place-order/index",
     "pages/start/index"
   ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "将要获取你的位置"
+    }
+  },
   "window": {
     "navigationBarBackgroundColor": "#fff",
     "backgroundColor": "#eee",

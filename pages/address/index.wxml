@@ -1,2 +1,29 @@
 <!--pages/address/index.wxml-->
-<text>pages/address/index.wxml</text>
+    <view class="address">
+        <view class="content">
+            <van-cell>
+                <view slot="title">
+                    <view class="addressList" bindlongpress="deleteAddress" data-id="{{item.id}}" wx:for="{{addressList}}" wx:key="id">
+                        <view class="top">
+                            <van-row>
+                                <van-col span="6" class="userName van-ellipsis">{{item.linkMan}}</van-col>
+                                <van-col span="6" offset="2" class="phone">{{item.mobile}}</van-col>
+                                <van-tag type="danger" wx:if="{{item.isDefault}}">默认</van-tag>
+                            </van-row>
+                        </view>
+                        <view class="bottom">
+                        <van-row>
+                          <van-col span="21" class="addressDetail">{{item.address + item.code}}</van-col>
+                          <!-- <navigater to="{path:'/editAddress',query:{id:item.id}}"> -->
+                              <van-col offset="1" span="2"  class="edit" data-id="{{item.id}}" catchtap="edidAddress"><van-icon name="edit" /></van-col>
+                          <!-- </navigater> -->
+                          </van-row>
+                        </view>
+                    </view>
+                </view>
+            </van-cell>
+        </view>
+        <view class="addAddress">
+          <a class="weui-btn weui-btn_mini weui-btn_primary" bindtap="addAddress">添加地址</a>
+        </view>
+    </view>

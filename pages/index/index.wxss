@@ -148,3 +148,30 @@ page {
   padding: 0 20rpx;
   font-size: 24rpx;
 }
+ 
+.shop_con .shopBottom .shop_lr .price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center
+}
+.shop_con .shopBottom .shop_lr .price .realPrice {
+  display: flex;
+  align-items: center;
+}
+.shop_con .shopBottom .shop_lr .price .newPrice {
+  color: #e7352c;
+  font-size: 32rpx;
+  margin-right: 10rpx
+}
+.shop_con .shopBottom .shop_lr .price .oldPrice {
+  color: #9c9c9c;
+  font-size: 20rpx;
+  text-decoration: line-through
+}
+.shop_con .shopBottom .shop_lr .price .add_cart .weui-btn {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  padding: 0;
+  line-height: 36rpx;
+}

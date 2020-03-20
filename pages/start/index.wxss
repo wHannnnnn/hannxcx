@@ -20,6 +20,4 @@ form {
 }
 .mini-btn{
   margin-top: 50rpx;
-  margin-left: 50rpx;
-  margin-right: 50rpx;
 }

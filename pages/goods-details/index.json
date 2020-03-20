@@ -1,3 +1,9 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "login": "../../component/login",
+    "van-popup": "../../miniprogram_npm/@vant/weapp/popup/index",
+    "van-cell": "../../miniprogram_npm/@vant/weapp/cell/index",
+    "van-panel": "../../miniprogram_npm/@vant/weapp/panel/index",
+    "van-divider": "../../miniprogram_npm/@vant/weapp/divider/index"
+  }
 }

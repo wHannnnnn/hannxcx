@@ -1,5 +1,5 @@
 const app = getApp()
-const host = 'https://api.it120.cc/guoguo/';
+const host = 'https://api.it120.cc/';
 const getToken = function () {
   if (!wx.getStorageSync('token')) {
     return ''
@@ -23,7 +23,12 @@ const get = (url, param) => {
         }
         resolve(res)
       },
-      error: (e) => {
+      fail: (e) => {
+        wx.showToast({
+          title: '网络不太好呀~~',
+          icon: 'none',
+          duration: 2000
+        })
         reject(e);
       }
     })
@@ -45,7 +50,12 @@ const post = (url, data) => {
         }
         resolve(res)
       },
-      error: (e) => {
+      fail: (e) => {
+        wx.showToast({
+          title: '网络不太好呀~~',
+          icon: 'none',
+          duration: 2000
+        })
         reject(e);
       }
     })

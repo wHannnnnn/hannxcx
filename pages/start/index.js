@@ -71,8 +71,7 @@ Page({
       wx.login({
         success(res) {
           if (res.code) {  
-            WXAPI.methods.wxLogin({ code: res.code, type: 2}).then((data) => {
-              console.log(data)
+            WXAPI.wxLogin({ code: res.code, type: 2}).then((data) => {
               if (data.data.code == 10000) {
                 // 去注册
                 that.register()
@@ -86,6 +85,11 @@ Page({
                 })
                 return;
               }
+              wx.showToast({
+                title: '授权成功',
+                icon: 'success',
+              })
+              app.globalData.loginTrue = true
               wx.setStorageSync('token', data.data.data.token)
               wx.setStorageSync('uid', data.data.data.uid)
               wx.setStorageSync('userInfo', e.detail)
@@ -116,7 +120,7 @@ Page({
               iv: iv,
               referrer: referrer
             }
-            WXAPI.methods.wxRegister(params).then((res) => {
+            WXAPI.wxRegister(params).then((res) => {
               // 登录
             })
           }

@@ -53,7 +53,7 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-    WXAPI.methods.category().then((res) => {
+    WXAPI.category().then((res) => {
       this.setData({
         allList: res.data.data,
         active: res.data.data[0].id + '',
@@ -107,7 +107,7 @@ Page({
       pageSize: this.data.pageSize,
       categoryId: id,
     }
-    WXAPI.methods.shopList(params).then((res) => {
+    WXAPI.shopList(params).then((res) => {
       if (res.data.code == 0) {
         this.setData({
           hideBottom: false,

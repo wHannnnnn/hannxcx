@@ -53,29 +53,45 @@
                       <view class="shop_title van-multi-ellipsis--l2">
                           {{item.name}}
                       </view>
-                      <view class="price">
-                          <span class="newprice">￥{{item.minPrice}}</span>
-                      </view>
-                      <view class="numberSells">
-                          <span>{{item.numberSells}}人付款</span>
+                      <view class="price">            
+                          <view class='realPrice'>
+                            <view class='newPrice'>
+                                <text>￥</text>{{item.minPrice}}
+                            </view>
+                            <view class="oldPrice">
+                                ￥{{item.originalPrice}}
+                            </view>
+                          </view>
+                          <view class="add_cart">
+                              <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' catchtap="addCart">+</view>
+                          </view>
                       </view>
                   </navigator>
             </view>
         </view>
         <view class="shop_lr">
             <view class="shop_list mui-bar-nav" wx:for="{{rightShopList}}" wx:key='id'>
+                <navigator url="../goods-details/index?id={{item.id}}">
                     <view class="shop_img">
                         <image src="{{item.pic}}" class="slide-image" style='height:' mode="widthFix" lazy-load="true"/>
                     </view>
                     <view class="shop_title van-multi-ellipsis--l2">
                         {{item.name}}
                     </view>
-                    <view class="price">
-                        <span class="newprice">￥{{item.minPrice}}</span>
+                    <view class="price">            
+                        <view class='realPrice'>
+                          <view class='newPrice'>
+                              <text>￥</text>{{item.minPrice}}
+                          </view>
+                          <view class="oldPrice">
+                              ￥{{item.originalPrice}}
+                          </view>
+                        </view>
+                        <view class="add_cart">
+                            <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' catchtap="addCart">+</view>
+                        </view>
                     </view>
-                    <view class="numberSells">
-                        <span>{{item.numberSells}}人付款</span>
-                    </view>
+                  </navigator>
             </view>
         </view>
     </view>
@@ -100,3 +116,4 @@
     </view>
   </view> -->
 </view>
+<login class="login"></login>
