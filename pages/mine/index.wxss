@@ -37,7 +37,11 @@
     height: 60rpx
 }
 .mine .mine_top .right .login {
-    height: 60rpx
+    background: none;
+    font-size: 30rpx
+}
+.mine .mine_top .right button::after {
+    content: none
 }
 .mine .order .van-grid-item:last-child {
     color: #e7352c

@@ -80,6 +80,7 @@ Page({
         wx.hideNavigationBarLoading() //完成停止加载
         wx.stopPullDownRefresh() //停止下拉刷新
       } else {
+        app.globalData.cartRefresh = true
         this.setData({
           checkedGoods: [],
           checkedAll: false,
@@ -168,6 +169,11 @@ Page({
           console.log('用户点击取消')
         }
       }
+    })
+  },
+  submit(){
+    this.data.checkedGoods.forEach((ele) => {
+      // this.goods.      
     })
   },
   /**

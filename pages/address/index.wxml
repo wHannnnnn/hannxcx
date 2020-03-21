@@ -6,8 +6,8 @@
                     <view class="addressList" bindlongpress="deleteAddress" data-id="{{item.id}}" wx:for="{{addressList}}" wx:key="id">
                         <view class="top">
                             <van-row>
-                                <van-col span="6" class="userName van-ellipsis">{{item.linkMan}}</van-col>
-                                <van-col span="6" offset="2" class="phone">{{item.mobile}}</van-col>
+                                <van-col span="4" class="userName van-ellipsis">{{item.linkMan}}</van-col>
+                                <van-col span="8" offset="2" class="phone">{{item.mobile}}</van-col>
                                 <van-tag type="danger" wx:if="{{item.isDefault}}">默认</van-tag>
                             </van-row>
                         </view>

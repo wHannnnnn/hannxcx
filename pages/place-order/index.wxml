@@ -1,2 +1,93 @@
 <!--pages/place-order/index.wxml-->
-<text>pages/place-order/index.wxml</text>
+<view class="placeOrder">
+    <view class="content">
+        <!-- 地址 -->
+        <view class="address" wx:if="addAddressShow">
+            <van-cell>
+                <view slot="title">
+                    <view class="addressList" bindtap="goAddress">
+                        选择收货地址
+                    </view>
+                </view>
+            </van-cell>
+        </view>
+        <view class="address" wx:if="{{!addAddressShow}}">
+            <van-cell>
+                <view slot="title">
+                    <view class="addressList" bindtap="goAddress">
+                        <view class="top">
+                            <van-row>
+                                <van-col span="6" class="userName van-ellipsis">{{defaultAddress.linkMan}}</van-col>
+                                <van-col span="6" offset="2" class="phone">{{phoneReplace(defaultAddress.mobile)}}</van-col>
+                                <van-col span="6"><van-tag type="danger" wx:if="{{defaultAddress.isDefault}}">默认</van-tag></van-col>
+                            </van-row>
+                        </view>
+                        <view class="bottom">
+                            <van-row>
+                                <van-col span="21" class="van-multi-ellipsis--l2 addressDetail">{{defaultAddress.address}}</van-col>
+                                <van-col offset="1" span="2" class="edit"><van-icon name="arrow" /></van-col>
+                            </van-row>
+                        </view>
+                    </view>
+                </view>
+            </van-cell>
+        </view>
+        <!-- 详情 -->
+        <view class="details">
+            <van-cell wx:for="{{allData}}" wx:for-item="items" wx:key="id">
+                <view slot="title">
+                    <view class="details_con" wx:for="{{items.origin}}" wx:key="id">                              
+                        <view class="addressList">
+                            <view class="con_top">
+                                <view class="left">
+                                    <!-- <image v-lazy="item.pic" alt=""> -->
+                                </view>
+                                <view class="center">
+                                    <view class="title van-multi-ellipsis--l2">
+                                        {{item.name}}
+                                    </view>
+                                </view>
+                                <view class="right">
+                                    <view class="top">￥{{item.price.toFixed(2)}}</view>
+                                    <view class="bottom">x{{item.number}}</view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </van-cell>
+        </view>
+        <van-cell wx:if="{{discountData&&discountData.length>0}}">
+            <view slot="title">
+                <view class="discounts">
+                    <view class="top">
+                        <van-row>
+                            <van-col span="6" offset="4" class="userName van-ellipsis">商品优惠</van-col>
+                            <van-col span="9" class="phone">{{discountName}}</van-col>
+                            <van-col span="4" offset="1" class="dis_right" bindtap='discountClick'>
+                                <span>￥{{discountPrice}}</span>
+                                <van-icon name="arrow" />
+                            </van-col>
+                        </van-row>
+                    </view>
+                </view>
+            </view>
+        </van-cell>
+    </view>
+    <van-action-sheet show="discountsShow" title="选择优惠">
+        <van-radio-group value="discountId">
+            <van-cell-group>
+                <van-cell wx:for="{{discountData}}" data-name="{{item.id}}" wx:key="id" title="{{item.name}}" clickable bindtap="changLog">
+                    <van-radio slot="right-icon" name="{{item.id}}" />
+                </van-cell>
+            </van-cell-group>
+        </van-radio-group>
+    </van-action-sheet>
+    <van-submit-bar
+        disabled='{{disabled}}'
+        price="{{allPrice}}"
+        button-text="提交订单"
+        tip-icon="info-o"
+        bind:submit="onSubmit"
+    />
+</view>

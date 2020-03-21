@@ -101,4 +101,9 @@
       </view>
   </view>
 </van-popup>
-<login class="login"></login>
+<view class="details_botom">
+    <view class="cartNum">
+      <van-icon name="cart-o" />
+    </view>
+     <view class="weui-btn weui-btn_mini weui-btn_primary" bindtap="addCart">加入购物车</view>
+</view>

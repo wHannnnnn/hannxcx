@@ -5,6 +5,7 @@ Page({
   data: {
     addListShow: false,
     chooseCity: false,
+    userlocation: false,
     regionShow: {
       province: false,
       city: false,
@@ -55,49 +56,6 @@ Page({
         self.nearby_search();
       },
     });
-    //定位
-    // wx.getLocation({
-    //   type: 'wgs84',
-    //   success(res) {
-    //     //console.log(res)
-    //     const latitude = res.latitude
-    //     const longitude = res.longitude
-    //     const speed = res.speed
-    //     const accuracy = res.accuracy
-    //     //你地址解析
-    //     qqmapsdk.reverseGeocoder({
-    //       location: {
-    //         latitude: latitude,
-    //         longitude: longitude
-    //       },
-    //       success: function (res) {
-    //         //console.log(res)
-    //         self.setData({
-    //           latitude: latitude,
-    //           longitude: longitude,
-    //           currentRegion: res.result.address_component,
-    //           keyword: self.data.defaultKeyword
-    //         })
-    //         // 调用接口
-    //         self.nearby_search();
-    //       },
-    //     });
-    //   },
-    //   fail(err) {
-    //     //console.log(err)
-    //     wx.hideLoading({});
-    //     wx.showToast({
-    //       title: '定位失败',
-    //       icon: 'none',
-    //       duration: 1500
-    //     })
-    //     setTimeout(function () {
-    //       wx.navigateBack({
-    //         delta: 1
-    //       })
-    //     }, 1500)
-    //   }
-    // })
   },
   onReady: function () {
 
@@ -160,98 +118,108 @@ Page({
         });
       },
       fail(err) {
-        //console.log(err)
-        wx.hideLoading({});
-        wx.showToast({
-          title: '定位失败',
-          icon: 'none',
-          duration: 1500
+        wx.openSetting({
+          success: function (res) {
+            if (res.authSetting['scope.userLocation']) {
+              console.log(res)
+            }
+          }
         })
-        setTimeout(function () {
-          wx.navigateBack({
-            delta: 1
-          })
-        }, 1500)
+        wx.hideLoading({});
       }
     })
   },
   //整理目前选择省市区的省市区列表
-  getRegionData: function () {
-    let self = this;
-    //调用获取城市列表接口
-    qqmapsdk.getCityList({
-      success: function (res) {//成功后的回调
-        //console.log(res)
-        let provinceArr = res.result[0];
-        let cityArr = [];
-        let districtArr = [];
-        for (var i = 0; i < provinceArr.length; i++) {
-          var name = provinceArr[i].fullname;
-          if (self.data.currentRegion.province == name) {
-            if (name == '北京市' || name == '天津市' || name == '上海市' || name == '重庆市') {
-              cityArr.push(provinceArr[i])
-            } else {
-              qqmapsdk.getDistrictByCityId({
-                // 传入对应省份ID获得城市数据，传入城市ID获得区县数据,依次类推
-                id: provinceArr[i].id,
-                success: function (res) {//成功后的回调
-                  //console.log(res);
-                  cityArr = res.result[0];
-                  self.setData({
-                    regionData: {
-                      province: provinceArr,
-                      city: cityArr,
-                      district: districtArr
-                    }
-                  })
-                },
-                fail: function (error) {
-                  //console.error(error);
-                },
-                complete: function (res) {
-                  //console.log(res);
-                }
-              });
-            }
-          }
-        }
-        for (var i = 0; i < res.result[1].length; i++) {
-          var name = res.result[1][i].fullname;
-          if (self.data.currentRegion.city == name) {
-            qqmapsdk.getDistrictByCityId({
-              // 传入对应省份ID获得城市数据，传入城市ID获得区县数据,依次类推
-              id: res.result[1][i].id,
-              success: function (res) {//成功后的回调
-                //console.log(res);
-                districtArr = res.result[0];
-                self.setData({
-                  regionData: {
-                    province: provinceArr,
-                    city: cityArr,
-                    district: districtArr
-                  }
-                })
-              },
-              fail: function (error) {
-                //console.error(error);
-              },
-              complete: function (res) {
-                //console.log(res);
-              }
-            });
-          }
-        }
-      },
-      fail: function (error) {
-        //console.error(error);
-      },
-      complete: function (res) {
-        //console.log(res);
-      }
-    });
-  },
+  // getRegionData: function () {
+  //   let self = this;
+  //   //调用获取城市列表接口
+  //   qqmapsdk.getCityList({
+  //     success: function (res) {//成功后的回调
+  //       //console.log(res)
+  //       let provinceArr = res.result[0];
+  //       let cityArr = [];
+  //       let districtArr = [];
+  //       for (var i = 0; i < provinceArr.length; i++) {
+  //         var name = provinceArr[i].fullname;
+  //         if (self.data.currentRegion.province == name) {
+  //           if (name == '北京市' || name == '天津市' || name == '上海市' || name == '重庆市') {
+  //             cityArr.push(provinceArr[i])
+  //           } else {
+  //             qqmapsdk.getDistrictByCityId({
+  //               // 传入对应省份ID获得城市数据，传入城市ID获得区县数据,依次类推
+  //               id: provinceArr[i].id,
+  //               success: function (res) {//成功后的回调
+  //                 //console.log(res);
+  //                 cityArr = res.result[0];
+  //                 self.setData({
+  //                   regionData: {
+  //                     province: provinceArr,
+  //                     city: cityArr,
+  //                     district: districtArr
+  //                   }
+  //                 })
+  //               },
+  //               fail: function (error) {
+  //                 //console.error(error);
+  //               },
+  //               complete: function (res) {
+  //                 //console.log(res);
+  //               }
+  //             });
+  //           }
+  //         }
+  //       }
+  //       for (var i = 0; i < res.result[1].length; i++) {
+  //         var name = res.result[1][i].fullname;
+  //         if (self.data.currentRegion.city == name) {
+  //           qqmapsdk.getDistrictByCityId({
+  //             // 传入对应省份ID获得城市数据，传入城市ID获得区县数据,依次类推
+  //             id: res.result[1][i].id,
+  //             success: function (res) {//成功后的回调
+  //               //console.log(res);
+  //               districtArr = res.result[0];
+  //               self.setData({
+  //                 regionData: {
+  //                   province: provinceArr,
+  //                   city: cityArr,
+  //                   district: districtArr
+  //                 }
+  //               })
+  //             },
+  //             fail: function (error) {
+  //               //console.error(error);
+  //             },
+  //             complete: function (res) {
+  //               //console.log(res);
+  //             }
+  //           });
+  //         }
+  //       }
+  //     },
+  //     fail: function (error) {
+  //       //console.error(error);
+  //     },
+  //     complete: function (res) {
+  //       //console.log(res);
+  //     }
+  //   });
+  // },
   onShow: function () {
     let self = this;
+    wx.getSetting({
+      success: function (res) {
+        // 已授权
+        if(res.authSetting['scope.userLocation']){
+          self.setData({
+            userlocation: true
+          })
+        } else {
+          self.setData({
+            userlocation: false
+          })
+        }
+      }
+    })
   },
   //地图标记点
   addMarker: function (data) {

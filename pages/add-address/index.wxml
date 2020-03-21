@@ -15,9 +15,10 @@
                 <input name="mobile" class="input" maxlength="11" type="number" placeholder="11位手机号码" value="{{addressData.mobile}}"/>
             </view>
         </view>    
-        <view class="row-wrap changeArea van-multi-ellipsis--l2" bindtap="goMap">
+        <view class="row-wrap van-multi-ellipsis--l2" bindtap="goMap">
           <view class="label">选择地区</view>
-          <view class="van-multi-ellipsis--l2">{{areaStr}}</view>
+          <view class="area van-multi-ellipsis--l2">{{areaStr}}</view>
+          <van-icon name="arrow-left" />
         </view>
         <view class="addr-details">
             <view class="label">详细地址</view>

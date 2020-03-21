@@ -6,17 +6,16 @@
 }
 .row-wrap{
     width: 720rpx;
-    height: 88rpx;
-    line-height: 88rpx;
+    height: auto;
+    line-height: auto;
     margin-left: 30rpx;
     border-bottom: 1rpx solid #eee;
     display: flex;
     font-size: 28rpx;
+    align-items: center;
+    padding: 10rpx;
+    box-sizing: border-box;
     /*justify-content: space-between;*/
-}
-.changeArea {
-    max-height: 148rpx;
-    line-height: 68rpx;
 }
 .row-wrap .label{
     width: 160rpx;
@@ -26,6 +25,12 @@
     flex: 1;
     height: 88rpx;
     line-height: 88rpx;
+}
+.row-wrap .area {
+  min-height: 88rpx;
+  display: flex;
+  align-items: center;
+  flex: 1;
 }
 .row-wrap .label-right input{
     height: 100%;
@@ -59,7 +64,7 @@ button[type="default"]{
 }
 .addr-details{
     height: auto;
-    padding: 30rpx 0;
+    padding: 30rpx 10rpx;
     margin-left:30rpx;
     border-bottom: 1rpx solid #eee;
     display: flex;
@@ -74,4 +79,7 @@ button[type="default"]{
     box-sizing: border-box;
     width: 480rpx;
     overflow: scroll;
+}
+.container .weui-cell {
+  padding: 16rpx 40rpx
 }

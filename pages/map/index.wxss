@@ -28,7 +28,7 @@
   margin-top: 15rpx;
 }
 .search-box {
-  width: 610rpx;
+  width: 650rpx;
   height: 80rpx;
   line-height: 80rpx;
   border-radius: 40rpx;
@@ -122,10 +122,15 @@
   left: 50%;
   transform: translate(-50%,-50%);
 }
+.current-site-icon .van-icon {
+  font-size: 50rpx;
+  color: #e64340
+}
 .near-list {
   height: 650rpx;
   padding-bottom: 100rpx;
   box-sizing: border-box;
+  background: #fff
 }
 .near-item {
   line-height: 40rpx;
