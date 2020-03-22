@@ -24,21 +24,51 @@ Page({
     logisticsData: [], //地址列表
     logisticsIndex: null, //选中的索引
     discountData: [],
-    counter: 0,
+    addressId: false,
   },
   computed: {
     disabled(data) {
       return Object.keys(data.defaultAddress).length == 0 ? true : false
     },
     allPrice(data) {
-        var price = 0
-        return price * 100
+      var price = 0
+      const arr = data.allOrderData.map(v => {
+        return v.price * v.number
+      })
+      arr.forEach(val => {
+        price += val
+      })
+      price >= 99 ? price+= 0 : price+= 6
+      price -= data.discountPrice
+      return price * 100
+    },
+    oldPrice(data){
+      var price = 0
+      const arr = data.allOrderData.map(v => {
+        return v.price * v.number
+      })
+      arr.forEach(val => {
+        price += val
+      })
+      return price
+    },
+    allNumber(data) {
+      var number = 0
+      data.allOrderData.forEach(val => {
+        number += val.number
+      })
+      return number
     }
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
+    this.setData({
+      allOrderData: JSON.parse(options.shopdata)
+    },function(){
+      
+    })
     this.getDefaultAddress()
     this.myDiscounts()
   },
@@ -46,21 +76,24 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
   // 默认地址
   getDefaultAddress() {
-    if (wx.getStorageInfoSync('addressId')) {
-      WXAPI.addressDetail({ id: wx.getStorageInfoSync('addressId') }).then((res) => {
-        if(res.data.code == 0) {
+    wx.showLoading({
+      title: '加载中',
+    })
+    if (this.data.addressId) {
+      WXAPI.addressDetail().then((res) => {
+        if (res.data.code == 0) {
           this.setData({
             defaultAddress: res.data.data.info
           })
@@ -69,6 +102,7 @@ Page({
             addAddressShow: false
           })
         }
+        wx.hideLoading()
       })
     } else {
       WXAPI.defaultAddress().then((res) => {
@@ -82,6 +116,7 @@ Page({
             defaultAddress: res.data.data.info
           })
         }
+        wx.hideLoading()
       })
     }
   },
@@ -91,7 +126,9 @@ Page({
     const arr = this.data.allOrderData.map(v => {
       return v.price * v.number
     })
-    price += eval(arr.join("+"))
+    arr.forEach(val => {
+      price += val
+    })
     var params = {
       consumAmount: price,
       status: 0
@@ -100,9 +137,9 @@ Page({
       if (res.data.code == 0) {
         this.setData({
           discountData: res.data.data
-        },function(){
+        }, function() {
           let data = res.data.data.reduce((p, v) => p.money < v.money ? v : p)
-          this.setData({            
+          this.setData({
             discountId: data.id,
             discountName: data.name,
             discountPrice: data.money
@@ -111,87 +148,90 @@ Page({
       }
     })
   },
-  // 价格计算
-  // priceCal(item) {
-  //   const arr = item.map((v) => {
-  //     return v.price * v.number
-  //   })
-  //   return eval(arr.join("+"))
-  // },
-  // discountClick() {
-  //   this.discountsShow = true
-  // },
-  // changLog(item) {
-  //   this.discountId = item.id
-  //   this.discountName = item.name
-  //   this.discountPrice = item.money
-  //   this.discountsShow = false
-  // },
+  discountClick() {
+    this.setData({
+      discountsShow: true
+    })
+  },
+  changLog(e) {
+    this.setData({
+      discountId: e.currentTarget.dataset.item.id,
+      discountName: e.currentTarget.dataset.item.name,
+      discountPrice: e.currentTarget.dataset.item.money,
+      discountsShow: false
+    })
+  },
+  onClose(){
+    this.setData({
+      discountsShow: false
+    })
+  },
   // 提交订单
   onSubmit() {
-    // this.allData.forEach(ele => {
-    //   ele.origin.forEach(v => {
-    //     const obj = {
-    //       goodsId: v.id,
-    //       number: v.number,
-    //       propertyChildIds: v.propertyChildIds,
-    //       logisticsType: ele.logisticsType
-    //     }
-    //     this.goodsData.push(obj)
-    //   })
-    // });
-    // const ortherData = {
-    //   couponId: this.discountId,
-    //   peisongType: 'kd',
-    //   expireMinutes: '30',
-    //   payOnDelivery: 0,
-    //   code: 111
-    // }
-    // this.pushData['goodsJsonStr'] = JSON.stringify(this.goodsData)
-    // Object.assign(this.pushData, this.defaultAddress, ortherData)
-    // // 下单接口
-    // this.$http.creatOrder(this.pushData).then((res) => {
-    //   if (res.data.code == 0) {
-    //     this.pushData['goodsJsonStr'] = []
-    //     this.$toast.success('添加成功，暂不支持支付，请联系管理员')
-    //   } else {
-    //     this.$toast(res.data.msg)
-    //   }
-    //   // 支付接口再说
-    // })
+    var goodsData = [],
+        pushData = {}
+    this.data.allOrderData.forEach(ele=>{
+        const obj = {
+          goodsId: ele.goodsId,
+          number: ele.number,
+          propertyChildIds: '',
+          logisticsType: 0
+        }
+        goodsData.push(obj)
+    })
+    const ortherData = {
+      couponId: this.data.discountId ? this.data.discountId:'',
+      peisongType: 'kd',
+      expireMinutes: '30',
+      payOnDelivery: 0
+    }
+    pushData['goodsJsonStr'] = JSON.stringify(goodsData)
+    Object.assign(pushData, this.data.defaultAddress, ortherData)
+    wx.showLoading({
+      title: '加载中',
+    })
+    // 下单接口
+    WXAPI.creatOrder(pushData).then((res) => {
+      if (res.data.code == 0) {
+
+      } else {
+      }
+      wx.hideLoading()
+      // 支付接口再说
+    })
   },
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

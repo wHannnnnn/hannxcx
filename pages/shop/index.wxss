@@ -6,6 +6,9 @@
   align-items: center;
   border-bottom: 1rpx solid #eee;
 }
+.cart .van-checkbox {
+  width: 100%
+}
 .cart .list-item .van-swipe-cell {
   width: 100%;
 }
@@ -32,7 +35,7 @@
 .cart .list-item .van-card {
   font-size: 24rpx;
   background-color: transparent;
-  padding: 16rpx 16rpx 16rpx 0;
+  padding: 20rpx 16rpx 20rpx 0;
 }
 .cart .list-item .van-card .van-card__thumb {
   width: 146rpx;
@@ -43,7 +46,6 @@
 
 .cart .list-item .van-card .van-card__content {
   min-height: 146rpx;
-  padding: 10rpx
 }
 .cart .list-item .van-card .van-card__content .van-card__title {
   max-height: 64rpx;

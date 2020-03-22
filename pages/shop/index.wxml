@@ -24,21 +24,13 @@
                 <van-card title="{{item.name}}"
                   data-id='{{item.goodsId}}'
                   data-key="{{item.key}}"
-                  bindtap="goDetails"
+                  thumb-link="/pages/goods-details/index?id={{item.goodsId}}"
                   bindlongpress="deleteShop" 
                   class="{{item.stores == 0?'noMore':''}}"
                   desc="{{item.propTitle}}"
                   price="{{item.price}}"
                   thumb="{{item.pic}}">
-                  <view slot="tags" class="tags">
-                    <span wx:for="{{item.sku}}" wx:for-item="skuItem" wx:key="optionId">
-                      {{skuItem.optionName}}:{{skuItem.optionValueName}},
-                    </span>
-                  </view>
-                  <!-- <view slot="num" class="noStores" v-if="item.stores == 0">
-                    无货
-                  </view> -->
-                  <view slot="num">
+                  <view slot="footer">
                     <van-stepper
                       input-width="44rpx" button-size="44rpx"
                       disabled="{{item.stores == 0?true:false}}"
@@ -62,49 +54,16 @@
               <span class="remove" bindtap="removeOld">清空失效商品</span>
             </view>
           </view>
-          <!-- <view class="list-item" v-for="(item, index) in oldGoods" :key="item.key">
-              <view class="listNoMore">
-                <view><van-tag round>失效</van-tag></view>
-                <van-card :title="item.name"
-                  :class="item.stores == 0?'noMore':''"
-                  :desc="item.propTitle"
-                  :price="item.price.toFixed(2)"
-                  :thumb="item.pic">
-                  <view slot="tags" class="tags">
-                    <span v-for="skuItem in item.sku" :key="skuItem.optionId">
-                      {{skuItem.optionName}}:{{skuItem.optionValueName}},
-                    </span>
-                  </view>
-                  <view slot="num">
-                    商品库存不足
-                  </view>
-                </van-card>
-              </view>
-              <template slot="right">
-                <view class='right'>
-                  <van-button square bindtap="deleteOne(item)" color="linear-gradient(to right, #EF9A9A, #D32F2F)" text="删除" />
-                  <van-button square color="linear-gradient(to right, #FFEB3B, #FFA726" text="收藏"/>
-                </view>
-              </template>
-          </view> -->
         </view>
       </view>
       <!-- 结算栏 -->
-      <van-submit-bar wx:if="{{statusTip === '管理'}}"
+      <van-submit-bar
         class="submit-bar"
         price="{{totalPrice}}"
         button-text="{{submitBarText}}"
         disabled="{{!checkedGoods.length}}"
         bind:submit="onSubmit">
         <van-checkbox checked-color="#ff4444" icon-size="32rpx" value="{{checkedAll}}" bind:change="changeAll">全选</van-checkbox>
-      </van-submit-bar>
-      <!-- 删除栏 -->
-      <van-submit-bar wx:else
-        class="delete-bar"
-        button-text="删除"
-        :disabled="!checkedGoods.length"
-        bind:submit="onDeleteClicked">
-        <van-checkbox value="{{checkedAll}}" bind:change="changeAll">全选</van-checkbox>
       </van-submit-bar>
       <view class="no-data"
         wx:if="{{!goods.length || !loginUser}}">

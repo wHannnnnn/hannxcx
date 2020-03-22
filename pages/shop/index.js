@@ -118,6 +118,9 @@ Page({
     })
   },
   goDetails(e){
+    wx.showLoading({
+      title: '加载中',
+    })
     wx.navigateTo({
       url: `/pages/goods-details/index?id=${e.currentTarget.dataset.id}`,
     })
@@ -171,9 +174,13 @@ Page({
       }
     })
   },
-  submit(){
-    this.data.checkedGoods.forEach((ele) => {
-      // this.goods.      
+  onSubmit(){
+    const arr = this.data.goods.filter((ele) => {
+      return this.data.checkedGoods.indexOf(ele.key) != -1  
+    })
+    const shopdata = JSON.stringify(arr)
+    wx.navigateTo({
+      url: `/pages/place-order/index?shopdata=${shopdata}`,
     })
   },
   /**

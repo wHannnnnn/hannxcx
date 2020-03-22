@@ -1,1 +1,94 @@
-/* pages/place-order/index.wxss */
+.placeOrder .content {
+  margin-bottom: 160rpx
+}
+.placeOrder .content .address {
+    margin-bottom: 20rpx;
+}
+.placeOrder .content .address .addressList {
+    font-size: 24rpx
+}
+.placeOrder .content .subTotal .addressList{
+  display: flex;
+  justify-content: flex-end;
+}
+.placeOrder .content .subTotal .logistics_con .con_center .logistics{
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}
+.placeOrder .content .details .addressList .con_top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 24rpx;
+}
+.placeOrder .content .details .addressList .con_top .left {
+    width: 160rpx;
+    height: 160rpx;
+}
+.placeOrder .content .details .addressList .con_top .left image {
+    width: 100%;
+    height: 100%
+}
+.placeOrder .content .details .addressList .con_top .center {
+    flex: 1;
+    padding: 0 20rpx;
+}
+.placeOrder .content .details .addressList .con_top .center .property span{
+    background: #f5f5f5;
+    display: inline-block;
+    padding: 4rpx;
+    color: #9e9e9e
+}
+.placeOrder .content .details .addressList .con_top .center .time {
+    color: #ff9800
+}
+.placeOrder .content .details .addressList .con_top .right .bottom{
+    text-align: right
+}
+.placeOrder .content .details .addressList .con_bottom {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 24rpx;
+    margin-top: 10rpx;
+}
+.placeOrder .content .details .addressList .con_bottom .allNumber {
+    color: #9e9e9e;
+    margin-right: 10rpx
+}
+.placeOrder .content .details .addressList .con_bottom .allPrice {
+    color: #e7352c;
+}
+.placeOrder .discounts {
+    font-size: 24rpx;
+}
+.placeOrder .discounts .dis_right .van-icon {
+    margin-left: 4rpx;
+    margin-top: -2rpx
+}
+.placeOrder .van-submit-bar__bar {
+    height: 100rpx;
+    padding: 0 32rpx;
+    font-size: 28rpx;
+}
+.placeOrder .van-submit-bar__bar .van-checkbox__label {
+    margin-left: 16rpx;
+    line-height: 40rpx;
+}
+.placeOrder .van-submit-bar__bar .van-submit-bar__button {
+    width: 220rpx;
+    height: 72rpx;
+    line-height: 72rpx;
+    font-size: 24rpx
+}
+.placeOrder .van-action-sheet__content p {
+    padding: 20rpx;
+}
+.placeOrder .van-submit-bar__text {
+    padding-right: 24rpx;
+}
+.placeOrder .van-submit-bar__text .van-submit-bar__price {
+    font-size: 24rpx;
+}
+.placeOrder .van-submit-bar__text .van-submit-bar__price .van-submit-bar__price--integer {
+    font-size: 40rpx
+}
