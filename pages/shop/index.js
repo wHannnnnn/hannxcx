@@ -23,7 +23,6 @@ Page({
     },
     totalPrice(data) {
       const price = data.goods.reduce((total, item) => total + (data.checkedGoods.indexOf(item.key) !== -1 ? item.price * item.number : 0), 0)
-      console.log(price)
       return parseFloat((price * 100).toFixed(2))
     },
     buyGoods(data) {

@@ -92,3 +92,6 @@
 .placeOrder .van-submit-bar__text .van-submit-bar__price .van-submit-bar__price--integer {
     font-size: 40rpx
 }
+.placeOrder .van-action-sheet {
+  height: 60%
+}

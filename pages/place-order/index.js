@@ -50,7 +50,7 @@ Page({
       arr.forEach(val => {
         price += val
       })
-      return price
+      return price.toFixed(2)
     },
     allNumber(data) {
       var number = 0
@@ -60,6 +60,11 @@ Page({
       return number
     }
   },
+  goAddress(){
+    wx.navigateTo({
+      url: '/pages/address/index',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -67,10 +72,8 @@ Page({
     this.setData({
       allOrderData: JSON.parse(options.shopdata)
     },function(){
-      
+      this.myDiscounts()
     })
-    this.getDefaultAddress()
-    this.myDiscounts()
   },
 
   /**
@@ -84,22 +87,23 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.getDefaultAddress()
   },
   // 默认地址
   getDefaultAddress() {
     wx.showLoading({
       title: '加载中',
     })
-    if (this.data.addressId) {
-      WXAPI.addressDetail().then((res) => {
+    if (wx.getStorageSync("addressId")) {
+      WXAPI.addressDetail({ id: wx.getStorageSync("addressId")}).then((res) => {
         if (res.data.code == 0) {
           this.setData({
-            defaultAddress: res.data.data.info
+            defaultAddress: res.data.data.info,
+            addAddressShow: false
           })
         } else {
           this.setData({
-            addAddressShow: false
+            addAddressShow: true
           })
         }
         wx.hideLoading()
@@ -193,9 +197,14 @@ Page({
     // 下单接口
     WXAPI.creatOrder(pushData).then((res) => {
       if (res.data.code == 0) {
-
+        wx.showToast({
+          title: '暂不支持支付 请联系管理员支付',
+        })
       } else {
-      }
+        wx.showToast({
+          title: res.data.msg,
+        })
+      } 
       wx.hideLoading()
       // 支付接口再说
     })

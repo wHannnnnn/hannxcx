@@ -1,3 +1,6 @@
+.cart .content {
+  margin-bottom: 140rpx
+}
 .cart .list-item {
   position: relative;
   background-color: #fff;
@@ -105,13 +108,13 @@
 
 .cart .list-item .van-card__bottom .van-stepper .van-stepper__input{
   font-size: 24rpx;
-  background-color: transparent; 
+  /* background-color: transparent;  */
 }
 .cart .list-item .van-card__bottom .van-stepper .van-stepper__minus, .cart .list-item .van-card__bottom .van-stepper .van-stepper__plus {
-  background-color: #FFF;
+  /* background-color: #FFF;
   border-radius: 50%;
   border: 1rpx solid #e6dcdc;
-  color: #333
+  color: #333 */
 }
 
 .cart .list_top {

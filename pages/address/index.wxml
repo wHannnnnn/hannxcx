@@ -3,7 +3,7 @@
         <view class="content">
             <van-cell>
                 <view slot="title">
-                    <view class="addressList" bindlongpress="deleteAddress" data-id="{{item.id}}" wx:for="{{addressList}}" wx:key="id">
+                    <view class="addressList" bindlongpress="deleteAddress" bindtap="changeAddress" data-id="{{item.id}}" wx:for="{{addressList}}" wx:key="id">
                         <view class="top">
                             <van-row>
                                 <van-col span="4" class="userName van-ellipsis">{{item.linkMan}}</van-col>

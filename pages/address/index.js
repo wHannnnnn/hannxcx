@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    addressList: []
+    addressList: [],
+    fromOrder: null
   },
   getAddress() {
     WXAPI.getAddress().then((res) => {
@@ -68,11 +69,22 @@ Page({
       }
     })
   },
+  changeAddress(e){
+    wx.setStorageSync('addressId', e.currentTarget.dataset.id)
+    wx.navigateBack()
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let pages = getCurrentPages();//页面对象
+    let prevpage = pages[pages.length - 2];//上一个页面对象
+    if (prevpage.route == 'pages/place-order/index'){
+      this.setData({
+        fromOrder: true
+      })
+    }
+    console.log(prevpage.route)
   },
 
   /**

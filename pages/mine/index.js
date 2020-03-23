@@ -64,6 +64,12 @@ Page({
       }
     })
   },
+  // 去订单列表页
+  goOrderList(e){
+    wx.navigateTo({
+      url: `/pages/order-list/index?status=${e.currentTarget.dataset.status}`,
+    })
+  },
   // 我的优惠券
   myDiscounts() {
     WXAPI.myDiscounts().then((res) => {

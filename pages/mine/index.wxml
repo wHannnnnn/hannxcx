@@ -14,9 +14,6 @@
         </view>
     </view>
     <view class="money margin-bottom">
-      <!-- <view class="money_top top_title">
-        <span class="top_left">我的资产</span>
-      </view> -->
       <van-grid column-num="3" border="{{ false }}">
         <van-grid-item use-slot>
           <view class="number">0</view>

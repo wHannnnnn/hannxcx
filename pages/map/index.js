@@ -45,7 +45,6 @@ Page({
         longitude: options.longitude
       },
       success: function (res) {
-        //console.log(res)
         self.setData({
           latitude: options.latitude,
           longitude: options.longitude,
@@ -66,7 +65,6 @@ Page({
     if (e.type == 'end' && (e.causedBy == 'scale' || e.causedBy == 'drag')) {
       self.mapCtx.getCenterLocation({
         success: function (res) {
-          //console.log(res)
           self.setData({
             nearList: [],
             latitude: res.latitude,

@@ -30,7 +30,7 @@
                   desc="{{item.propTitle}}"
                   price="{{item.price}}"
                   thumb="{{item.pic}}">
-                  <view slot="footer">
+                  <view slot="num">
                     <van-stepper
                       input-width="44rpx" button-size="44rpx"
                       disabled="{{item.stores == 0?true:false}}"
