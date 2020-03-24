@@ -1,2 +1,87 @@
 <!--pages/order-detail/index.wxml-->
-<text>pages/order-detail/index.wxml</text>
+    <view class="orderDetail">
+        <view class="content" wx:if="{{orderDetail.orderInfo}}">
+            <view class="detail_type">{{orderDetail.orderInfo.statusStr}}
+                <van-count-down wx:if="{{orderDetail.orderInfo.status == 0}}" time="{{time}}" />
+            </view>
+            <view class="detail_address">
+                <van-cell icon="location-o">
+                    <view slot="title">
+                        <view class="addressList">
+                            <view class="top">
+                                <van-row>
+                                    <van-col span="6" class="userName van-ellipsis">{{orderDetail.logistics.linkMan}}</van-col>
+                                    <van-col span="6" offset="2" class="phone">{{orderDetail.logistics.mobile}}</van-col>
+                                </van-row>
+                            </view>
+                            <view class="bottom">
+                                <van-row>
+                                    <van-col span="21" class="addressDetail">{{orderDetail.logistics.address}}{{orderDetail.logistics.code}}</van-col>
+                                </van-row>
+                            </view>
+                        </view>
+                    </view>
+                </van-cell>
+            </view>
+            <view class="allData">
+                <view class="orderData" wx:for="{{orderDetail.goods}}" wx:key="id">
+                    <view class="data_top">
+                        <view class="order_delete">
+                        </view>
+                    </view>
+                    <view class="data_center" data-id="{{item.goodsId}}" bindtap="goDetails">
+                        <view class="data_img">
+                            <view class="data_img_con" >
+                                <image class="weui-media-box__thumb" mode="aspectFill" lazy-load="true" src="{{item.pic}}" alt></image>
+                            </view>
+                        </view>
+                        <view class="data_info">
+                            <view class="info_title">{{item.goodsName}}</view>
+                            <view class="info_property">数量：{{item.number}}， {{item.property}}</view>
+                            <view class="info_price">￥{{item.amount}}</view>
+                        </view>
+                    </view>
+                    <view class="data_bottom">
+                        <van-button type="default" wx:if="{{orderDetail.orderInfo.status!== -1 && orderDetail.orderInfo.status !== 0}}" bindtap='goRefundApply'>申请售后</van-button>
+                        <van-button type="default" data-id="{{item.goodsId}}" bindtap="goDetails">再次购买</van-button>
+                    </view>
+                </view>
+            </view>
+            <view class="order_info">
+                <view class="order_info_con">
+                    <span class="order_info_title">订单编号:</span>
+                    <span class="order_info_right">{{orderDetail.orderInfo.orderNumber}}</span>
+                </view>
+                <view class="order_info_con" wx:for="{{orderDetail.logs}}" wx:key="id">
+                    <span class="order_info_title">{{item.typeStr}}时间:</span>
+                    <span class="order_info_right">{{item.dateAdd}}</span>
+                </view>
+                <view class="order_info_con" wx:if="{{orderDetail.logistics.shipperName}}">
+                    <span class="order_info_title">配送方式:</span>
+                    <span class="order_info_right">{{orderDetail.logistics.shipperName}}</span>
+                </view>
+            </view>
+            <view class="order_price">
+                <view class="order_info_con">
+                    <span class="order_info_title">商品总额</span>
+                    <span class="order_info_right">￥{{orderDetail.orderInfo.amount}}</span>
+                </view>
+                <view class="order_info_con">
+                    <span class="order_info_title">运费</span>
+                    <span class="order_info_right">+ ￥{{orderDetail.orderInfo.amountLogistics}}</span>
+                </view>
+                <view class="real">
+                    <span class="realName">实付款:</span>
+                    <span class="realPrice">
+                        <span>￥</span>{{orderDetail.orderInfo.amountReal}}
+                    </span>
+                </view>
+            </view>
+        </view>
+        <view class="order_bottom" wx:if="{{orderDetail.orderInfo}}" data-id="{{orderDetail.orderInfo.id}}">
+            <van-button type="default" style="margin: 0 20rpx" wx:if="{{orderDetail.orderInfo.status !== 1 && orderDetail.orderInfo.status !==2}}" bindtap="deleteOrder">删除订单</van-button>
+            <van-button type="default" wx:if="{{orderDetail.orderInfo.status == 0}}" bindtap="closeOrder">取消订单</van-button>
+            <van-button type="default" wx:if="{{orderDetail.orderInfo.status == 3}}" bindtap='goReputation'>追加评价</van-button>
+            <van-button type="default" class="buyagain" wx:if="{{orderDetail.orderInfo.status == 2}}" catchtap='orderDelivery'>确认收货</van-button>
+        </view>
+    </view>

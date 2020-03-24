@@ -1,1 +1,147 @@
-/* pages/order-detail/index.wxss */
+.orderDetail .content {
+  margin-bottom: 140rpx
+}
+.orderDetail .content .detail_type {
+    padding: 40rpx;
+    background: #fff;
+    margin-bottom: 20rpx;
+}
+.orderDetail .content .detail_type .van-count-down {
+    color: #e7352c
+}
+.orderDetail .content .detail_address {
+    margin-bottom: 20rpx
+}
+.orderDetail .content .van-cell__left-icon, .van-cell__right-icon {
+    margin-right: 10rpx;
+    height: 48rpx;
+    line-height: 60rpx;
+    font-size: 32rpx
+}
+.orderDetail .content .allData {
+    background: #fff;
+}
+.orderDetail .content .allData .orderData {
+    padding: 20rpx;
+    background: #fff;
+    margin-bottom: 20rpx;
+    border-bottom: 1rpx solid #eee
+}
+.orderDetail .content .allData .orderData .data_top {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20rpx;
+}
+.orderDetail .content .allData .orderData .data_top .order_delete {
+    font-size: 28rpx
+}
+.orderDetail .content .allData .orderData .data_center{
+    display: flex;
+    align-items: center;
+}
+.orderDetail .content .allData .orderData .data_center .data_img {
+    width: 140rpx;
+    /* overflow: auto; */
+    margin-right: 20rpx;
+}
+.orderDetail .content .allData .orderData .data_center .data_img .data_img_con {
+    width: 140rpx;
+    height: 140rpx;
+    margin-right: 10rpx;
+    border-radius: 6rpx;
+    overflow: hidden;
+}
+.orderDetail .content .allData .orderData .data_center .data_img .data_img_con image {
+    width: 100%;
+    height: 100%
+}
+.orderDetail .content .allData .orderData .data_center .data_info {
+    flex: 1;
+}
+.orderDetail .content .allData .orderData .data_center .data_info .info_title,.orderDetail .content .allData .orderData .data_center .data_info .info_property,.orderDetail .content .allData .orderData .data_center .data_info .info_price {
+    /* height: 30rpx;
+    line-height: 30rpx */
+}
+.orderDetail .content .allData .orderData .data_center .data_info .info_property {
+    color: #b1b1b1;
+    margin-top: 6rpx
+}
+.orderDetail .content .allData .orderData .data_center .data_info .info_price {
+    margin-top: 20rpx
+}
+.orderDetail .content .allData .orderData .data_bottom {
+    display: flex;
+    justify-content: flex-end;
+}
+.orderDetail .content .allData .orderData .data_bottom .van-button {
+    border-radius: 20rpx;
+    height: 48rpx;
+    line-height: 42rpx;
+    padding: 0 20rpx;
+    font-size: 24rpx;
+    border: 1rpx solid #c5c5c5;
+    margin-right: 20rpx
+}
+.orderDetail .content .order_info{
+    padding: 20rpx;
+    background: #fff;
+}
+.orderDetail .content .order_info .order_info_con {
+    height: 40rpx;
+    line-height: 40rpx;
+    margin-bottom: 10rpx;
+}
+.orderDetail .content .order_info .order_info_con .order_info_title {
+    color: #828282;
+    margin-right: 40rpx
+}
+.orderDetail .content .order_price {
+    padding: 20rpx;
+    background: #fff;
+}
+.orderDetail .content .order_price .order_info_con {
+    height: 40rpx;
+    line-height: 40rpx;
+    margin-bottom: 10rpx;
+    display: flex;
+    justify-content: space-between;
+}
+.orderDetail .content .order_price .order_info_con .order_info_title {
+    color: #828282;
+}
+.orderDetail .content .order_price .real {
+    display: flex;
+    justify-content: flex-end;
+}
+.orderDetail .content .order_price .real .realName {
+    margin-right: 10rpx
+}
+.orderDetail .content .order_price .real .realPrice {
+    color: #e7352c;
+    font-size: 36rpx;
+}
+.orderDetail .content .order_price .real .realPrice span {
+    font-size: 24rpx
+}
+.orderDetail .order_bottom {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 100rpx;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.orderDetail .order_bottom .van-button {
+    height: 54rpx;
+    line-height: 42rpx;
+    border-radius: 30rpx;
+    color: #646566;
+    padding: 0 30rpx;
+    font-size: 24rpx;
+    margin-right: 20rpx;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+}

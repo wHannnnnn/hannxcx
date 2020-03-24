@@ -1,7 +1,6 @@
 <!--component/alldata/index.wxml-->
-    <view>
-    ax
-        <view class="orderData" wx:for="{{alldata.orderList}}" wx:key="item.id">
+    <view class="allList">
+        <view class="orderData" wx:for="{{alldata.orderList}}" wx:key="id">
             <view class="data_top">
                 <view class="order_delete">
                     <span class="status">{{item.statusStr}}</span>
@@ -9,27 +8,30 @@
                 </view>
             </view>
             <view class="data_center" data-id="{{item.id}}" bindtap="goOrderDetail">
-                <view class="data_img">
-                    <view class="data_img_con" wx:for="{{alldata.goodsMap[item.id]}}" wx:for-item="{{imgItem}}" wx:for-index="{{imgIndex}}" wx:key="imgIndex">
-                        <image class="weui-media-box__thumb" mode="aspectFill" lazy-load="true" src="{{imgItem.pic}}" alt></image>
+                    <view class="data_img">
+                      <scroll-view scroll-x="true">
+                        <view style="white-space: nowrap;">
+                          <view class="data_img_con" wx:for="{{alldata.goodsMap[item.id]}}" wx:for-item="imgItem" wx:for-index="{{imgIndex}}" wx:key="id">
+                              <image class="weui-media-box__thumb" mode="aspectFill" lazy-load="true" src="{{imgItem.pic}}" alt></image>
+                          </view>
+                        </view>
+                      </scroll-view>
                     </view>
-                </view>
                 <view class="data_title" wx:if="{{alldata.goodsMap[item.id].length==1}}">
                     {{alldata.goodsMap[item.id][0].goodsName}}
                 </view>
                 <view class="price">
                     <view class="price_top">
                         <span class="first">￥</span>
-                        <span class="second">{{item.amount.toFixed(2)}}</span>
+                        <span class="second">{{item.amount}}</span>
                     </view>
                     <view class="price_bottom">共{{item.goodsNumber}}件</view>
                 </view>
             </view>
             <view class="data_bottom">
                 <van-button type="default" wx:if="{{item.status == 3}}" data-id="{{item.id}}" catchtap='goReputation'>评价服务</van-button>
-                <van-button type="default" wx:if="{{item.status==0}}">取消订单</van-button>
                 <van-button type="default" class="buyagain" wx:if="{{item.status!==1&& item.status!==2}}" data-id="{{item.id}}" data-index="{{index}}" bindtap='deleteOrder'>删除订单</van-button>
-                <van-button type="default" data-id="{{item.id}}" bindtap="goOrderDetail">查看订单</van-button>
+                <van-button type="default" data-id="{{item.id}}" data-index="{{index}}" bindtap="goOrderDetail">查看订单</van-button>
                 <van-button type="default" class="buyagain" wx:if="{{item.status == 2}}" data-id="{{item.id}}" data-index="{{index}}" catchtap='orderDelivery'>确认收货</van-button>
             </view>
         </view>

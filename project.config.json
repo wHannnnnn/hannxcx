@@ -96,6 +96,12 @@
 					"pathName": "pages/place-order/index",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/order-list/index",
+					"pathName": "pages/order-list/index",
+					"scene": null
 				}
 			]
 		}

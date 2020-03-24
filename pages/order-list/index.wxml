@@ -3,22 +3,22 @@
         <div class="content">
             <van-tabs active="{{active}}" animated='true' bind:change="tabChange" sticky>
                 <van-tab title="全部" name="4">
-                    <alldata alldata="{{allData}}"/>
+                    <alldata bind:update="dataUpdate" bind:deliveryUpdate="deliveryUpdate" alldata="{{allData}}"/>
                 </van-tab>
                 <van-tab title="待付款" name="0">
-                    <alldata alldata="{{allData}}"/>
+                    <alldata bind:update="dataUpdate" bind:deliveryUpdate="deliveryUpdate" alldata="{{allData}}"/>
                 </van-tab>
                 <van-tab title="待发货" name="1">
-                    <alldata alldata="{{allData}}"/>
+                    <alldata bind:update="dataUpdate" bind:deliveryUpdate="deliveryUpdate" alldata="{{allData}}"/>
                 </van-tab>
                 <van-tab title="待收货" name="2">
-                    <alldata alldata="{{allData}}"/>
+                    <alldata bind:update="dataUpdate" bind:deliveryUpdate="deliveryUpdate" alldata="{{allData}}"/>
                 </van-tab>
                 <van-tab title="待评价" name="3">
-                    <alldata alldata="{{allData}}"/>
+                    <alldata bind:update="dataUpdate" bind:deliveryUpdate="deliveryUpdate" alldata="{{allData}}"/>
                 </van-tab>
                 <van-tab title="已取消" name="-1">
-                    <alldata alldata="{{allData}}"/>
+                    <alldata bind:update="dataUpdate" bind:deliveryUpdate="deliveryUpdate" alldata="{{allData}}"/>
                 </van-tab>
             </van-tabs>
         </div>
