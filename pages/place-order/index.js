@@ -2,9 +2,8 @@
 const app = getApp()
 const WXAPI = require('../../utils/request.js')
 import computedBehavior from '../../miniprogram_npm/miniprogram-computed/index.js'
-const watchBehavior = require("../../miniprogram_npm/miniprogram-watch/index.js")
 Page({
-  behaviors: [computedBehavior, watchBehavior],
+  behaviors: [computedBehavior],
   /**
    * 页面的初始数据
    */

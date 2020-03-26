@@ -13,7 +13,8 @@
     "pages/order-detail/index",
     "pages/place-order/index",
     "pages/start/index",
-    "component/alldata/index"
+    "component/alldata/index",
+    "pages/order-reputation/index"
   ],
   "permission": {
     "scope.userLocation": {

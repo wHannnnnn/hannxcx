@@ -61,5 +61,33 @@ const post = (url, data) => {
     })
   })
 }
+const file = (url, data) => {
+  return new Promise((resolve, reject) => {
+    wx.request({
+      method: 'POST',
+      url: host + url,
+      data: data,
+      header: {
+        "content-type": 'multipart/form-data'
+      },
+      success: (res) => {
+        if (res.data.code == 2000) {
+          // 授权
+          app.globalData.loginTrue = false
+        }
+        resolve(res)
+      },
+      fail: (e) => {
+        wx.showToast({
+          title: '网络不太好呀~~',
+          icon: 'none',
+          duration: 2000
+        })
+        reject(e);
+      }
+    })
+  })
+}
 module.exports.get = get
 module.exports.post = post
+module.exports.file = file

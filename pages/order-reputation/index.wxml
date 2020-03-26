@@ -1,0 +1,47 @@
+<view class="reputation">
+      <van-nav-bar fixed>
+          <view slot="right" bindtap="submit">提交</view>
+      </van-nav-bar>
+    <view class="content">
+        <view class="shopList" wx:for="{{orderDetail.goods}}" wx:key="id">
+            <view class="repu_top">
+                <view class="shop_pic">
+                    <image class="weui-media-box__thumb" mode="aspectFit" lazy-load="true" src="{{item.pic}}" alt></image>
+                </view>
+                <view class="right_star">
+                    <!-- 组件 -->
+                    <view class="shop_name">{{item.goodsName}}</view>
+                    <view class="star_level">
+                        <van-rate
+                            count="3"
+                            value="{{item.reputation}}"
+                            void-icon="star"
+                            void-color="#eee"
+                            bind:change="rateChange"
+                            data-index="{{index}}"
+                        />
+                    </view>
+                </view>
+            </view>
+            <view class="repu_con">
+                <view class="repu_con_title">
+                    <van-field
+                        value="{{item.remark}}"
+                        rows="4"
+                        autosize
+                        label="评论"
+                        type="textarea"
+                        placeholder="请输入评论内容"
+                        maxlength="200"
+                        show-word-limit
+                        bind:change="fieldChange"
+                    />
+                </view>
+            </view>
+            <view class="repu_upload">
+                <van-uploader file-list="{{item.pics}}" multiple />
+                <view>添加图片/视频</view>
+            </view>
+        </view>
+    </view>
+</view>

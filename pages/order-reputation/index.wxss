@@ -1,0 +1,28 @@
+.reputation .content {
+  margin-top: 90rpx
+}
+.reputation .content .shopList {
+    background: #fff;
+    padding: 20rpx;
+    margin-bottom: 20rpx;
+}
+.reputation .content .shopList .repu_top {
+    display: flex;
+}
+.reputation .content .shopList .repu_top .shop_pic {
+    width: 100rpx;
+    height: 140rpx;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    margin-right: 20rpx;
+}
+.reputation .content .shopList .repu_top .shop_pic image{
+    width: 100%
+}
+.reputation .content .shopList .repu_top .right_star {
+    flex: 1
+}
+.reputation .content .shopList .repu_upload {
+    text-align: center
+}

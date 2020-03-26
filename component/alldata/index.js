@@ -64,7 +64,7 @@ Component({
             wx.showLoading({
               title: '请稍等',
             })
-            WXAPI.deleteOrder({ orderId: e.currentTarget.dataset.id }).then((res) => {
+            WXAPI.orderDelivery({ orderId: e.currentTarget.dataset.id }).then((res) => {
               if (res.data.code == 0) {
                 const params = {
                   index: e.currentTarget.dataset.index,
@@ -88,9 +88,16 @@ Component({
         }
       })
     },
+    // 详情页
     goOrderDetail(e){
       wx.navigateTo({
         url: `/pages/order-detail/index?orderId=${e.currentTarget.dataset.id}&orderIndex=${e.currentTarget.dataset.index}`,
+      })
+    },
+    // 评价                                                                                   
+    goReputation(e){
+      wx.navigateTo({
+        url: `/pages/order-reputation/index?id=${e.currentTarget.dataset.id}`,
       })
     }
   }
