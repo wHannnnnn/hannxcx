@@ -14,14 +14,17 @@ Page({
     arr: []
   },
   watch: {
-    counter(val, oldval) {
+    counter(val) {
       console.log(val)
       var number = 0
       this.data.orderDetail.goods.forEach((e, i) => {
         number += e.pics.length
       })
       if (val == number) {
-        this.submitNext(this.data.arr)
+        var this_ = this
+        setTimeout(function(){
+          this_.submitNext(this_.data.arr)
+        },500)
       }
     }
   },
@@ -41,7 +44,7 @@ Page({
         res.data.data.goods.forEach(ele => {
           ele.pics = []
           ele.remark = ''
-          ele.reputation = 1
+          ele.reputation = 3
         })
         this.setData({ orderDetail: res.data.data})
         // this.orderDetail = res.data.data
@@ -56,12 +59,27 @@ Page({
   // 提交
   rateChange(e){
     this.setData({
-      [`orderDetail[${e.currentTarget.dataset.index}].reputation`]: e.detail
+      [`orderDetail.goods[${e.currentTarget.dataset.index}].reputation`]: e.detail
     })
   },
   fieldChange(e){
     this.setData({
-      [`orderDetail[${e.currentTarget.dataset.index}].remark`]: e.detail
+      [`orderDetail.goods[${e.currentTarget.dataset.index}].remark`]: e.detail
+    })
+  },
+  // 选择图片
+  afterRead(e){
+    const imgList = this.data.orderDetail.goods[e.currentTarget.dataset.index].pics
+    this.setData({
+      [`orderDetail.goods[${e.currentTarget.dataset.index}].pics`]: imgList.concat(e.detail.file)
+    })
+  },
+  // 删除图片
+  deleteImg(e){
+    const imgList = this.data.orderDetail.goods[e.currentTarget.dataset.index].pics
+    imgList.splice(e.detail.index,1)
+    this.setData({
+      [`orderDetail.goods[${e.currentTarget.dataset.index}].pics`]: imgList
     })
   },
   submit() {
@@ -93,16 +111,14 @@ Page({
       this.submitNext(this.data.arr)
       return
     }
-    this.data.counter = 0
+    this.setData({ counter: 0 })
     this.data.orderDetail.goods.forEach((e, i) => {
       e.picArr = []
       e.pics.forEach(ele => {
-        console.log(ele)
-        let formData = new FormData()
-        formData.append('upfile', ele.file);
-        WXAPI.uploadFile(formData).then((res) => {
-          this.data.counter += 1
-          e.picArr.push(res.data.data.url)
+        WXAPI.uploadFile(ele.path).then((res) => {
+          const num = this.data.counter + 1
+          this.setData({ counter: num})
+          e.picArr.push(JSON.parse(res.data).data.url)
         })
       })
       var obj = {
@@ -125,6 +141,7 @@ Page({
         wx.showToast({
           title: '评论成功',
         })
+        wx.navigateBack()
       } else {
         wx.showToast({
           title: res.data.msg,

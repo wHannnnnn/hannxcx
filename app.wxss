@@ -3,7 +3,10 @@
 @import "miniprogram_npm/@vant/weapp/common/index.wxss";
 page {
   height: 100%;
-  background: #eee
+  background: #eee;
+}
+view {
+  font-size: 24rpx
 }
 .bottom .loadMore{
   padding: 10rpx;

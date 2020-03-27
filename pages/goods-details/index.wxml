@@ -53,13 +53,13 @@
             <view class="header_avatar"><image src="{{item.user.avatarUrl?item.user.avatarUrl:avatar}}" class="slide-image" mode="aspectFill" lazy-load="true"/></view>
             <view class="header_goods">
                 <view class="header_mobile">{{item.user.nick?item.user.nick:phoneReplace(item.user.mobile)}}</view>
-                <van-rate v-model="item.goods.goodReputation" readonly :count="3"/>
+                <van-rate value="{{item.goods.goodReputation}}" readonly count="3"/>
             </view>
         </view>
         <view class="repu_value van-multi-ellipsis--l2">{{item.goods.goodReputationRemark}}</view>
         <view class="picsList">
-            <view class="pics" wx:for="img in item.reputationPics" wx:key="img.id">
-                <image src="{{img.pic}}" class="slide-image" mode="aspectFill" lazy-load="true"/>
+            <view class="pics" wx:for="{{item.reputationPics}}" wx:for-item="img" wx:key="id">
+                <image src="{{img.pic}}" class="slide-image" mode="aspectFit" lazy-load="true"/>
             </view>
         </view>
         <view class="repu_property">{{item.goods.property}}</view>

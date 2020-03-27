@@ -1,6 +1,7 @@
 /* component/alldata/index.wxss */
 .allList {
     padding: 20rpx;
+    font-size: 28rpx
 }
 .orderData {
     border-radius: 30rpx;
@@ -11,7 +12,7 @@
 .orderData .data_top {
     display: flex;
     justify-content: flex-end;
-    padding: 20rpx 0 20rpx 20rpx;
+    padding: 10rpx 0 10rpx 10rpx;
 }
 .orderData .data_top .order_delete {
     font-size: 28rpx
@@ -27,6 +28,9 @@
     height: 40rpx;
     line-height: 40rpx;
     text-align: right;
+}
+.orderData .data_center .price .price_bottom {
+  margin-top: 10rpx
 }
 .orderData .data_center .price .price_top .second, .orderData .data_center .price .price_bottom .second{
     font-size: 38rpx
@@ -50,7 +54,9 @@
     height: 100%
 }
 .orderData .data_center .data_title {
-    width: 400rpx
+    width: 400rpx;
+    padding: 0 10rpx;
+  box-sizing: border-box;
 }
 .orderData .data_bottom {
     display: flex;

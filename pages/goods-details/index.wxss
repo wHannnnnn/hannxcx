@@ -69,6 +69,7 @@
     .details_discounts .discounts_con{
         display: flex;
         margin-bottom: 20rpx;
+        padding: 20rpx
     }
     .details_discounts .discounts_con .discounts_con_left {
         width: 140rpx;
@@ -111,7 +112,10 @@
     }
     .details .reputation_con{
         margin-bottom: 10rpx;
-        padding: 20rpx;
+    }
+    .details .van-panel {
+      padding: 20rpx;
+      box-sizing: border-box;
     }
     .details .reputation_con .reputation {
         display: flex;
@@ -148,6 +152,7 @@
     }
     .details .reputation_con .picsList .pics image {
         width: 100%;
+        height: 100%
     }
     .details .reputation_con .repu_property {
         padding: 20rpx;

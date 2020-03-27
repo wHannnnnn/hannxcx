@@ -63,13 +63,10 @@ const post = (url, data) => {
 }
 const file = (url, data) => {
   return new Promise((resolve, reject) => {
-    wx.request({
-      method: 'POST',
+    wx.uploadFile({
       url: host + url,
-      data: data,
-      header: {
-        "content-type": 'multipart/form-data'
-      },
+      filePath: data,
+      name: 'upfile',
       success: (res) => {
         if (res.data.code == 2000) {
           // 授权

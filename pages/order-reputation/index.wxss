@@ -1,5 +1,5 @@
 .reputation .content {
-  margin-top: 90rpx
+  padding-top: 90rpx
 }
 .reputation .content .shopList {
     background: #fff;
@@ -24,5 +24,6 @@
     flex: 1
 }
 .reputation .content .shopList .repu_upload {
-    text-align: center
+    text-align: center;
+    padding: 20rpx
 }

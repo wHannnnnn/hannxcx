@@ -27,19 +27,19 @@
                 <view class="repu_con_title">
                     <van-field
                         value="{{item.remark}}"
-                        rows="4"
                         autosize
                         label="评论"
                         type="textarea"
                         placeholder="请输入评论内容"
                         maxlength="200"
                         show-word-limit
+                        data-index="{{index}}"
                         bind:change="fieldChange"
                     />
                 </view>
             </view>
             <view class="repu_upload">
-                <van-uploader file-list="{{item.pics}}" multiple />
+                <van-uploader file-list="{{item.pics}}" data-index="{{index}}" bind:after-read="afterRead" bind:delete="deleteImg" preview-size="120rpx" multiple />
                 <view>添加图片/视频</view>
             </view>
         </view>
