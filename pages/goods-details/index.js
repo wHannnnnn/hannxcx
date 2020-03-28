@@ -44,6 +44,10 @@ Page({
     });
   },
   onLoad: function (options) {
+    wx.showModal({
+      title: '邀请人Id',
+      content: options.referrer,
+    })
       this.setData({
         shopId: options.id
       })
@@ -82,6 +86,12 @@ Page({
           reputation: res.data.data
         })
       }
+    })
+  },
+  // 去评论页
+  goReputation(){
+    wx.navigateTo({
+      url: `/pages/reputation-list/index?goodsId=${this.data.shopId}`,
     })
   },
   //获取优惠券列表
@@ -164,6 +174,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: 'hann的小店',
+      path: `/pages/goods-details/index?id=${this.data.shopId}&referrer=${wx.getStorageSync('uid')}`
+    }
   }
 })

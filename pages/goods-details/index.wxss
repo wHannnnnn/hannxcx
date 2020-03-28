@@ -121,8 +121,8 @@
         display: flex;
     }
     .details .reputation_con .reputation .header_avatar {
-        width: 100rpx;
-        height: 100rpx;
+        width: 60rpx;
+        height: 60rpx;
         border-radius: 50%;
         overflow: hidden;
         margin-right: 10rpx;
@@ -140,15 +140,14 @@
         overflow-x: auto;
     }
     .details .reputation_con .picsList .pics {
-        width: 200rpx;
-        height: 200rpx;
+        width: 140rpx;
+        height: 140rpx;
         display: flex;
         align-items: center;
         flex-shrink: 0;
         overflow: hidden;
         margin-right: 10rpx;
         border-radius: 10rpx;
-        display: inline-block;
     }
     .details .reputation_con .picsList .pics image {
         width: 100%;

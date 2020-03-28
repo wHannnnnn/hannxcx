@@ -83,3 +83,6 @@ button[type="default"]{
 .container .weui-cell {
   padding: 16rpx 40rpx
 }
+.van-switch__node {
+  font-size: 50rpx
+}

@@ -73,13 +73,13 @@
     display: flex;
     justify-content: flex-end;
 }
-.orderDetail .content .allData .orderData .data_bottom .van-button {
-    border-radius: 20rpx;
+.orderDetail .content .allData .orderData .data_bottom .van-grid {
+    /* border-radius: 20rpx;
     height: 48rpx;
     line-height: 42rpx;
     padding: 0 20rpx;
     font-size: 24rpx;
-    border: 1rpx solid #c5c5c5;
+    border: 1rpx solid #c5c5c5; */
     margin-right: 20rpx
 }
 .orderDetail .content .order_info{
@@ -112,6 +112,7 @@
 .orderDetail .content .order_price .real {
     display: flex;
     justify-content: flex-end;
+    align-items: center
 }
 .orderDetail .content .order_price .real .realName {
     margin-right: 10rpx
@@ -133,6 +134,8 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    padding: 0 10rpx;
+    box-sizing: border-box
 }
 .orderDetail .order_bottom .van-button {
     height: 54rpx;

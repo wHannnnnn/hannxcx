@@ -1,0 +1,48 @@
+.allReputation .reputation_con{
+    /* margin-bottom: 10rpx;
+    padding: 20rpx; */
+}
+.allReputation .van-panel{
+  padding: 20rpx;
+  border-radius: 8rpx;
+}
+.allReputation .reputation_con .reputation {
+    display: flex;
+}
+.allReputation .reputation_con .reputation .header_avatar {
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10rpx;
+}
+.allReputation .reputation_con .reputation .header_avatar image {
+    width: 100%;
+    height: 100%
+}
+.allReputation .reputation_con .repu_value {
+    line-height: 40rpx;
+    margin: 20rpx
+}
+.allReputation .reputation_con .picsList {
+    display: flex;
+    overflow-x: auto;
+}
+.allReputation .reputation_con .picsList .pics {
+    width: 140rpx;
+    height: 140rpx;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    margin-right: 10rpx;
+    border-radius: 10rpx;
+    /* display: inline-block; */
+}
+.allReputation .reputation_con .picsList .pics image {
+    width: 100%;
+    height: 100%
+}
+.allReputation .reputation_con .repu_property {
+    padding: 20rpx;
+}

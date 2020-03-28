@@ -81,7 +81,7 @@
         <view class="order_bottom" wx:if="{{orderDetail.orderInfo}}" data-id="{{orderDetail.orderInfo.id}}">
             <van-button type="default" style="margin: 0 20rpx" wx:if="{{orderDetail.orderInfo.status !== 1 && orderDetail.orderInfo.status !==2}}" bindtap="deleteOrder">删除订单</van-button>
             <van-button type="default" wx:if="{{orderDetail.orderInfo.status == 0}}" bindtap="closeOrder">取消订单</van-button>
-            <van-button type="default" wx:if="{{orderDetail.orderInfo.status == 3}}" bindtap='goReputation'>追加评价</van-button>
+            <van-button type="default" wx:if="{{orderDetail.orderInfo.status == 3}}" bindtap='goReputation'>去评价</van-button>
             <van-button type="default" class="buyagain" wx:if="{{orderDetail.orderInfo.status == 2}}" catchtap='orderDelivery'>确认收货</van-button>
         </view>
     </view>

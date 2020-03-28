@@ -13,7 +13,7 @@ Page({
     active: null,
     changeIndex: -1,
     pageNum: 1,
-    pageSize: 10,
+    pageSize: 2,
     categoryId: null,
     shopList: [],
     hideBottom: true,
@@ -71,8 +71,8 @@ Page({
     this.setData({
       pageNum: 1,
       shopList: [],
-      hideBottom: true,
       loadMoreData: '加载中...',
+      noLoad: false,
       changeIndex: '-1',
       categoryId: e.detail.name
     },function(){
@@ -87,8 +87,8 @@ Page({
     this.setData({
       pageNum: 1,
       shopList: [],
-      hideBottom: true,
       loadMoreData: '加载中...',
+      noLoad: false,
       changeIndex: e.currentTarget.dataset.index+'',
       categoryId: e.currentTarget.dataset.id
     },function(){
@@ -120,7 +120,7 @@ Page({
           })
         }
       }
-      if(res.data.code == 700 && this.data.shopList.length <= 0) {
+      if(res.data.code == 700) {
         this.setData({
           hideBottom: false,
           loadMoreData: '已经到底了，看看其他分类吧~~'

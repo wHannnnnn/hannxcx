@@ -158,8 +158,10 @@ Page({
     })
   },
   // 去评价
-  goReputation(id) {
-    // this.$router.push({ path: '/orderReputation', query: { id: id } })
+  goReputation() {
+    wx.navigateTo({
+      url: `/pages/order-reputation/index?id=${this.data.orderId}&orderIndex=${this.data.orderIndex}&detail=true`,
+    })
   },
   goRefundApply() {
     wx.showToast({

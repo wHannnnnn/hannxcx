@@ -30,7 +30,8 @@
     color: #333;
 }
 .mine .mine_top .right .userName {
-    height: 60rpx
+    height: 60rpx;
+    font-size: 36rpx
 }
 .mine .mine_top .right .level {
     font-size: 24rpx;

@@ -15,29 +15,51 @@ Page({
       goodsMap: {},
       logisticsMap: {}
     },
-    changeData: null
+    changeData: null,
+    errorShow: false,
+    hideBottom: true,
+    noLoad: false,
+    loadMoreData: '加载中……' 
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({ title: '加载中', })
     options.status ? this.setData({ active: options.status }) : this.setData({ active: '4' })
     var this_ = this
     setTimeout(function(){
      this_.getOrderList(options.status)
     },1000)
   },
+  // 上拉加载
+  onReachBottom() {
+    if (this.data.noLoad) {
+      return
+    }
+    this.getOrderList(this.data.active)
+  },
+  // 再次点击加载
+  loadMore() {
+    this.setData({
+      errorShow: false,
+    })
+    this.getOrderList(this.data.active)
+  },
   tabChange(e) {
     wx.showLoading({title: '加载中',})
-    // this.$router.replace({ path: '/orderList', query: { status: e.detail.name } })
     this.setData({
       ['allData.orderList']: [],
       ['allData.goodsMap']: {},
       ['allData.logisticsMap']: {},
+      active: e.detail.name,
+      noLoad: false,
+      loadMoreData: '加载中...',
       page: 1
+    },function(){
+      this.getOrderList(e.detail.name)
     })
-    this.getOrderList(e.detail.name)
   },
   getOrderList(status) {
     var params = {
@@ -47,24 +69,29 @@ Page({
     }
     WXAPI.orderList(params).then((res) => {
       if (res.data.code == 0) {
-        // const newdata = this.data.allData
-        // newdata.orderList = this.data.allData.orderList.concat(res.data.data.orderList)
-        // newdata.goodsMap = Object.assign(this.data.allData.goodsMap, res.data.data.goodsMap)
-        // newdata.logisticsMap = Object.assign(this.data.allData.logisticsMap, res.data.data.logisticsMap)
         this.setData({
           ['allData.orderList']: this.data.allData.orderList.concat(res.data.data.orderList),
           ['allData.goodsMap']: Object.assign(this.data.allData.goodsMap, res.data.data.goodsMap),
           ['allData.logisticsMap']: Object.assign(this.data.allData.logisticsMap, res.data.data.logisticsMap),
+          hideBottom: false,
         })
-        // console.log(this.data.allData)
-        // this.allData.orderList = this.allData.orderList.concat(res.data.data.orderList)
-        // this.allData.goodsMap = Object.assign(this.allData.goodsMap, res.data.data.goodsMap)
-        // this.allData.logisticsMap = Object.assign(this.allData.logisticsMap, res.data.data.logisticsMap)
         this.data.page++
-      } else {
+        if (res.data.data.orderList.length < this.data.pageSize) {
+          this.setData({
+            noLoad: true,
+            loadMoreData: '已经到底了~~'
+          })
+        }
+      }
+      if (res.data.code == 700) {
+        this.setData({
+          hideBottom: false,
+          loadMoreData: '已经到底了，看看其他吧~~'
+        })
       }
       wx.hideLoading()
     }).catch(() => {
+      wx.hideLoading()
     })
   },
   // 确认收货
@@ -80,10 +107,6 @@ Page({
         }
       })
     })
-  },
-  // 去评价
-  goReputation(id) {
-    this.$router.push({ path: '/orderReputation', query: { id: id } })
   },
   dataUpdate(e){
     this.setData({
@@ -135,6 +158,15 @@ Page({
             changeData: null
           })
         })
+      } else if (this.data.changeData.type == 'reputation') {
+        this.setData({
+          [`allData.orderList[${this.data.changeData.index}].status`]: '4',
+          [`allData.orderList[${this.data.changeData.index}].statusStr`]: '已评价',
+        }, function () {
+          this.setData({
+            changeData: null
+          })
+        })
       }
     }
   },
@@ -157,13 +189,6 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
 
   },
 

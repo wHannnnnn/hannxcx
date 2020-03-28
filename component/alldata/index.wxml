@@ -23,13 +23,13 @@
                 <view class="price">
                     <view class="price_top">
                         <span class="first">￥</span>
-                        <span class="second">{{item.amount}}</span>
+                        <span class="second">{{item.amountReal}}</span>
                     </view>
                     <view class="price_bottom">共{{item.goodsNumber}}件</view>
                 </view>
             </view>
             <view class="data_bottom">
-                <van-button type="default" wx:if="{{item.status == 3}}" data-id="{{item.id}}" catchtap='goReputation'>去评价</van-button>
+                <van-button type="default" wx:if="{{item.status == 3}}" data-id="{{item.id}}" data-index="{{index}}" catchtap='goReputation'>去评价</van-button>
                 <van-button type="default" class="buyagain" wx:if="{{item.status!==1&& item.status!==2}}" data-id="{{item.id}}" data-index="{{index}}" bindtap='deleteOrder'>删除订单</van-button>
                 <van-button type="default" data-id="{{item.id}}" data-index="{{index}}" bindtap="goOrderDetail">查看订单</van-button>
                 <van-button type="default" class="buyagain" wx:if="{{item.status == 2}}" data-id="{{item.id}}" data-index="{{index}}" catchtap='orderDelivery'>确认收货</van-button>

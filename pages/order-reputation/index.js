@@ -11,11 +11,12 @@ Page({
     orderId: null,
     orderDetail: {},
     counter: 0,
-    arr: []
+    arr: [],
+    orderIndex: null,
+    detail: null
   },
   watch: {
     counter(val) {
-      console.log(val)
       var number = 0
       this.data.orderDetail.goods.forEach((e, i) => {
         number += e.pics.length
@@ -33,7 +34,9 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      orderId: options.id
+      orderId: options.id,
+      orderIndex: options.orderIndex,
+      detail: options.detail
     },function(){
       this.getOrderDetails()
     })
@@ -136,12 +139,26 @@ Page({
       orderId: this.data.orderId,
       reputations: arr
     }
+    var this_ = this
     WXAPI.orderReputation({ postJsonString: JSON.stringify(params) }).then((res) => {
       if (res.data.code == 0) {
         wx.showToast({
           title: '评论成功',
         })
-        wx.navigateBack()
+        if (this_.options.detail){          
+          var pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
+          var prevPage = pages[pages.length - 3];
+        } else {
+          var pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
+          var prevPage = pages[pages.length - 2];
+        }
+        prevPage.setData({
+          changeData: {
+            type: 'reputation',
+            index: this_.data.orderIndex
+          },
+        })
+        this_.options.detail ? wx.navigateBack({delta: 2}) : wx.navigateBack()
       } else {
         wx.showToast({
           title: res.data.msg,

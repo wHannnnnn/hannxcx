@@ -14,7 +14,8 @@
     "pages/place-order/index",
     "pages/start/index",
     "component/alldata/index",
-    "pages/order-reputation/index"
+    "pages/order-reputation/index",
+    "pages/reputation-list/index"
   ],
   "permission": {
     "scope.userLocation": {

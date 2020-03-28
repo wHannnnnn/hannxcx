@@ -97,7 +97,7 @@ Component({
     // 评价                                                                                   
     goReputation(e){
       wx.navigateTo({
-        url: `/pages/order-reputation/index?id=${e.currentTarget.dataset.id}`,
+        url: `/pages/order-reputation/index?id=${e.currentTarget.dataset.id}&orderIndex=${e.currentTarget.dataset.index}`,
       })
     }
   }

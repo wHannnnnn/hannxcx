@@ -1,7 +1,7 @@
 <!--pages/order-list/index.wxml-->
-    <div class='orderList'>
-        <div class="content">
-            <van-tabs active="{{active}}" animated='true' bind:change="tabChange" sticky>
+    <view class='orderList'>
+        <view class="content">
+            <van-tabs active="{{active}}" animated='true' bind:click="tabChange" sticky>
                 <van-tab title="全部" name="4">
                     <alldata bind:update="dataUpdate" bind:deliveryUpdate="deliveryUpdate" alldata="{{allData}}"/>
                 </van-tab>
@@ -21,5 +21,11 @@
                     <alldata bind:update="dataUpdate" bind:deliveryUpdate="deliveryUpdate" alldata="{{allData}}"/>
                 </van-tab>
             </van-tabs>
-        </div>
-    </div>
+            <view class="bottom" hidden="{{hideBottom}}">
+              <view class="loadMore">{{loadMoreData}}</view>
+              <view wx:if='{{errorShow}}'>
+                <view class="weui-loadmore-tips" bindtap='loadMore'>点击加载更多</view>
+              </view>
+            </view>
+        </view>
+    </view>

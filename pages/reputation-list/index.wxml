@@ -1,0 +1,30 @@
+    <view class="allReputation">
+      <view class="content">
+          <van-panel wx:for="{{reputation}}" wx:key="index" class="reputation_con">
+              <view slot="header" class="reputation">
+                  <view class="header_avatar">
+                    <image class="weui-media-box__thumb" mode="aspectFill" lazy-load="true" src="{{item.user.avatarUrl}}" alt></image>
+                    <!-- <img :src="item.user.avatarUrl?item.user.avatarUrl:avatar" alt=""> -->
+                  </view>
+                  <view class="header_goods">
+                      <view class="header_mobile">{{item.user.nick?item.user.nick:phoneReplace(item.user.mobile)}}</view>
+                      <van-rate value="{{item.goods.goodReputation}}" readonly count="3"/>
+                  </view>
+              </view>
+              <view class="repu_value">{{item.goods.goodReputationRemark}}</view>
+              <view class="picsList">
+                  <view class="pics" wx:for="{{item.reputationPics}}" wx:for-item="img" wx:for-index="imgIndex" wx:key="img.id">
+                      <image class="weui-media-box__thumb" mode="aspectFill" lazy-load="true" src="{{img.pic}}" alt></image>
+                      <!-- <img v-lazy="img.pic" alt="" @click="getImg(item.reputationPics,imgIndex)"> -->
+                  </view>
+              </view>
+              <view class="repu_property">{{item.goods.dateReputation}} | {{item.goods.property}}</view>
+          </van-panel>
+          <view class="bottom" hidden="{{hideBottom}}">
+            <view class="loadMore">{{loadMoreData}}</view>
+            <view wx:if='{{errorShow}}'>
+              <view class="weui-loadmore-tips" bindtap='loadMore'>点击加载更多</view>
+            </view>
+          </view>
+      </view>
+    </view>

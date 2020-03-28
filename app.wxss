@@ -8,9 +8,12 @@ page {
 view {
   font-size: 24rpx
 }
+.van-hairline--top:after {
+  border: none
+}
 .bottom .loadMore{
   padding: 10rpx;
-  font-size: 22rpx;
+  font-size: 24rpx;
   text-align: center;
   color: #9c9c9c
 }

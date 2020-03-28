@@ -115,6 +115,12 @@ Page({
             })
           }
         }
+        if (res.data.code == 700) {
+          this.setData({
+            hideBottom: false,
+            loadMoreData: '已经到底了，看看其他吧~~'
+          })
+        }
         wx.hideLoading()
     }).catch(() => {
         wx.hideLoading()
