@@ -1,1 +1,175 @@
-/* pages/product-list/index.wxss */
+.productList .content {
+  padding-top: 90rpx;
+  margin-bottom: 100rpx;
+}
+
+.productList .content .shop_con {
+  padding: 0;
+}
+
+.productList .content .shop_con .shopTop {
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 36rpx;
+  padding: 10rpx;
+  padding-left: 20rpx;
+  display: flex;
+  background: #fff;
+}
+
+.productList .content .shop_con .shopTop .van-hairline--top-bottom:after {
+  border: none;
+}
+
+.productList .content .shop_con .shopTop .van-dropdown-menu {
+  height: 100%;
+}
+
+.productList .content .shop_con .shopTop .van-dropdown-menu__title {
+  padding: 0 16rpx;
+  color: #323233;
+  font-size: 28rpx;
+  line-height: 36rpx;
+}
+
+.productList .content .shop_con .shopTop .orderBy {
+  display: flex;
+  align-items: center;
+  margin-left: 20rpx;
+  width: 120rpx;
+  justify-content: center;
+  font-size: 28rpx;
+}
+
+.productList .content .shop_con .shopTop .orderBy .icon_order:nth-child(odd) .van-icon-play{
+  transform: rotate(-90deg);
+}
+
+.productList .content .shop_con .shopTop .orderBy .icon_order:nth-child(even) .van-icon-play {
+  transform: rotate(90deg);
+}
+
+.productList .content .shop_con .shopTop .orderBy .isActive {
+  color: #e7352c;
+}
+
+.productList .content .shop_con .shopTop .orderBy .rightIcon {
+  display: flex;
+  flex-direction: column;
+  font-size: 14rpx;
+  padding-left: 12rpx;
+}
+
+.productList .content .shop_con .shopBottom {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  box-sizing: border-box;
+  margin-top: 10rpx;
+}
+
+.productList .content .shop_con .shopBottom .shop_lr {
+  margin-right: 0;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.productList .content .shop_con .shopBottom .shop_lr .shop_list {
+  width: 368rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  margin-bottom: 20rpx;
+  padding: 0;
+  padding-bottom: 20rpx;
+  overflow: hidden;
+}
+
+.productList .content .shop_con .shopBottom .shop_lr .shop_list:nth-child(odd) {
+  margin-right: 14rpx;
+}
+
+.productList .content .shop_con .shopBottom .shop_lr .shop_list .shop_img {
+  width: 100%;
+  height: 368rpx;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.productList .content .shop_con .shopBottom .shop_lr .shop_list .shop_img image {
+  width: 100%;
+}
+
+.productList .content .shop_con .shopBottom .shop_lr .shop_list .shop_title {
+  width: 100%;
+  font-size: 28rpx;
+  height: 70rpx;
+  line-height: 35rpx;
+  margin-top: 6rpx;
+  padding: 0 10rpx;
+  overflow: hidden;
+}
+
+.productList .content .shop_con .shopBottom .shop_lr .shop_list .price {
+  height: 60rpx;
+  padding: 0 10rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  color: #e7352c;
+}
+
+.productList .content .shop_con .shopBottom .shop_lr .shop_list .goodReputation {
+  padding: 0 20rpx;
+}
+
+.productList .content .search_con {
+  padding: 0 20rpx;
+}
+
+.productList .content .search_con .searchCon_top {
+  display: flex;
+  justify-content: space-between;
+  height: 60rpx;
+  align-items: center;
+}
+
+.productList .content .search_con .searchCon_top .van-icon {
+  font-size: 36rpx;
+}
+
+.productList .content .search_con .searchCon_top span {
+  font-size: 36rpx;
+}
+
+.productList .content .search_con .searchCon_bottom {
+  padding: 0 20rpx;
+}
+
+.productList .content .search_con .van-tag {
+  margin-right: 40rpx;
+  margin-top: 20rpx;
+  border-radius: 40rpx;
+  padding: 5rpx 20rpx 10rpx;
+  font-size: 24rpx;
+}
+
+.productList .content .search_con .van-tag::after {
+  border-radius: 40rpx;
+  border: none;
+}
+
+.productList .van-nav-bar .van-nav-bar__right {
+  bottom: 12rpx;
+  font-size: 38rpx;
+}
+
+.productList .van-search {
+  padding: 0;
+  width: 600rpx;
+}
+
+.productList .van-search .van-search__content {
+  padding-left: 16rpx;
+  border-radius: 4rpx;
+}

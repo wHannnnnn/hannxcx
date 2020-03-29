@@ -19,7 +19,6 @@ Page({
     pageSize: 10,
     shopList: [],
     errorShow: false,
-    hideBottom: true,
     noLoad: false,
     loadMoreData: '加载中……' 
   },
@@ -47,6 +46,12 @@ Page({
   },
   watch: {
   },
+  // 去搜索
+  showInput(){
+    wx.navigateTo({
+      url: '/pages/product-list/index',
+    })
+  },
   //事件处理函数
   getBanner() {
     WXAPI.banner().then((res) => {
@@ -72,7 +77,6 @@ Page({
     this.setData({
       shopList: [],
       errorShow: false,
-      hideBottom: true,
       noLoad: false,
       loadMoreData: '加载中...',
     })
@@ -104,7 +108,6 @@ Page({
         wx.stopPullDownRefresh()
         if (res.data.code == 0) {
           this.setData({
-            hideBottom: false,
             shopList: this.data.shopList.concat(res.data.data),
           })
           this.data.pageNum++
@@ -117,7 +120,6 @@ Page({
         }
         if (res.data.code == 700) {
           this.setData({
-            hideBottom: false,
             loadMoreData: '已经到底了，看看其他吧~~'
           })
         }

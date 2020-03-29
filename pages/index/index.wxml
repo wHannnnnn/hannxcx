@@ -99,7 +99,7 @@
         </view>
     </view>
   </view>
-  <view class="bottom" hidden="{{hideBottom}}">
+  <view class="bottom">
     <view class="loadMore">{{loadMoreData}}</view>
     <view wx:if='{{errorShow}}'>
       <view class="weui-loadmore-tips" bindtap='loadMore'>点击加载更多</view>

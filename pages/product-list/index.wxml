@@ -1,2 +1,74 @@
-<!--pages/product-list/index.wxml-->
-<text>pages/product-list/index.wxml</text>
+    <view class="productList">
+        <van-nav-bar fixed>
+            <van-search
+                class="right_search"
+                slot="right"
+                value="{{productName}}"
+                placeholder="请输入搜索关键词"
+                bind:search="goSearch"
+                bind:focus="searchFocus"
+            >
+                <span slot="left-icon"></span>
+            </van-search>
+            <van-icon name="shopping-cart-o" slot="right" bindtap="goShop"/>
+        </van-nav-bar>
+        <view class="content">
+            <view class="search_con" hidden="{{!searchCon}}">
+                <view class="searchCon_top">
+                    <span>历史搜索</span>
+                    <van-icon bindtap="deleteHistory" name="delete" />
+                </view>
+                <view class="searchCon_bottom">
+                    <van-tag plain wx:for="{{historyList}}" wx:key="item" data-item="{{item}}" bindtap="historyClick">{{item}}</van-tag>
+                </view>
+            </view>
+            <view class="shop_con" hidden="{{searchCon}}">
+                <view class="shopTop">
+                    <van-dropdown-menu active-color="#ee0a24" class="recommend">
+                        <van-dropdown-item value="{{recommendStatus}}" bind:change="changeStatus" options="{{option}}" />
+                    </van-dropdown-menu>
+                    <view class="orderBy" bindtap="ordersUp">
+                        <span class="leftTitle" class="{{orderBy=='ordersDown'?'isActive':''}}">销量</span>
+                    </view>
+                    <view class="orderBy" bindtap="priceUp">
+                        <span class="leftTitle" class="{{orderBy=='priceUp'||orderBy=='priceDown'?'isActive':''}}">价格</span>
+                        <view class="rightIcon">
+                            <view class="icon_order" hidden="{{orderBy=='priceDown'}}"><van-icon name="play" /></view>
+                            <view class="icon_order" hidden="{{orderBy=='priceUp'}}"><van-icon name="play" /></view>
+                        </view>
+                    </view>
+                    <view class="orderBy" bindtap="addedUp">
+                        <span class="leftTitle" class="{{orderBy=='addedUp'||orderBy=='addedDown'?'isActive':''}}">时间</span>
+                        <view class="rightIcon">
+                            <view class="icon_order" hidden="{{orderBy=='addedDown'}}"><van-icon  name="play" /></view>
+                            <view class="icon_order" hidden="{{orderBy=='addedUp'}}"><van-icon  name="play" /></view>
+                        </view>
+                    </view>
+                </view>
+                <view class="shopBottom">
+                    <view class="shop_lr">            
+                        <view class="shop_list" wx:for="{{searchList}}" wx:key='id'>
+                            <!-- <router-link :to="{path:'/detailsIndex',query:{id:item.id}}">                         -->
+                                <view class="shop_img">
+                                    <image src="{{item.pic}}" class="slide-image" mode="widthFix" lazy-load="true"/>
+                                </view>
+                                <view class="shop_title van-multi-ellipsis--l2">
+                                    {{item.name}}
+                                </view>
+                                <view class="price">
+                                    <span class="newprice">￥{{item.minPrice}}</span>
+                                </view>
+                                <!-- <view class="goodReputation">
+                                    <span v-if="item.numberGoodReputation > 0">{{item.numberGoodReputation}}
+                                        <span>条评价 </span>
+                                    </span>
+                                    <span v-if="item.numberGoodReputation > 0">{{zhuan(item.numberGoodReputation,item.numberOrders).toFixed(0)}}%好评</span>
+                                    <span v-if="item.numberGoodReputation == 0">暂无评价</span>
+                                </view> -->
+                            <!-- </router-link> -->
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
