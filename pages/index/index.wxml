@@ -31,7 +31,7 @@
       <block wx:for="{{firstList}}" wx:key="item">
         <swiper-item>
           <view class="weui-grids">
-            <a class="weui-grid" wx:for="{{item}}" wx:for-item="items">
+            <a class="weui-grid" wx:for="{{item}}" wx:for-item="items" wx:key="id" data-id="{{items.id}}" bindtap="goCategory">
               <view class="weui-grid__icon">
                 <image src="{{items.icon}}" class="slide-image" mode="aspectFill" lazy-load="true"/>
               </view>

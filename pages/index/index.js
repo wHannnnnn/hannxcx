@@ -134,15 +134,15 @@ Page({
       number: 1
     }
     WXAPI.addCart(params).then((res) => {
-      if(app.globalData.loginTrue) {
+      if(res.data.code == 0) {
         wx.showToast({
           title: '添加成功',
           icon: 'success',
         })
-        app.globalData.cartRefresh = true
       } else {
-          // this.login = this.selectComponent(".login")
-          // this.login.showDialog()
+        wx.showToast({
+          title: res.data.msg,
+        })
       }
     })
   },
@@ -228,8 +228,12 @@ Page({
     })
   },
   // 去分类
-  goProduct(){
-    console.log(this.data.firstList,123)
+  goCategory(e){
+    console.log(e)
+    app.globalData.categoryId = e.currentTarget.dataset.id
+    wx.switchTab({
+      url: `/pages/category/index`,
+    })
   },
   onLoad: function () {
     wx.showLoading({

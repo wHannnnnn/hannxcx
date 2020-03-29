@@ -38,6 +38,29 @@ Page({
         icon: 'label-o',
       },
     ],
+    mineList: [
+      {
+        title: '我的收藏',
+        icon: 'like'
+      },
+      {
+        title: '设置',
+        icon: 'setting'
+      },
+      {
+        title: '收货地址',
+        icon: 'location',
+        tap: 'goAddress'
+      },
+      {
+        title: '邀请得现金',
+        icon: 'bill'
+      },
+      {
+        title: '客服和帮助',
+        icon: 'service'
+      },
+    ],
     statistics: {},
     discountsLength: 0,
     loginTrue: null,
@@ -82,6 +105,7 @@ Page({
     })
   },
   goAddress(){
+    if(!this.data.loginTrue) return
     wx.navigateTo({
       url: '/pages/address/index',
     })

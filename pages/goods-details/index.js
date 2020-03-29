@@ -128,6 +128,25 @@ Page({
       }
     })
   },
+  // 添加购物车
+  addCart() {
+    var params = {
+      goodsId: this.data.shopId,
+      number: 1
+    }
+    WXAPI.addCart(params).then((res) => {
+      if (res.data.code == 0) {
+        wx.showToast({
+          title: '添加成功',
+          icon: 'success',
+        })
+      } else {
+        wx.showToast({
+          title: res.data.msg,
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

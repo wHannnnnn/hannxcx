@@ -13,11 +13,12 @@ Page({
     active: null,
     changeIndex: -1,
     pageNum: 1,
-    pageSize: 2,
+    pageSize: 10,
     categoryId: null,
     shopList: [],
     hideBottom: true,
-    loadMoreData: '加载中……' 
+    loadMoreData: '加载中……',
+    loginTrue: null,
   },
   computed: {
     allData(data) {
@@ -49,16 +50,40 @@ Page({
   onLoad: function (options) {
     this.categoryList()
   },
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    if (app.globalData.categoryId) {
+      this.setData({
+        categoryId: app.globalData.categoryId + '',
+        active: app.globalData.categoryId + ''
+      })
+      // this.getShopList(app.globalData.categoryId)
+    }
+    this.setData({
+      loginTrue: app.globalData.loginTrue
+    })
+  },
+
   categoryList() {
     wx.showLoading({
       title: '加载中',
     })
     WXAPI.category().then((res) => {
-      this.setData({
-        allList: res.data.data,
-        active: res.data.data[0].id + '',
-        categoryId: res.data.data[0].id + ''
-      })
+      if (app.globalData.categoryId) {
+        this.setData({
+          allList: res.data.data,
+          active: app.globalData.categoryId + '',
+          categoryId: app.globalData.categoryId + ''
+        })
+      } else {
+        this.setData({
+          allList: res.data.data,
+          active: res.data.data[0].id + '',
+          categoryId: res.data.data[0].id + ''
+        })
+      }
     }).then(()=>{
       this.getShopList(this.data.active)
     })
@@ -133,14 +158,106 @@ Page({
       wx.stopPullDownRefresh()
     })
   },
-  addCart(){},
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  // 添加购物车
+  addCart(e) {
+    var params = {
+      goodsId: e.currentTarget.dataset.id,
+      number: 1
+    }
+    WXAPI.addCart(params).then((res) => {
+      if (res.data.code == 0) {
+        wx.showToast({
+          title: '添加成功',
+          icon: 'success',
+        })
+      } else {
+        wx.showToast({
+          title: res.data.msg,
+        })
+      }
+    })
   },
-
+  // 获取用户信息
+  bindGetUserInfo(e) {
+    var that = this
+    // 用户允许授权
+    if (e.detail.errMsg !== 'getUserInfo:ok') {
+      // 返回上一级
+      return false;
+    }
+    var that = this
+    wx.showLoading({
+      title: '请稍等',
+    })
+    wx.login({
+      success(res) {
+        if (res.code) {
+          that.login(res.code, e.detail)
+        } else {
+          wx.showToast({
+            title: res.errMsg,
+            icon: 'none',
+          })
+        }
+      }
+    })
+  },
+  login(code, detail) {
+    WXAPI.wxLogin({ code: code, type: 2 }).then((data) => {
+      if (data.data.code == 10000) {
+        // 去注册
+        wx.hideLoading()
+        this.register(detail)
+        return;
+      }
+      if (data.data.code != 0) {
+        wx.showModal({
+          title: '无法登录',
+          content: data.msg,
+          showCancel: false
+        })
+        wx.hideLoading()
+        return;
+      }
+      this.setData({
+        loginTrue: true
+      })
+      wx.showToast({
+        title: '授权成功',
+        icon: 'success',
+      })
+      app.globalData.loginTrue = true
+      wx.setStorageSync('token', data.data.data.token)
+      wx.setStorageSync('uid', data.data.data.uid)
+      wx.setStorageSync('userInfo', detail)
+      wx.hideLoading()
+    })
+  },
+  register(detail) {
+    let _this = this;
+    wx.login({
+      success: function (res) {
+        let code = res.code; // 微信登录接口返回的 code 参数，下面注册接口需要用到
+        wx.getUserInfo({
+          success: function (res) {
+            let iv = res.iv;
+            let encryptedData = res.encryptedData;
+            let referrer = app.globalData.referrer // 推荐人
+            var params = {
+              code: code,
+              encryptedData: encryptedData,
+              iv: iv,
+              referrer: referrer
+            }
+            WXAPI.wxRegister(params).then((res) => {
+              // 登录
+              _this.login(code, detail)
+            })
+          }
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

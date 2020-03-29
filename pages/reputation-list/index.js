@@ -43,6 +43,7 @@ Page({
           pageSize: this.data.pageSize
       }
       WXAPI.getReputation(params).then((res)=>{
+        wx.stopPullDownRefresh()
         if(res.data.code == 0){
             res.data.data.forEach(element => {
                 element.goods.goodReputation += 1
@@ -74,6 +75,7 @@ Page({
         wx.hideLoading()
       }).catch(()=>{
         wx.hideLoading()
+        wx.stopPullDownRefresh()
       })
   },
   /**
@@ -108,7 +110,19 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    wx.showLoading({
+      title: '加载中',
+    })
+    this.setData({
+      reputation: [],
+      errorShow: false,
+      hideBottom: true,
+      noLoad: false,
+      loadMoreData: '加载中...',
+      page: 1
+    },()=>{
+      this.getReputation()
+    })
   },
 
   /**

@@ -13,25 +13,12 @@ Component({
    * 组件的初始数据
    */
   data: {
-    ishow: false
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
-    // 隐藏授权弹窗
-    hideDialog() {
-      this.setData({
-        ishow: false
-      })
-    },
-    //显示授权弹窗
-    showDialog() {
-      this.setData({
-        ishow: true
-      })
-    },
     // 获取用户信息
     bindGetUserInfo(e) {
       var that = this
@@ -47,7 +34,7 @@ Component({
       wx.login({
         success(res) {
           if (res.code) {
-            that.login(res.code,e.detail)
+            that.login(res.code, e.detail)
           } else {
             wx.showToast({
               title: res.errMsg,
@@ -57,7 +44,7 @@ Component({
         }
       })
     },
-    login(code,detail){
+    login(code, detail) {
       WXAPI.wxLogin({ code: code, type: 2 }).then((data) => {
         if (data.data.code == 10000) {
           // 去注册
@@ -83,9 +70,6 @@ Component({
         wx.setStorageSync('uid', data.data.data.uid)
         wx.setStorageSync('userInfo', detail)
         wx.hideLoading()
-        this.setData({
-          ishow: false
-        })
       })
     },
     register(detail) {
@@ -106,7 +90,7 @@ Component({
               }
               WXAPI.wxRegister(params).then((res) => {
                 // 登录
-                _this.login(code,detail)
+                _this.login(code, detail)
               })
             }
           })

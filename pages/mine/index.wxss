@@ -64,6 +64,12 @@
   background: #fff;
   border-radius: 0 0 20rpx 20rpx
 }
+.mine .order .van-grid .name {
+  color: #646566
+}
+.mine .order .van-grid .icon {
+  font-size: 46rpx
+}
 .mine .top_title {
     background: #fff;
     display: flex;
