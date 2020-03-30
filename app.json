@@ -15,7 +15,9 @@
     "pages/start/index",
     "component/alldata/index",
     "pages/order-reputation/index",
-    "pages/reputation-list/index"
+    "pages/reputation-list/index",
+    "pages/discount-list/index",
+    "pages/my-discount/index"
   ],
   "permission": {
     "scope.userLocation": {

@@ -31,3 +31,19 @@ view {
   display: inline-block;
   vertical-align: middle;
 }
+.weui-search-bar {
+  padding: 8rpx 0;
+}
+
+.weui-search-bar__form {
+  border-radius: 8rpx;
+}
+
+.weui-search-bar__box .weui-search-bar__input {
+  padding: 16rpx 0;
+  font-size: 28rpx;
+}
+
+.weui-search-bar__text {
+  font-size: 24rpx;
+}

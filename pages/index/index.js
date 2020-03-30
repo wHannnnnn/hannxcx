@@ -52,6 +52,12 @@ Page({
       url: '/pages/product-list/index',
     })
   },
+  // 领取优惠券
+  goDiscount(){
+    wx.navigateTo({
+      url: '/pages/discount-list/index',
+    })
+  },
   //事件处理函数
   getBanner() {
     WXAPI.banner().then((res) => {
@@ -141,11 +147,19 @@ Page({
           title: '添加成功',
           icon: 'success',
         })
+        app.globalData.cartRefresh = true
       } else {
         wx.showToast({
           title: res.data.msg,
         })
       }
+    })
+  },
+  // 去详情
+  goDetails(e){
+    if(!this.data.loginTrue) return
+    wx.navigateTo({
+      url: `/pages/goods-details/index?id=${e.currentTarget.dataset.id}`,
     })
   },
   // 获取用户信息

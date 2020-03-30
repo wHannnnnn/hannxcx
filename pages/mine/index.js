@@ -36,6 +36,7 @@ Page({
         status: '4',
         title: '全部订单',
         icon: 'label-o',
+        info: 0
       },
     ],
     mineList: [
@@ -87,8 +88,15 @@ Page({
       }
     })
   },
+  // 去我的优惠券页面
+  goDiscountDetails(){
+    wx.navigateTo({
+      url: '/pages/my-discount/index',
+    })
+  },
   // 去订单列表页
   goOrderList(e){
+    if (!this.data.loginTrue) return
     wx.navigateTo({
       url: `/pages/order-list/index?status=${e.currentTarget.dataset.status}`,
     })

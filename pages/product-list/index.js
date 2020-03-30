@@ -1,11 +1,13 @@
 const app = getApp()
 const WXAPI = require('../../utils/request.js')
+import computedBehavior from '../../miniprogram_npm/miniprogram-computed/index.js'
 Page({
-
+  behaviors: [computedBehavior],
   /**
    * 页面的初始数据
    */
   data: {
+    loginTrue: null,
     productName: '',
     searchList: [],
     option: [
@@ -17,9 +19,24 @@ Page({
     page: 1,
     pageSize: 10,
     searchCon: true, //搜索显示
-    historyList: []
+    historyList: [],
+    errorShow: false,
+    hideBottom: true,
+    noLoad: false,
+    loadMoreData: '加载中……' 
   },
-
+  computed: {
+    leftShopList(data) {
+      return data.searchList.filter((ele, index) => {
+        return index % 2 == 0
+      })
+    },
+    rightShopList(data) {
+      return data.searchList.filter((ele, index) => {
+        return index % 2 !== 0
+      })
+    },
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -31,7 +48,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.setData({ historyList: wx.getStorageSync('searchValue')})
+    this.setData({ historyList: wx.getStorageSync('searchValue'), loginTrue: app.globalData.loginTrue})
+  },
+  // 上拉加载
+  onReachBottom() {
+    if (this.data.noLoad) {
+      return
+    }
+    this.search()
   },
   goSearch(e) {
     if (e.detail) {
@@ -51,7 +75,11 @@ Page({
       this.setData({
         historyList: arr,
         productName: e.detail,
-        searchCon: false
+        searchCon: false,
+        hideBottom: false,
+        recommendStatus: '',
+        orderBy: '',
+        loadMoreData: '加载中...'
       }, () => { this.reset()})
     } else {
       wx.showToast({
@@ -60,23 +88,24 @@ Page({
     }
   },
   historyClick(e) {
-    this.setData({ productName: e.currentTarget.dataset.item, searchCon: false }, () => { this.reset() })
+    this.setData({productName: e.currentTarget.dataset.item, searchCon: false, loadMoreData: '加载中...', hideBottom: false, recommendStatus: '', orderBy: '',}, () => { this.reset() })
     var arr = wx.getStorageSync('searchValue')
-    if (arr.indexOf(value) !== -1) {
-      arr.splice(arr.indexOf(value), 1)
-      arr.unshift(value)
+    if (arr.indexOf(e.currentTarget.dataset.item) !== -1) {
+      arr.splice(arr.indexOf(e.currentTarget.dataset.item), 1)
+      arr.unshift(e.currentTarget.dataset.item)
       wx.setStorageSync('searchValue', arr)
       this.setData({ historyList: arr })
     }
   },
   deleteHistory() {
+    var this_ = this
     wx.showModal({
       title: '提示',
       content: '确定要清空全部历史记录?',
       success(res) {
         if (res.confirm) {
           wx.removeStorageSync('searchValue')
-          this.setData({ historyList: [] })
+          this_.setData({ historyList: [] })
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
@@ -84,7 +113,7 @@ Page({
     })
   },
   searchFocus(e) {
-    this.setData({ searchCon: true})
+    this.setData({ searchCon: true, hideBottom: true})
   },
   reset() {
     this.setData({ 
@@ -135,6 +164,120 @@ Page({
     }).catch(() => {
     })
   },
+  // 去详情
+  goDetails(e) {
+    if (!this.data.loginTrue) return
+    wx.navigateTo({
+      url: `/pages/goods-details/index?id=${e.currentTarget.dataset.id}`,
+    })
+  },
+  // 添加购物车
+  addCart(e) {
+    var params = {
+      goodsId: e.currentTarget.dataset.id,
+      number: 1
+    }
+    WXAPI.addCart(params).then((res) => {
+      if (res.data.code == 0) {
+        wx.showToast({
+          title: '添加成功',
+          icon: 'success',
+        })
+        app.globalData.cartRefresh = true
+      } else {
+        wx.showToast({
+          title: res.data.msg,
+        })
+      }
+    })
+  },
+  // 去购物车
+  goShop(){
+    wx.switchTab({
+      url: '/pages/shop/index',
+    })
+  },
+  // 获取用户信息
+  bindGetUserInfo(e) {
+    var that = this
+    // 用户允许授权
+    if (e.detail.errMsg !== 'getUserInfo:ok') {
+      // 返回上一级
+      return false;
+    }
+    var that = this
+    wx.showLoading({
+      title: '请稍等',
+    })
+    wx.login({
+      success(res) {
+        if (res.code) {
+          that.login(res.code, e.detail)
+        } else {
+          wx.showToast({
+            title: res.errMsg,
+            icon: 'none',
+          })
+        }
+      }
+    })
+  },
+  login(code, detail) {
+    WXAPI.wxLogin({ code: code, type: 2 }).then((data) => {
+      if (data.data.code == 10000) {
+        // 去注册
+        wx.hideLoading()
+        this.register(detail)
+        return;
+      }
+      if (data.data.code != 0) {
+        wx.showModal({
+          title: '无法登录',
+          content: data.msg,
+          showCancel: false
+        })
+        wx.hideLoading()
+        return;
+      }
+      this.setData({
+        loginTrue: true
+      })
+      wx.showToast({
+        title: '授权成功',
+        icon: 'success',
+      })
+      app.globalData.loginTrue = true
+      wx.setStorageSync('token', data.data.data.token)
+      wx.setStorageSync('uid', data.data.data.uid)
+      wx.setStorageSync('userInfo', detail)
+      wx.hideLoading()
+    })
+  },
+  register(detail) {
+    let _this = this;
+    wx.login({
+      success: function (res) {
+        let code = res.code; // 微信登录接口返回的 code 参数，下面注册接口需要用到
+        wx.getUserInfo({
+          success: function (res) {
+            let iv = res.iv;
+            let encryptedData = res.encryptedData;
+            let referrer = app.globalData.referrer // 推荐人
+            var params = {
+              code: code,
+              encryptedData: encryptedData,
+              iv: iv,
+              referrer: referrer
+            }
+            WXAPI.wxRegister(params).then((res) => {
+              // 登录
+              _this.login(code, detail)
+            })
+          }
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -160,13 +303,6 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
 
   },
 

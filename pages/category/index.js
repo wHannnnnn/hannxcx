@@ -65,7 +65,12 @@ Page({
       loginTrue: app.globalData.loginTrue
     })
   },
-
+  // 去搜索
+  showInput() {
+    wx.navigateTo({
+      url: '/pages/product-list/index',
+    })
+  },
   categoryList() {
     wx.showLoading({
       title: '加载中',

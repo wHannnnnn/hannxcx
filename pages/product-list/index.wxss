@@ -1,6 +1,5 @@
 .productList .content {
   padding-top: 90rpx;
-  margin-bottom: 100rpx;
 }
 
 .productList .content .shop_con {
@@ -41,11 +40,13 @@
   font-size: 28rpx;
 }
 
-.productList .content .shop_con .shopTop .orderBy .icon_order:nth-child(odd) .van-icon-play{
+.productList .content .shop_con .shopTop .orderBy van-icon:nth-child(odd) .van-icon-play{
+  font-size: 18rpx;
   transform: rotate(-90deg);
 }
 
-.productList .content .shop_con .shopTop .orderBy .icon_order:nth-child(even) .van-icon-play {
+.productList .content .shop_con .shopTop .orderBy van-icon:nth-child(even) .van-icon-play {
+  font-size: 18rpx;
   transform: rotate(90deg);
 }
 
@@ -68,50 +69,42 @@
   margin-top: 10rpx;
 }
 
-.productList .content .shop_con .shopBottom .shop_lr {
-  margin-right: 0;
-  display: flex;
-  width: 100%;
-  flex-wrap: wrap;
+.shop_con .shopBottom .shop_lr:nth-child(1) {
+  margin-right: 20rpx;
 }
 
-.productList .content .shop_con .shopBottom .shop_lr .shop_list {
-  width: 368rpx;
+.shop_con .shopBottom .shop_lr {
+  width: 360rpx;
+}
+
+.shop_con .shopBottom .shop_lr .shop_list {
   background: #fff;
   border-radius: 20rpx;
+  width: 100%;
+  padding: 20rpx;
   margin-bottom: 20rpx;
-  padding: 0;
-  padding-bottom: 20rpx;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
-.productList .content .shop_con .shopBottom .shop_lr .shop_list:nth-child(odd) {
-  margin-right: 14rpx;
-}
-
-.productList .content .shop_con .shopBottom .shop_lr .shop_list .shop_img {
-  width: 100%;
-  height: 368rpx;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-
-.productList .content .shop_con .shopBottom .shop_lr .shop_list .shop_img image {
+.shop_con .shopBottom .shop_lr .shop_list .shop_img {
   width: 100%;
 }
 
-.productList .content .shop_con .shopBottom .shop_lr .shop_list .shop_title {
+.shop_con .shopBottom .shop_lr .shop_list .shop_img image {
   width: 100%;
-  font-size: 28rpx;
+}
+
+.shop_con .shopBottom .shop_lr .shop_list .shop_title {
+  width: 100%;
+  font-size: 24rpx;
   height: 70rpx;
   line-height: 35rpx;
   margin-top: 6rpx;
-  padding: 0 10rpx;
   overflow: hidden;
 }
 
-.productList .content .shop_con .shopBottom .shop_lr .shop_list .price {
+.shop_con .shopBottom .shop_lr .shop_list .price {
   height: 60rpx;
   padding: 0 10rpx;
   line-height: 60rpx;
@@ -119,8 +112,36 @@
   color: #e7352c;
 }
 
-.productList .content .shop_con .shopBottom .shop_lr .shop_list .goodReputation {
+.shop_con .shopBottom .shop_lr .shop_list .numberSells {
   padding: 0 20rpx;
+  font-size: 24rpx;
+}
+ 
+.shop_con .shopBottom .shop_lr .price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center
+}
+.shop_con .shopBottom .shop_lr .price .realPrice {
+  display: flex;
+  align-items: center;
+}
+.shop_con .shopBottom .shop_lr .price .newPrice {
+  color: #e7352c;
+  font-size: 32rpx;
+  margin-right: 10rpx
+}
+.shop_con .shopBottom .shop_lr .price .oldPrice {
+  color: #9c9c9c;
+  font-size: 20rpx;
+  text-decoration: line-through
+}
+.shop_con .shopBottom .shop_lr .price .add_cart .weui-btn {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  padding: 0;
+  line-height: 36rpx;
 }
 
 .productList .content .search_con {
@@ -152,6 +173,7 @@
   border-radius: 40rpx;
   padding: 5rpx 20rpx 10rpx;
   font-size: 24rpx;
+  color: #333
 }
 
 .productList .content .search_con .van-tag::after {
@@ -166,7 +188,7 @@
 
 .productList .van-search {
   padding: 0;
-  width: 600rpx;
+  width: 660rpx;
 }
 
 .productList .van-search .van-search__content {

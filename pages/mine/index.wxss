@@ -68,7 +68,13 @@
   color: #646566
 }
 .mine .order .van-grid .icon {
-  font-size: 46rpx
+  font-size: 46rpx;
+  position: relative
+}
+.mine .order .van-grid van-tag {
+  position: absolute;
+  top: -30rpx;
+  right: -20rpx;
 }
 .mine .top_title {
     background: #fff;

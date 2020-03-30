@@ -33,42 +33,78 @@
                     <view class="orderBy" bindtap="priceUp">
                         <span class="leftTitle" class="{{orderBy=='priceUp'||orderBy=='priceDown'?'isActive':''}}">价格</span>
                         <view class="rightIcon">
-                            <view class="icon_order" hidden="{{orderBy=='priceDown'}}"><van-icon name="play" /></view>
-                            <view class="icon_order" hidden="{{orderBy=='priceUp'}}"><van-icon name="play" /></view>
+                            <van-icon style="display: {{orderBy=='priceDown'?'none':'static'}}" name="play" />
+                            <van-icon style="display: {{orderBy=='priceUp'?'none':'static'}}" name="play" />
                         </view>
                     </view>
                     <view class="orderBy" bindtap="addedUp">
                         <span class="leftTitle" class="{{orderBy=='addedUp'||orderBy=='addedDown'?'isActive':''}}">时间</span>
                         <view class="rightIcon">
-                            <view class="icon_order" hidden="{{orderBy=='addedDown'}}"><van-icon  name="play" /></view>
-                            <view class="icon_order" hidden="{{orderBy=='addedUp'}}"><van-icon  name="play" /></view>
+                            <van-icon style="display: {{orderBy=='addedDown'?'none':'static'}}" name="play"/>
+                            <van-icon style="display: {{orderBy=='addedUp'?'none':'static'}}" name="play" />
                         </view>
                     </view>
                 </view>
                 <view class="shopBottom">
-                    <view class="shop_lr">            
-                        <view class="shop_list" wx:for="{{searchList}}" wx:key='id'>
-                            <!-- <router-link :to="{path:'/detailsIndex',query:{id:item.id}}">                         -->
-                                <view class="shop_img">
-                                    <image src="{{item.pic}}" class="slide-image" mode="widthFix" lazy-load="true"/>
-                                </view>
-                                <view class="shop_title van-multi-ellipsis--l2">
-                                    {{item.name}}
-                                </view>
-                                <view class="price">
-                                    <span class="newprice">￥{{item.minPrice}}</span>
-                                </view>
-                                <!-- <view class="goodReputation">
-                                    <span v-if="item.numberGoodReputation > 0">{{item.numberGoodReputation}}
-                                        <span>条评价 </span>
-                                    </span>
-                                    <span v-if="item.numberGoodReputation > 0">{{zhuan(item.numberGoodReputation,item.numberOrders).toFixed(0)}}%好评</span>
-                                    <span v-if="item.numberGoodReputation == 0">暂无评价</span>
-                                </view> -->
-                            <!-- </router-link> -->
-                        </view>
-                    </view>
+                  <view class="shop_lr">            
+                      <view class="shop_list mui-bar-nav" wx:for="{{leftShopList}}" wx:key='id'>
+                          <block data-id="{{item.id}}" bindtap="goDetails">
+                              <view class="shop_img">
+                                  <image src="{{item.pic}}" class="slide-image" mode="widthFix" lazy-load="true"/>
+                              </view>
+                              <view class="shop_title van-multi-ellipsis--l2">
+                                  {{item.name}}
+                              </view>
+                              <view class="price">            
+                                  <view class='realPrice'>
+                                    <view class='newPrice'>
+                                        <text>￥</text>{{item.minPrice}}
+                                    </view>
+                                    <view class="oldPrice">
+                                        ￥{{item.originalPrice}}
+                                    </view>
+                                  </view>
+                                  <view class="add_cart">
+                                    <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' catchtap="addCart" wx:if="{{loginTrue}}">+</view>
+                                    <button class="weui-btn weui-btn_primary" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" wx:else>+</button>
+                                  </view>
+                              </view>
+                          </block>
+                      </view>
+                  </view>
+                  <view class="shop_lr">
+                      <view class="shop_list mui-bar-nav" wx:for="{{rightShopList}}" wx:key='id'>
+                          <block data-id="{{item.id}}" bindtap="goDetails">
+                              <view class="shop_img">
+                                  <image src="{{item.pic}}" class="slide-image" mode="widthFix" lazy-load="true"/>
+                              </view>
+                              <view class="shop_title van-multi-ellipsis--l2">
+                                  {{item.name}}
+                              </view>
+                              <view class="price">            
+                                  <view class='realPrice'>
+                                    <view class='newPrice'>
+                                        <text>￥</text>{{item.minPrice}}
+                                    </view>
+                                    <view class="oldPrice">
+                                        ￥{{item.originalPrice}}
+                                    </view>
+                                  </view>
+                                  <view class="add_cart">
+                                    <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' catchtap="addCart" wx:if="{{loginTrue}}">+</view>
+                                    <button class="weui-btn weui-btn_primary" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" wx:else>+</button>
+                                  </view>
+                              </view>
+                          </block>
+                      </view>
+                  </view>
                 </view>
             </view>
+        </view>
+        <view class="bottom" hidden="{{hideBottom}}">
+          <view class="loadMore">{{loadMoreData}}</view>
+          <view wx:if='{{errorShow}}'>
+            <view class="weui-loadmore-tips" bindtap='loadMore'>点击加载更多</view>
+          </view>
         </view>
     </view>

@@ -4,12 +4,12 @@
 			<form class="weui-search-bar__form">
 				<view class="weui-search-bar__box">
 					<i class="weui-icon-search"></i>
-                    <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="goProduct" />
-                    <span class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput"></span>
+              <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="goProduct" />
+              <span class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput"></span>
 				</view>
 				<label class="weui-search-bar__label" bindtap="showInput">
 					<i class="weui-icon-search"></i>
-                    <span class="weui-search-bar__text">搜索</span>
+          <span class="weui-search-bar__text">搜索</span>
 				</label>
 			</form>
 		</view>
@@ -42,63 +42,73 @@
       </block>
     </swiper>
   </view>
+
+  <view class="app_main">
+    <view class="main_img">
+      <image src="../../images/home.dpg" class="slide-image" mode="widthFix" lazy-load="true"/>
+    </view>
+    <view class="main_img" bindtap="goDiscount">
+      <image src="../../images/home2.dpg" class="slide-image" mode="widthFix" lazy-load="true"/>
+    </view>
+  </view>
+
   <view class='shop_con'>
     <view class="shopBottom">
         <view class="shop_lr">            
             <view class="shop_list mui-bar-nav" wx:for="{{leftShopList}}" wx:key='id'>
-                  <navigator url="../goods-details/index?id={{item.id}}">
-                      <view class="shop_img">
-                          <image src="{{item.pic}}" class="slide-image" mode="widthFix" lazy-load="true"/>
-                      </view>
-                      <view class="shop_title van-multi-ellipsis--l2">
-                          {{item.name}}
-                      </view>
-                      <view class="price">            
-                          <view class='realPrice'>
-                            <view class='newPrice'>
-                                <text>￥</text>{{item.minPrice}}
-                            </view>
-                            <view class="oldPrice">
-                                ￥{{item.originalPrice}}
-                            </view>
+                <block data-id="{{item.id}}" bindtap="goDetails">
+                    <view class="shop_img">
+                        <image src="{{item.pic}}" class="slide-image" mode="widthFix" lazy-load="true"/>
+                    </view>
+                    <view class="shop_title van-multi-ellipsis--l2">
+                        {{item.name}}
+                    </view>
+                    <view class="price">            
+                        <view class='realPrice'>
+                          <view class='newPrice'>
+                              <text>￥</text>{{item.minPrice}}
                           </view>
-                          <view class="add_cart">
-                              <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' catchtap="addCart">+</view>
+                          <view class="oldPrice">
+                              ￥{{item.originalPrice}}
                           </view>
-                      </view>
-                  </navigator>
+                        </view>
+                        <view class="add_cart">
+                          <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' catchtap="addCart" wx:if="{{loginTrue}}">+</view>
+                          <button class="weui-btn weui-btn_primary" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" wx:else>+</button>
+                        </view>
+                    </view>
+                </block>
             </view>
         </view>
         <view class="shop_lr">
             <view class="shop_list mui-bar-nav" wx:for="{{rightShopList}}" wx:key='id'>
-                  <navigator url="../goods-details/index?id={{item.id}}">
+                <block data-id="{{item.id}}" bindtap="goDetails">
                     <view class="shop_img">
-                        <image src="{{item.pic}}" class="slide-image" style='height:' mode="widthFix" lazy-load="true"/>
+                        <image src="{{item.pic}}" class="slide-image" mode="widthFix" lazy-load="true"/>
                     </view>
-                  </navigator>
-                  <navigator url="../goods-details/index?id={{item.id}}">
                     <view class="shop_title van-multi-ellipsis--l2">
                         {{item.name}}
                     </view>
-                  </navigator>
-                  <view class="price">            
-                      <view class='realPrice'>
-                        <view class='newPrice'>
-                            <text>￥</text>{{item.minPrice}}
+                    <view class="price">            
+                        <view class='realPrice'>
+                          <view class='newPrice'>
+                              <text>￥</text>{{item.minPrice}}
+                          </view>
+                          <view class="oldPrice">
+                              ￥{{item.originalPrice}}
+                          </view>
                         </view>
-                        <view class="oldPrice">
-                            ￥{{item.originalPrice}}
-                        </view>
-                      </view>
-                      <view class="add_cart">
+                        <view class="add_cart">
                           <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' catchtap="addCart" wx:if="{{loginTrue}}">+</view>
                           <button class="weui-btn weui-btn_primary" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" wx:else>+</button>
-                      </view>
-                  </view>
+                        </view>
+                    </view>
+                </block>
             </view>
         </view>
     </view>
   </view>
+
   <view class="bottom">
     <view class="loadMore">{{loadMoreData}}</view>
     <view wx:if='{{errorShow}}'>

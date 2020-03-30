@@ -35,16 +35,17 @@
         <span class="top_left">我的订单</span>
       </view>
       <van-grid column-num="5" border="{{ false }}">
-        <van-grid-item wx:for="{{orderList}}" wx:key="id" info="{{item.info==0? '' : item.info}}" use-slot>
+        <van-grid-item wx:for="{{orderList}}" wx:key="id" info="{{item.info==0? '' : item.info}}" data-status="{{item.status}}" bindtap="goOrderList" use-slot>
         <block wx:if="{{!loginTrue}}">
           <label class="icon" for="share-button">
             <van-icon name="{{item.icon}}" />
           </label>
           <label class="name" for="share-button">{{item.title}}</label>
         </block>
-        <block data-status="{{item.status}}" bindtap="goOrderList" wx:else>
+        <block wx:else>
           <view class="icon">
             <van-icon name="{{item.icon}}" />
+            <van-tag round type="danger" style="display:{{item.info==0? 'none' : 'static'}}">{{item.info==0? '' : item.info}}</van-tag>
           </view>
           <view class="name">{{item.title}}</view>
         </block>
@@ -63,7 +64,7 @@
             </label>
             <label class="name" for="share-button">{{item.title}}</label>
           </block>
-          <block data-status="{{item.status}}" bindtap="{{item.tap}}" wx:else>
+          <block wx:else>
             <view class="icon">
               <van-icon name="{{item.icon}}" />
             </view>

@@ -1,0 +1,19 @@
+<!--pages/discount-list/index.wxml-->
+<view class="discount">
+  <view class="discounts_con" wx:for="{{discountsList}}" wx:key="id">
+      <view class="discounts_con_left">
+          <view class="left_top"><text>￥</text>{{item.moneyMax}}</view>
+          <view class="left_bottom">满{{item.moneyHreshold}}可用</view>
+      </view>
+      <view class="discounts_con_right">
+          <view class="right_top">{{item.name}}</view>
+          <view class="right_bottom">
+              <view class="left">过期时间：{{item.dateEndDays? '领取' + item.dateEndDays + '天后':item.dateEnd}}</view>
+              <view class="right">
+                <a class="weui-btn weui-btn_mini weui-btn_primary" data-id='{{item.id}}' bindtap="getDiscount">点击获取</a>
+                  <!-- <van-button type="default" @click="getDiscount(item.id,index)">点击获取</van-button> -->
+              </view>
+          </view>
+      </view>
+  </view>
+</view>
