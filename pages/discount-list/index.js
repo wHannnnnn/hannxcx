@@ -25,26 +25,18 @@ Page({
   // 领取优惠券
   getDiscount(e) {
     WXAPI.discountsFetch({ id: e.currentTarget.dataset.id }).then((res) => {
-      if (app.globalData.loginTrue) {
-        if (res.data.code == 0) {
-          wx.showToast({
-            title: '领取成功',
-            icon: 'success',
-            duration: 2000
-          })
-        } else {
-          wx.showToast({
-            title: res.data.msg,
-            icon: 'none',
-            duration: 2000
-          })
-        }
+      if (res.data.code == 0) {
+        wx.showToast({
+          title: '领取成功',
+          icon: 'success',
+          duration: 2000
+        })
       } else {
-        this.login = this.selectComponent(".login")
-        this.login.showDialog()
-        // wx.navigateTo({
-        //   url: '/pages/start/index',
-        // })
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none',
+          duration: 2000
+        })
       }
     })
   },

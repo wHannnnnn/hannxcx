@@ -15,6 +15,8 @@ Page({
     duration: 500,
     bannerList: null,
     navList: [],
+    partnerList: [],
+    hotList:[],
     pageNum: 1,
     pageSize: 10,
     shopList: [],
@@ -78,6 +80,15 @@ Page({
       }
     })
   },
+  partner(){
+    WXAPI.partner().then((res) => {
+      if (res.data.code == 0) {
+        this.setData({
+          partnerList: res.data.data
+        })
+      }
+    })
+  },
   // 下拉刷新
   onPullDownRefresh: function () {
     this.setData({
@@ -104,7 +115,7 @@ Page({
     this.getShopList()
   },
   // 获取商品
-  getShopList(id) {
+  getShopList() {
     var params = {
       page: this.data.pageNum,
       pageSize: this.data.pageSize,
@@ -135,8 +146,24 @@ Page({
         wx.stopPullDownRefresh()
     })
   },
+  // 获取热门商品
+  getHotList(){
+    var params = {
+      page: 1,
+      pageSize: 10,
+      orderBy: 'ordersDown'
+    }
+    WXAPI.shopList(params).then((res) => {
+      if (res.data.code == 0) {
+        this.setData({
+          hotList: res.data.data,
+        })
+      }
+    })
+  },
   // 添加购物车
   addCart(e){
+    if(!this.data.loginTrue) return
     var params = {
       goodsId: e.currentTarget.dataset.id,
       number: 1
@@ -157,7 +184,6 @@ Page({
   },
   // 去详情
   goDetails(e){
-    if(!this.data.loginTrue) return
     wx.navigateTo({
       url: `/pages/goods-details/index?id=${e.currentTarget.dataset.id}`,
     })
@@ -257,6 +283,8 @@ Page({
     })
     this.getBanner()
     this.categoryList()
+    this.getHotList()
+    this.partner()
     this.getShopList()
   },
   onShow(){

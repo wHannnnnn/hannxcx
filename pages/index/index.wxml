@@ -43,20 +43,54 @@
     </swiper>
   </view>
 
-  <view class="app_main">
-    <view class="main_img">
-      <image src="../../images/home.dpg" class="slide-image" mode="widthFix" lazy-load="true"/>
+  <view class="hot_shop">
+    <view class="hotTitle">
+      热门商品
     </view>
-    <view class="main_img" bindtap="goDiscount">
-      <image src="../../images/home2.dpg" class="slide-image" mode="widthFix" lazy-load="true"/>
+    <scroll-view scroll-x="true">
+      <view style="display: flex">
+        <view class="shop_list mui-bar-nav" wx:for="{{hotList}}" data-id="{{item.id}}" bindtap="goDetails" wx:key='id'>
+                <view class="shop_img">
+                    <image src="{{item.pic}}" class="slide-image" mode="acceptFill" lazy-load="true"/>
+                </view>
+                <view class="shop_title van-multi-ellipsis--l2">
+                    {{item.name}}
+                </view>
+                <view class="price">            
+                    <view class='realPrice'>
+                      <view class='newPrice'>
+                          <text>￥</text>{{item.minPrice}}
+                      </view>
+                      <view class="oldPrice">
+                          ￥{{item.originalPrice}}
+                      </view>
+                    </view>
+                    <view class="add_cart">
+                      <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' catchtap="addCart" wx:if="{{loginTrue}}">+</view>
+                      <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' catchtap="addCart" wx:else><button class="weui-btn weui-btn_primary" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">+</button></view>
+                    </view>
+                </view>
+        </view>
+        <view class="more" hidden="{{hotList.length == 0}}">
+          <text>  
+            查看更多
+          </text>
+          <van-icon name="arrow-down" />
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="app_main">
+    <view class="main_img" wx:for="{{partnerList}}" bindtap="goDiscount">
+      <image src="{{item.picUrl}}" class="slide-image" mode="widthFix" lazy-load="true"/>
     </view>
   </view>
 
   <view class='shop_con'>
     <view class="shopBottom">
         <view class="shop_lr">            
-            <view class="shop_list mui-bar-nav" wx:for="{{leftShopList}}" wx:key='id'>
-                <block data-id="{{item.id}}" bindtap="goDetails">
+            <view class="shop_list mui-bar-nav" wx:for="{{leftShopList}}" data-id="{{item.id}}" bindtap="goDetails" wx:key='id'>
                     <view class="shop_img">
                         <image src="{{item.pic}}" class="slide-image" mode="widthFix" lazy-load="true"/>
                     </view>
@@ -74,36 +108,33 @@
                         </view>
                         <view class="add_cart">
                           <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' catchtap="addCart" wx:if="{{loginTrue}}">+</view>
-                          <button class="weui-btn weui-btn_primary" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" wx:else>+</button>
+                          <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' catchtap="addCart" wx:else><button class="weui-btn weui-btn_primary" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">+</button></view>
                         </view>
                     </view>
-                </block>
             </view>
         </view>
         <view class="shop_lr">
-            <view class="shop_list mui-bar-nav" wx:for="{{rightShopList}}" wx:key='id'>
-                <block data-id="{{item.id}}" bindtap="goDetails">
-                    <view class="shop_img">
-                        <image src="{{item.pic}}" class="slide-image" mode="widthFix" lazy-load="true"/>
+            <view class="shop_list mui-bar-nav" wx:for="{{rightShopList}}" data-id="{{item.id}}" bindtap="goDetails" wx:key='id'>
+                <view class="shop_img">
+                    <image src="{{item.pic}}" class="slide-image" mode="widthFix" lazy-load="true"/>
+                </view>
+                <view class="shop_title van-multi-ellipsis--l2">
+                    {{item.name}}
+                </view>
+                <view class="price">            
+                    <view class='realPrice'>
+                      <view class='newPrice'>
+                          <text>￥</text>{{item.minPrice}}
+                      </view>
+                      <view class="oldPrice">
+                          ￥{{item.originalPrice}}
+                      </view>
                     </view>
-                    <view class="shop_title van-multi-ellipsis--l2">
-                        {{item.name}}
+                    <view class="add_cart">
+                      <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' catchtap="addCart" wx:if="{{loginTrue}}">+</view>
+                      <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' catchtap="addCart" wx:else><button class="weui-btn weui-btn_primary" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">+</button></view>
                     </view>
-                    <view class="price">            
-                        <view class='realPrice'>
-                          <view class='newPrice'>
-                              <text>￥</text>{{item.minPrice}}
-                          </view>
-                          <view class="oldPrice">
-                              ￥{{item.originalPrice}}
-                          </view>
-                        </view>
-                        <view class="add_cart">
-                          <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' catchtap="addCart" wx:if="{{loginTrue}}">+</view>
-                          <button class="weui-btn weui-btn_primary" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" wx:else>+</button>
-                        </view>
-                    </view>
-                </block>
+                </view>
             </view>
         </view>
     </view>

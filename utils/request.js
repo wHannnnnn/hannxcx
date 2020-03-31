@@ -89,6 +89,8 @@ const api = {
   defaultAddress: name + 'user/shipping-address/default/v2',
   // 经纬度解析
   mapAddress: 'common/map/qq/address',
+  // 链接
+  partner: name + 'friendly-partner/list'
 }
 // 请求方法
 module.exports = {
@@ -263,5 +265,8 @@ module.exports = {
   },
   checkPic: (params) => {
     return http.post(api.checkPic, params)
+  },
+  partner: (params) => {
+    return http.post(api.partner, params)
   },
 }

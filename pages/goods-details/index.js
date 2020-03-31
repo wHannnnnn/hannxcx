@@ -19,7 +19,8 @@ Page({
     detailsList: [],
     reputation: [], //评论数据
     discountsList: [],
-    Height: ""  
+    Height: "",
+    loginTrue: null, 
   },
   imgHeight: function (e) {
     var imgh = e.detail.height,
@@ -46,12 +47,12 @@ Page({
   onLoad: function (options) {
     wx.showModal({
       title: '邀请人Id',
-      content: options.referrer,
+      content: options.referrer
     })
-      this.setData({
-        shopId: options.id
-      })
-      this.getDetails()
+    this.setData({
+      shopId: options.id
+    })
+    this.getDetails()
   },
   // 商品详情
   getDetails() {
@@ -104,32 +105,26 @@ Page({
   },
   // 领取优惠券
   getDiscount(e) {
+    if (!this.data.loginTrue) return
     WXAPI.discountsFetch({ id: e.currentTarget.dataset.id }).then((res) => {
-      if (app.globalData.loginTrue) {
-        if (res.data.code == 0) {
-            wx.showToast({
-              title: '领取成功',
-              icon: 'success',
-              duration: 2000
-            })
-        } else {
+      if (res.data.code == 0) {
           wx.showToast({
-            title: res.data.msg,
-            icon: 'none',
+            title: '领取成功',
+            icon: 'success',
             duration: 2000
           })
-        }
       } else {
-        this.login = this.selectComponent(".login")
-        this.login.showDialog()
-        // wx.navigateTo({
-        //   url: '/pages/start/index',
-        // })
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none',
+          duration: 2000
+        })
       }
     })
   },
   // 添加购物车
   addCart() {
+    if(!this.data.loginTrue) return
     var params = {
       goodsId: this.data.shopId,
       number: 1
@@ -147,6 +142,85 @@ Page({
       }
     })
   },
+  // 获取用户信息
+  bindGetUserInfo(e) {
+    var that = this
+    // 用户允许授权
+    if (e.detail.errMsg !== 'getUserInfo:ok') {
+      // 返回上一级
+      return false;
+    }
+    var that = this
+    wx.showLoading({
+      title: '请稍等',
+    })
+    wx.login({
+      success(res) {
+        if (res.code) {
+          that.login(res.code, e.detail)
+        } else {
+          wx.showToast({
+            title: res.errMsg,
+            icon: 'none',
+          })
+        }
+      }
+    })
+  },
+  login(code, detail) {
+    WXAPI.wxLogin({ code: code, type: 2 }).then((data) => {
+      if (data.data.code == 10000) {
+        // 去注册
+        wx.hideLoading()
+        this.register(detail)
+        return;
+      }
+      if (data.data.code != 0) {
+        wx.showModal({
+          title: '无法登录',
+          content: data.msg,
+          showCancel: false
+        })
+        wx.hideLoading()
+        return;
+      }
+      wx.showToast({
+        title: '授权成功',
+        icon: 'success',
+      })
+      app.globalData.loginTrue = true
+      wx.setStorageSync('token', data.data.data.token)
+      wx.setStorageSync('uid', data.data.data.uid)
+      wx.setStorageSync('userInfo', detail)
+      this.onShow()
+      wx.hideLoading()
+    })
+  },
+  register(detail) {
+    let _this = this;
+    wx.login({
+      success: function (res) {
+        let code = res.code; // 微信登录接口返回的 code 参数，下面注册接口需要用到
+        wx.getUserInfo({
+          success: function (res) {
+            let iv = res.iv;
+            let encryptedData = res.encryptedData;
+            let referrer = app.globalData.referrer // 推荐人
+            var params = {
+              code: code,
+              encryptedData: encryptedData,
+              iv: iv,
+              referrer: referrer
+            }
+            WXAPI.wxRegister(params).then((res) => {
+              // 登录
+              _this.login(code, detail)
+            })
+          }
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -158,7 +232,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      loginTrue: app.globalData.loginTrue
+    })
   },
 
   /**

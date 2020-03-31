@@ -95,16 +95,14 @@ Page({
   },
   // 左侧tab切换
   onChange(e) {
-    wx.showLoading({
-      title: '加载中',
-    })
     this.setData({
       pageNum: 1,
       shopList: [],
       loadMoreData: '加载中...',
       noLoad: false,
       changeIndex: '-1',
-      categoryId: e.detail.name
+      categoryId: e.detail.name,
+      active: e.detail.name
     },function(){
       this.getShopList(e.detail.name)
     })
@@ -163,8 +161,15 @@ Page({
       wx.stopPullDownRefresh()
     })
   },
+  // 去详情
+  goDetails(e) {
+    wx.navigateTo({
+      url: `/pages/goods-details/index?id=${e.currentTarget.dataset.id}`,
+    })
+  },
   // 添加购物车
   addCart(e) {
+    if (!this.data.loginTrue) return
     var params = {
       goodsId: e.currentTarget.dataset.id,
       number: 1

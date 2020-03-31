@@ -16,7 +16,7 @@
 </view>
 <view class="navIndex">
     <van-tabs active="{{active}}" bind:change="onChange">
-      <scroll-view scroll-y="true" style='height: calc(100vh - 90rpx)'>
+      <view style='height: calc(100vh - 100rpx);overflow: hidden'>
           <van-tab wx:for="{{allData}}" name="{{item.id+''}}" title="{{item.name}}" wx:key="id">
               <view class="nav_right">
                 <scroll-view scroll-x="true">
@@ -29,9 +29,9 @@
                         </view>
                     </view>
                 </scroll-view>
-                <scroll-view scroll-y="true" style='height: calc(100vh - 166rpx)' bindscrolltolower="loadMore">
+                <scroll-view scroll-y="true" style='height: calc(100vh - 240rpx)' bindscrolltolower="loadMore">
                   <view class="weui-panel__bd">
-                  <view class="weui-media-box weui-media-box_appmsg" wx:for="{{shopList}}" wx:key="id">
+                  <view class="weui-media-box weui-media-box_appmsg" data-id="{{item.id}}" bindtap="goDetails" wx:for="{{shopList}}" wx:key="id">
                     <view class="weui-media-box__hd">
                       <image class="weui-media-box__thumb" mode="aspectFill" lazy-load="true" src="{{item.pic}}" alt></image>
                     </view>
@@ -48,8 +48,8 @@
                           </view>
                         </view>
                         <view class="add_cart">
-                            <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' wx:if="{{loginTrue}}" catchtap="addCart">+</view>
-                            <button class="weui-btn weui-btn_primary" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" wx:else>+</button>
+                          <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' catchtap="addCart" wx:if="{{loginTrue}}">+</view>
+                          <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' catchtap="addCart" wx:else><button class="weui-btn weui-btn_primary" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">+</button></view>
                         </view>
                       </view>
                     </view>
@@ -61,6 +61,6 @@
                 </scroll-view>
               </view>
           </van-tab>
-        </scroll-view>
+        </view>
     </van-tabs>
 </view>

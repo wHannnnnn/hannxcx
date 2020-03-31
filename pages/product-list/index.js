@@ -166,13 +166,13 @@ Page({
   },
   // 去详情
   goDetails(e) {
-    if (!this.data.loginTrue) return
     wx.navigateTo({
       url: `/pages/goods-details/index?id=${e.currentTarget.dataset.id}`,
     })
   },
   // 添加购物车
   addCart(e) {
+    if(!this.data.loginTrue) return
     var params = {
       goodsId: e.currentTarget.dataset.id,
       number: 1

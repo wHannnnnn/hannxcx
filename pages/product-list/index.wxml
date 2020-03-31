@@ -3,6 +3,7 @@
             <van-search
                 class="right_search"
                 slot="right"
+                focus="true"
                 value="{{productName}}"
                 placeholder="请输入搜索关键词"
                 bind:search="goSearch"
@@ -47,8 +48,7 @@
                 </view>
                 <view class="shopBottom">
                   <view class="shop_lr">            
-                      <view class="shop_list mui-bar-nav" wx:for="{{leftShopList}}" wx:key='id'>
-                          <block data-id="{{item.id}}" bindtap="goDetails">
+                      <view class="shop_list mui-bar-nav" wx:for="{{leftShopList}}" data-id="{{item.id}}" bindtap="goDetails" wx:key='id'>
                               <view class="shop_img">
                                   <image src="{{item.pic}}" class="slide-image" mode="widthFix" lazy-load="true"/>
                               </view>
@@ -66,15 +66,13 @@
                                   </view>
                                   <view class="add_cart">
                                     <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' catchtap="addCart" wx:if="{{loginTrue}}">+</view>
-                                    <button class="weui-btn weui-btn_primary" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" wx:else>+</button>
+                                    <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' catchtap="addCart" wx:else><button class="weui-btn weui-btn_primary" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">+</button></view>
                                   </view>
                               </view>
-                          </block>
                       </view>
                   </view>
                   <view class="shop_lr">
-                      <view class="shop_list mui-bar-nav" wx:for="{{rightShopList}}" wx:key='id'>
-                          <block data-id="{{item.id}}" bindtap="goDetails">
+                      <view class="shop_list mui-bar-nav" wx:for="{{rightShopList}}" data-id="{{item.id}}" bindtap="goDetails" wx:key='id'>
                               <view class="shop_img">
                                   <image src="{{item.pic}}" class="slide-image" mode="widthFix" lazy-load="true"/>
                               </view>
@@ -92,10 +90,9 @@
                                   </view>
                                   <view class="add_cart">
                                     <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' catchtap="addCart" wx:if="{{loginTrue}}">+</view>
-                                    <button class="weui-btn weui-btn_primary" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" wx:else>+</button>
+                                    <view class="weui-btn weui-btn_primary" data-id='{{item.id}}' catchtap="addCart" wx:else><button class="weui-btn weui-btn_primary" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">+</button></view>
                                   </view>
                               </view>
-                          </block>
                       </view>
                   </view>
                 </view>

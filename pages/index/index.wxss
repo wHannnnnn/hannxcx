@@ -85,6 +85,77 @@ page {
 .app_nav .van-grid-item__content {
   padding: 0 16rpx;
 }
+.hot_shop {
+  margin-top: 10rpx
+}
+.hot_shop .hotTitle {
+  background: #fff;
+  padding: 14rpx;
+  font-size: 30rpx
+}
+.hot_shop .shop_list {
+  background: #fff;
+  width: 192rpx;
+  padding: 16rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+  flex-shrink: 0
+}
+
+.hot_shop .shop_list .shop_img {
+  width: 100%;
+  height: 160rpx;
+}
+
+.hot_shop .shop_list .shop_img image {
+  width: 100%;
+  height: 100%;
+}
+
+.hot_shop .shop_list .shop_title {
+  width: 100%;
+  font-size: 24rpx;
+  height: 70rpx;
+  line-height: 35rpx;
+  margin-top: 6rpx;
+  overflow: hidden;
+}
+
+.hot_shop .shop_list .price {
+  height: 60rpx;
+  padding: 0 10rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  color: #e7352c;
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
+
+.hot_shop .shop_list .numberSells {
+  padding: 0 20rpx;
+  font-size: 24rpx;
+}
+
+.hot_shop .price .newPrice {
+  color: #e7352c;
+  font-size: 24rpx;
+  margin-right: 10rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+}
+.hot_shop .price .oldPrice {
+  color: #9c9c9c;
+  font-size: 20rpx;
+  text-decoration: line-through;
+  height: 30rpx;
+  line-height: 30rpx;
+}
+.hot_shop .more {
+  padding: 16rpx;
+  background: #fff;
+  border-left: 1rpx solid #eee
+}
 .app_main {
   padding: 20rpx;
   margin: 10rpx 0;
@@ -171,7 +242,7 @@ page {
   font-size: 20rpx;
   text-decoration: line-through
 }
-.shop_con .shopBottom .shop_lr .price .add_cart .weui-btn {
+.add_cart .weui-btn {
   width: 40rpx;
   height: 40rpx;
   border-radius: 50%;

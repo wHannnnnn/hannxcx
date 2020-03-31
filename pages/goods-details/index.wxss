@@ -178,3 +178,9 @@
       height: 76rpx;
       line-height: 76rpx;
     }
+    .details_botom label {
+      flex: 1
+    }
+    .details_botom label .weui-btn {
+      width: 100%
+    }
