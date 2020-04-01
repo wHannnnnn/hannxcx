@@ -86,7 +86,8 @@ page {
   padding: 0 16rpx;
 }
 .hot_shop {
-  margin-top: 10rpx
+  margin-top: 10rpx;
+  padding: 0 10rpx
 }
 .hot_shop .hotTitle {
   background: #fff;

@@ -190,6 +190,7 @@ Page({
   },
   // 获取用户信息
   bindGetUserInfo(e) {
+    console.log(e)
     var that = this
     // 用户允许授权
     if (e.detail.errMsg !== 'getUserInfo:ok') {
@@ -203,7 +204,7 @@ Page({
     wx.login({
       success(res) {
         if (res.code) {
-          that.login(res.code, e.detail)
+          that.login(e.detail)
         } else {
           wx.showToast({
             title: res.errMsg,
@@ -213,35 +214,41 @@ Page({
       }
     })
   },
-  login(code, detail) {
-    WXAPI.wxLogin({ code: code, type: 2 }).then((data) => {
-      if (data.data.code == 10000) {
-        // 去注册
-        wx.hideLoading()
-        this.register(detail)
-        return;
+  login(detail) {
+    var this_ = this
+    wx.login({
+      success(res) {
+        if (res.code) {
+          WXAPI.wxLogin({ code: res.code, type: 2 }).then((data) => {
+            if (data.data.code == 10000) {
+              // 去注册
+              this_.register(detail)
+              return;
+            }
+            if (data.data.code != 0) {
+              wx.showModal({
+                title: '无法登录',
+                content: data.msg,
+                showCancel: false
+              })
+              wx.hideLoading()
+              return;
+            }
+            this_.setData({
+              loginTrue: true
+            })
+            wx.showToast({
+              title: '授权成功',
+              icon: 'success',
+            })
+            app.globalData.loginTrue = true
+            wx.setStorageSync('token', data.data.data.token)
+            wx.setStorageSync('uid', data.data.data.uid)
+            wx.setStorageSync('userInfo', detail)
+            wx.hideLoading()
+          })
+        }
       }
-      if (data.data.code != 0) {
-        wx.showModal({
-          title: '无法登录',
-          content: data.msg,
-          showCancel: false
-        })
-        wx.hideLoading()
-        return;
-      }
-      this.setData({
-        loginTrue: true
-      })
-      wx.showToast({
-        title: '授权成功',
-        icon: 'success',
-      })
-      app.globalData.loginTrue = true
-      wx.setStorageSync('token', data.data.data.token)
-      wx.setStorageSync('uid', data.data.data.uid)
-      wx.setStorageSync('userInfo', detail)
-      wx.hideLoading()
     })
   },
   register(detail) {
@@ -253,7 +260,7 @@ Page({
           success: function (res) {
             let iv = res.iv;
             let encryptedData = res.encryptedData;
-            let referrer = app.globalData.referrer // 推荐人
+            let referrer = app.globalData.referrer ? app.globalData.referrer: '' // 推荐人
             var params = {
               code: code,
               encryptedData: encryptedData,
@@ -262,7 +269,9 @@ Page({
             }
             WXAPI.wxRegister(params).then((res) => {
               // 登录
-              _this.login(code, detail)
+              setTimeout(function(){
+                _this.login(detail)
+              },1000)
             })
           }
         })

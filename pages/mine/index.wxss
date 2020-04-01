@@ -10,7 +10,7 @@
     display: flex;
     padding: 20rpx;
     margin-bottom: 20rpx;
-    background: #f1b9b7;
+    background: linear-gradient(90deg,#e7352c,#f5a19b);
 }
 .mine .mine_top .avatar {
     width: 140rpx;

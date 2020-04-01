@@ -1,41 +1,20 @@
-const WXAPI = require('../../utils/request.js')
-import computedBehavior from '../../miniprogram_npm/miniprogram-computed/index.js'
+// pages/hot-shop/index.js
 Page({
+
   /**
    * 页面的初始数据
    */
   data: {
-    active: 0,
-    discountsList: []
+
   },
-  behaviors: [computedBehavior],
-  computed: {
-    normalList(data) {
-      var newarr = data.discountsList.filter(item => {
-        return item.status == 0
-      })
-      return newarr
-    },
-    effectList(data) {
-      var newarr = data.discountsList.filter(item => {
-        return item.status !== 0
-      })
-      return newarr
-    }
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getdiscount()
+
   },
-  getdiscount() {
-    WXAPI.myDiscounts().then((res) => {
-      this.setData({
-        discountsList: res.data.data
-      })
-    })
-  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    loginTrue: null,
     discountsList: [],
   },
 
@@ -24,6 +25,7 @@ Page({
   },
   // 领取优惠券
   getDiscount(e) {
+    if (!this.data.loginTrue) return
     WXAPI.discountsFetch({ id: e.currentTarget.dataset.id }).then((res) => {
       if (res.data.code == 0) {
         wx.showToast({
@@ -40,6 +42,95 @@ Page({
       }
     })
   },
+  // 获取用户信息
+  bindGetUserInfo(e) {
+    var that = this
+    // 用户允许授权
+    if (e.detail.errMsg !== 'getUserInfo:ok') {
+      // 返回上一级
+      return false;
+    }
+    var that = this
+    wx.showLoading({
+      title: '请稍等',
+    })
+    wx.login({
+      success(res) {
+        if (res.code) {
+          that.login(e.detail)
+        } else {
+          wx.showToast({
+            title: res.errMsg,
+            icon: 'none',
+          })
+        }
+      }
+    })
+  },
+  login(detail) {
+    var this_ = this
+    wx.login({
+      success(res) {
+        if (res.code) {
+          WXAPI.wxLogin({ code: res.code, type: 2 }).then((data) => {
+            if (data.data.code == 10000) {
+              // 去注册
+              this_.register(detail)
+              return;
+            }
+            if (data.data.code != 0) {
+              wx.showModal({
+                title: '无法登录',
+                content: data.msg,
+                showCancel: false
+              })
+              wx.hideLoading()
+              return;
+            }
+            this_.setData({
+              loginTrue: true
+            })
+            wx.showToast({
+              title: '授权成功',
+              icon: 'success',
+            })
+            app.globalData.loginTrue = true
+            wx.setStorageSync('token', data.data.data.token)
+            wx.setStorageSync('uid', data.data.data.uid)
+            wx.setStorageSync('userInfo', detail)
+            wx.hideLoading()
+          })
+        }
+      }
+    })
+  },
+  register(detail) {
+    let _this = this;
+    wx.login({
+      success: function (res) {
+        let code = res.code; // 微信登录接口返回的 code 参数，下面注册接口需要用到
+        wx.getUserInfo({
+          success: function (res) {
+            let iv = res.iv;
+            let encryptedData = res.encryptedData;
+            let referrer = app.globalData.referrer ? app.globalData.referrer : '' // 推荐人
+            var params = {
+              code: code,
+              encryptedData: encryptedData,
+              iv: iv,
+              referrer: referrer
+            }
+            WXAPI.wxRegister(params).then((res) => {
+              // 登录
+              setTimeout(function () {
+                _this.login(detail)
+              }, 1000)
+            })
+          }
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -51,7 +142,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({ loginTrue: app.globalData.loginTrue })
   },
 
   /**

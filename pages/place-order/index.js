@@ -88,6 +88,17 @@ Page({
   onShow: function() {
     this.getDefaultAddress()
   },
+  subscribe(){
+    // 订阅
+    var this_ = this
+    wx.requestSubscribeMessage({
+      tmplIds: ['AyOFtANiyTcnyd5iLzDpNwetXJ_x69HIKkdj0PpicXI'],
+      success(res) {
+        this_.onSubmit()
+        console.log(res)
+      }
+    })
+  },
   // 默认地址
   getDefaultAddress() {
     wx.showLoading({
@@ -197,14 +208,14 @@ Page({
     WXAPI.creatOrder(pushData).then((res) => {
       if (res.data.code == 0) {
         wx.showToast({
-          title: '暂不支持支付 请联系管理员支付',
+          title: '请联系管理员支付',
         })
       } else {
         wx.showToast({
           title: res.data.msg,
         })
       } 
-      wx.hideLoading()
+      // wx.hideLoading()
       // 支付接口再说
     })
   },

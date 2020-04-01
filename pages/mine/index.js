@@ -90,6 +90,7 @@ Page({
   },
   // 去我的优惠券页面
   goDiscountDetails(){
+    if (!this.data.loginTrue) return
     wx.navigateTo({
       url: '/pages/my-discount/index',
     })
@@ -106,8 +107,7 @@ Page({
     WXAPI.myDiscounts().then((res) => {
       if (res.data.code == 0) {
         this.setData({
-          discountsLength: res.data.data.length,
-          discountsList: res.data.data
+          discountsLength: res.data.data.length
         })
       }
     })
@@ -144,7 +144,7 @@ Page({
     wx.login({
       success(res) {
         if (res.code) {
-          that.login(res.code, e.detail)
+          that.login(e.detail)
         } else {
           wx.showToast({
             title: res.errMsg,
@@ -154,33 +154,42 @@ Page({
       }
     })
   },
-  login(code, detail) {
-    WXAPI.wxLogin({ code: code, type: 2 }).then((data) => {
-      if (data.data.code == 10000) {
-        // 去注册
-        wx.hideLoading()
-        this.register(detail)
-        return;
+  login(detail) {
+    var this_ = this
+    wx.login({
+      success(res) {
+        if (res.code) {
+          WXAPI.wxLogin({ code: res.code, type: 2 }).then((data) => {
+            if (data.data.code == 10000) {
+              // 去注册
+              this_.register(detail)
+              return;
+            }
+            if (data.data.code != 0) {
+              wx.showModal({
+                title: '无法登录',
+                content: data.msg,
+                showCancel: false
+              })
+              wx.hideLoading()
+              return;
+            }
+            this_.setData({
+              loginTrue: true
+            })
+            wx.showToast({
+              title: '授权成功',
+              icon: 'success',
+            })
+            app.globalData.loginTrue = true
+            wx.setStorageSync('token', data.data.data.token)
+            wx.setStorageSync('uid', data.data.data.uid)
+            wx.setStorageSync('userInfo', detail)
+            this_.onShow()
+            wx.hideLoading()
+          })
+        }
       }
-      if (data.data.code != 0) {
-        wx.showModal({
-          title: '无法登录',
-          content: data.msg,
-          showCancel: false
-        })
-        wx.hideLoading()
-        return;
-      }
-      wx.showToast({
-        title: '授权成功',
-        icon: 'success',
-      })
-      app.globalData.loginTrue = true
-      wx.setStorageSync('token', data.data.data.token)
-      wx.setStorageSync('uid', data.data.data.uid)
-      wx.setStorageSync('userInfo', detail)
-      this.onShow()
-      wx.hideLoading()
     })
   },
   register(detail) {
@@ -192,7 +201,7 @@ Page({
           success: function (res) {
             let iv = res.iv;
             let encryptedData = res.encryptedData;
-            let referrer = app.globalData.referrer // 推荐人
+            let referrer = app.globalData.referrer ? app.globalData.referrer : '' // 推荐人
             var params = {
               code: code,
               encryptedData: encryptedData,
@@ -201,7 +210,9 @@ Page({
             }
             WXAPI.wxRegister(params).then((res) => {
               // 登录
-              _this.login(code, detail)
+              setTimeout(function () {
+                _this.login(detail)
+              }, 1000)
             })
           }
         })

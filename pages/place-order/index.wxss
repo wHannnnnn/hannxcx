@@ -11,7 +11,12 @@
   display: flex;
   justify-content: flex-end;
 }
-.placeOrder .content .subTotal .logistics_con .con_center .logistics{
+.placeOrder .content .con_center .real {
+  font-size: 18rpx;
+  color: #9e9e9e;
+  margin-left: 10rpx
+} 
+.placeOrder .content .con_center .logistics{
     display: flex;
     justify-content: space-between;
     align-items: center

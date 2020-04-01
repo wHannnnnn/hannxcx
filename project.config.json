@@ -101,6 +101,13 @@
 					"id": -1,
 					"name": "pages/order-list/index",
 					"pathName": "pages/order-list/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "hot",
+					"pathName": "pages/hot-shop/index",
 					"scene": null
 				}
 			]

@@ -70,8 +70,10 @@ Page({
     })
   },
   changeAddress(e){
-    wx.setStorageSync('addressId', e.currentTarget.dataset.id)
-    wx.navigateBack()
+    if (this.data.fromOrder) {
+      wx.setStorageSync('addressId', e.currentTarget.dataset.id)
+      wx.navigateBack()
+    }
   },
   /**
    * 生命周期函数--监听页面加载

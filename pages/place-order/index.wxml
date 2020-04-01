@@ -73,9 +73,12 @@
               <view class="logistics_con">
                   <view class="con_center">
                       <view class="logistics">
-                          <span>基础配送费</span>
-                          <span wx:if="{{logisticsTrue}}">￥0</span>
-                          <span class="logisticsTitle" wx:else>
+                          <view style="display: flex">
+                            <text>基础配送费</text>
+                            <van-icon name="question-o" />
+                            <text class="real" wx:if="{{oldPrice<99}}">实付不满￥99,需付￥6基础配送费</text>
+                          </view>
+                          <span class="logisticsTitle">
                               <span>￥{{oldPrice>=99?0:6}}</span>
                           </span>
                       </view>
@@ -116,6 +119,6 @@
         disabled='{{disabled}}'
         price="{{allPrice}}"
         button-text="提交订单"
-        bind:submit="onSubmit"
+        bind:submit="subscribe"
     />
 </view>

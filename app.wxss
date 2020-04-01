@@ -47,3 +47,6 @@ view {
 .weui-search-bar__text {
   font-size: 24rpx;
 }
+.weui-btn {
+  background: linear-gradient(90deg, #f32419,#ff8178);
+}

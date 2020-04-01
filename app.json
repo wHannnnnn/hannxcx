@@ -17,7 +17,8 @@
     "pages/order-reputation/index",
     "pages/reputation-list/index",
     "pages/discount-list/index",
-    "pages/my-discount/index"
+    "pages/my-discount/index",
+    "pages/hot-shop/index"
   ],
   "permission": {
     "scope.userLocation": {
@@ -27,7 +28,7 @@
   "window": {
     "navigationBarBackgroundColor": "#fff",
     "backgroundColor": "#eee",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "hann的小店",
     "navigationBarTextStyle": "black",
     "backgroundTextStyle": "dark"
   },

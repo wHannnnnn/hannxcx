@@ -1,2 +1,41 @@
-<!--pages/my-discount/index.wxml-->
-<text>pages/my-discount/index.wxml</text>
+<view class="allDiscounts">
+    <view class="content">
+        <van-tabs active="{{active}}">
+        <van-tab title="可用">
+            <view class="discounts_con" wx:for="{{normalList}}" wx:key="id">
+                <view class="discounts_con_top">
+                    <view class="discounts_con_left">
+                        <view class="left_top"><span>￥</span>{{item.money}}</view>
+                        <view class="left_bottom">满{{item.moneyHreshold}}可用</view>
+                    </view>
+                    <view class="discounts_con_right">
+                        <view class="right_top">{{item.name}}</view>
+                        <view class="right_bottom">
+                            <view class="left">{{item.dateAdd}}-{{item.dateEnd}}</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </van-tab>
+        <van-tab title="不可用">
+            <view class="discounts_con" wx:for="{{effectList}}" wx:key="id">
+                <view class="discounts_con_top">
+                    <view class="discounts_con_left effect">
+                        <view class="left_top"><span>￥</span>{{item.money}}</view>
+                        <view class="left_bottom">满{{item.moneyHreshold}}可用</view>
+                    </view>
+                    <view class="discounts_con_right">
+                        <view class="right_top">{{item.name}}</view>
+                        <view class="right_bottom">
+                            <view class="left">{{item.dateAdd}}-{{item.dateEnd}}</view>
+                        </view>
+                    </view>
+                </view>
+                <view class="discounts_con_bottom">
+                    <span>此优惠券{{item.statusStr}}</span>
+                </view>
+            </view>
+        </van-tab>
+        </van-tabs>
+    </view>
+</view>
