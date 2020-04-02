@@ -87,15 +87,14 @@ page {
 }
 .hot_shop {
   margin-top: 10rpx;
-  padding: 0 10rpx
+  padding: 0 10rpx;
+  background: #fff;
 }
 .hot_shop .hotTitle {
-  background: #fff;
   padding: 14rpx;
   font-size: 30rpx
 }
 .hot_shop .shop_list {
-  background: #fff;
   width: 192rpx;
   padding: 16rpx;
   overflow: hidden;
