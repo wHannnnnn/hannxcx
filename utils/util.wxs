@@ -1,0 +1,10 @@
+var tools = {
+  phoneReplace: function(tel) {
+    tel = "" + tel;
+    var mphone = tel.substring(0, 3) + '****' + tel.substring(7);
+    return mphone;
+  }
+}
+module.exports = {
+  phoneReplace: tools.phoneReplace
+}

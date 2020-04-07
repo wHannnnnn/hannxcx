@@ -53,12 +53,6 @@ Page({
               hideBottom: false,
             })
             this.data.page ++
-            if (res.data.data.orderList.length < this.data.pageSize) {
-              this.setData({
-                noLoad: true,
-                loadMoreData: '已经到底了~~'
-              })
-            }
             if (res.data.data.length < this.data.pageSize) {
               this.setData({
                 noLoad: true,

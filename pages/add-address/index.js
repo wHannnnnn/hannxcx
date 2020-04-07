@@ -54,9 +54,9 @@ Page({
             provinceId: that.findKey(areaList.province_list, res.data.data.result.address_component.province),
             cityId: that.findKey(areaList.city_list, res.data.data.result.address_component.city),
             districtId: that.findKey(areaList.county_list, res.data.data.result.address_component.district),
-            latitude: res.data.data.result.location.lat,
-            longitude: res.data.data.result.location.lng,
-            areaStr: that.data.mapAddress.addr
+            latitude: that.data.mapAddress.latitude,
+            longitude: that.data.mapAddress.longitude,
+            areaStr: that.data.mapAddress.title
           })
           // areaList
         } else {
@@ -142,6 +142,14 @@ Page({
     if (!data.linkMan || !data.mobile || !data.address || !this.data.areaStr) {
       wx.showToast({
         title: '请填完信息！',
+        icon: 'none'
+      })
+      return
+    }
+    var reg = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
+    if (!reg.test(data.mobile)) {
+      wx.showToast({
+        title: '手机号格式不正确！',
         icon: 'none'
       })
       return

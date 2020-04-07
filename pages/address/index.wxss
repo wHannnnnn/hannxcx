@@ -4,7 +4,7 @@
 }
 .address .addressList {
   border-bottom: 1rpx solid rgba(150, 150, 150, 0.534);
-  padding: 30rpx 0rpx;
+  padding: 20rpx 0rpx;
 }
 .address .addressList .van-icon {
   font-size: 36rpx

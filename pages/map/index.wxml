@@ -31,12 +31,13 @@
       <cover-view class="search-box">
         <cover-view class="region" bindtap="chooseCity">{{currentRegion.district}}</cover-view>
         <cover-view class="shu"></cover-view>
-        <cover-view class="placeholder" bindtap="showAddList">请输入您的店铺地址</cover-view>
+        <cover-view class="placeholder" bindtap="showAddList">请输入您的地址</cover-view>
       </cover-view>
     </cover-view>
     <cover-view class="map-prompt">您可拖动地图, 标记准确位置</cover-view>
     <cover-view class="current-site-icon">
-      <van-icon name="location" />
+      <cover-image src="../../images/location.png"></cover-image> 
+      <!-- <van-icon name="location-o"  size="50px"/>1 -->
     </cover-view>
     <cover-view class="reload" bindtap="reload" wx:if="{{userlocation}}">
       <cover-view class="center1">

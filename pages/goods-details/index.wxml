@@ -1,4 +1,5 @@
 <!--pages/goos-details/index.wxml-->
+<wxs src="../../utils/util.wxs" module="tools"/>
 <import src="../../wxParse/wxParse.wxml" />
 <view class="details">
     <view class="details_top">
@@ -50,9 +51,9 @@
     <van-cell title="商品评价" bindtap="goReputation" is-link value="查看全部" />
     <van-panel wx:for="{{reputation}}" wx:key="id" class="reputation_con">
         <view slot="header" class="reputation">
-            <view class="header_avatar"><image src="{{item.user.avatarUrl?item.user.avatarUrl:avatar}}" class="slide-image" mode="aspectFill" lazy-load="true"/></view>
+            <view class="header_avatar"><image src="{{item.user.avatarUrl}}" class="slide-image" mode="aspectFill" lazy-load="true"/></view>
             <view class="header_goods">
-                <view class="header_mobile">{{item.user.nick?item.user.nick:phoneReplace(item.user.mobile)}}</view>
+                <view class="header_mobile">{{item.user.nick}}</view>
                 <van-rate value="{{item.goods.goodReputation}}" readonly count="3"/>
             </view>
         </view>

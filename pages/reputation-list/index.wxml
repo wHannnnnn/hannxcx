@@ -7,7 +7,7 @@
                     <!-- <img :src="item.user.avatarUrl?item.user.avatarUrl:avatar" alt=""> -->
                   </view>
                   <view class="header_goods">
-                      <view class="header_mobile">{{item.user.nick?item.user.nick:phoneReplace(item.user.mobile)}}</view>
+                      <view class="header_mobile">{{item.user.nick}}</view>
                       <van-rate value="{{item.goods.goodReputation}}" readonly count="3"/>
                   </view>
               </view>
@@ -18,7 +18,7 @@
                       <!-- <img v-lazy="img.pic" alt="" @click="getImg(item.reputationPics,imgIndex)"> -->
                   </view>
               </view>
-              <view class="repu_property">{{item.goods.dateReputation}} | {{item.goods.property}}</view>
+              <view class="repu_property">{{item.goods.dateReputation}}</view>
           </van-panel>
           <view class="bottom" hidden="{{hideBottom}}">
             <view class="loadMore">{{loadMoreData}}</view>

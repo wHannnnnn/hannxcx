@@ -1,4 +1,5 @@
 <!--pages/address/index.wxml-->
+<wxs src="../../utils/util.wxs" module="tools"/>
     <view class="address">
         <view class="content">
             <van-cell>
@@ -7,7 +8,7 @@
                         <view class="top">
                             <van-row>
                                 <van-col span="4" class="userName van-ellipsis">{{item.linkMan}}</van-col>
-                                <van-col span="8" offset="2" class="phone">{{item.mobile}}</van-col>
+                                <van-col span="8" offset="2" class="phone">{{tools.phoneReplace(item.mobile)}}</van-col>
                                 <van-tag type="danger" wx:if="{{item.isDefault}}">默认</van-tag>
                             </van-row>
                         </view>

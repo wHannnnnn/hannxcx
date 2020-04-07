@@ -1,4 +1,5 @@
 <!--pages/order-detail/index.wxml-->
+<wxs src="../../utils/util.wxs" module="tools"/>
     <view class="orderDetail">
         <view class="content" wx:if="{{orderDetail.orderInfo}}">
             <view class="detail_type">{{orderDetail.orderInfo.statusStr}}
@@ -11,7 +12,7 @@
                             <view class="top">
                                 <van-row>
                                     <van-col span="6" class="userName van-ellipsis">{{orderDetail.logistics.linkMan}}</van-col>
-                                    <van-col span="6" offset="2" class="phone">{{orderDetail.logistics.mobile}}</van-col>
+                                    <van-col span="6" offset="2" class="phone">{{tools.phoneReplace(orderDetail.logistics.mobile)}}</van-col>
                                 </van-row>
                             </view>
                             <view class="bottom">

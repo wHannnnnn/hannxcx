@@ -92,7 +92,7 @@
 }
 .add-list {
   width: 100%;
-  height: 1000rpx;
+  height: calc(100vh);
 }
 .add-item {
   line-height: 40rpx;
@@ -121,13 +121,14 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
+  z-index: 999
 }
-.current-site-icon .van-icon {
-  font-size: 50rpx;
-  color: #e64340
+.current-site-icon image {
+  width: 100%;
+  height: 100%
 }
 .near-list {
-  height: 650rpx;
+  height: calc(100vh - 650rpx);
   padding-bottom: 100rpx;
   box-sizing: border-box;
   background: #fff
